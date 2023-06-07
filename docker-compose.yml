@@ -1,0 +1,55 @@
+version: '3.1'
+
+services:
+
+  frontend:
+    container_name: ${FRONTEND_CONTAINER_NAME:-frontend}
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      VITE_DOCKER_ENVIRONMENT: >
+        {
+          "MAP_TOKEN": "${MAP_TOKEN}",
+          "MAP_STYLE": "${MAP_STYLE}"
+        }
+    ports:
+      - "${SERVICE_HOSTNAME:-127.0.0.1}:${EXPOSED_FRONTEND_PORT:-3000}:3000"
+
+  backend:
+    container_name: ${BACKEND_CONTAINER_NAME:-backend}
+    depends_on:
+      - database
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      DOCKER_ENVIRONMENT: >
+        {
+          "FRONTEND": "${SERVICE_HOSTNAME:-127.0.0.1}:${EXPOSED_FRONTEND_PORT:-3000}",
+          "DATABASE": "${DATABASE_CONTAINER_NAME:-database}:27017",
+          "DATABASE_USERNAME": "${DATABASE_USERNAME:-admin}",
+          "DATABASE_PASSWORD": "${DATABASE_PASSWORD:-password}",
+          "DATABASE_NAME": "${DATABASE_NAME:-database}"
+        }
+    ports:
+      - "${SERVICE_HOSTNAME:-127.0.0.1}:${EXPOSED_BACKEND_PORT:-3001}:3001"
+
+  database:
+    container_name: ${DATABASE_BACKEND_CONTAINER_NAME:-database}
+    image: mongo:4
+    restart: always
+    environment:
+      MONGODB_INITDB_USERNAME: "${DATABASE_USERNAME:-admin}"
+      MONGODB_INITDB_PASSWORD: "${DATABASE_PASSWORD:-password}"
+      DATABASE_USERNAME: "${DATABASE_USERNAME:-admin}"
+      DATABASE_PASSWORD: "${DATABASE_PASSWORD:-password}"
+      DATABASE_NAME: "${DATABASE_NAME:-database}"
+    ports:
+      - "${SERVICE_HOSTNAME:-127.0.0.1}:${EXPOSED_DATABASE_BACKEND_PORT_FIRST:-27017}-${EXPOSED_DATABASE_BACKEND_PORT_LAST:-27019}:27017-27019"
+    expose:
+      - "27017"
+    volumes:
+      - "./database/init/:/docker-entrypoint-initdb.d/"
