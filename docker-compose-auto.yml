@@ -1,0 +1,16 @@
+version: '3.1'
+
+services:
+
+  frontend:
+    image: ghcr.io/repo:main
+    restart: always
+    ports:
+      - "127.0.0.1:${EXPOSED_FRONTEND_PORT:-3000}:3000"
+
+  watchtower:
+    image: index.docker.io/containrrr/watchtower:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ~/.docker/config.json:/config.json
+    command: --interval 30
