@@ -1,24 +1,24 @@
 <script lang="ts">
 
-import { defineComponent } from "vue";
-import mapboxgl from 'mapbox-gl';
-import { Environment } from "../environment";
+  import { defineComponent } from "vue";
+  import mapboxgl from 'mapbox-gl';
+  import { Environment } from "../environment";
 
-export default defineComponent({
-  data() {
-    return {
-    };
-  },
-  unmounted() {},
-  mounted() {
-    mapboxgl.accessToken = Environment.MAP_TOKEN;
-    var map = new mapboxgl.Map({
-      container: 'map-container',
-      style: Environment.MAP_STYLE
-    });
-  },
-  methods: {},
-});
+  export default defineComponent({
+    data() {
+      return {
+      };
+    },
+    unmounted() {},
+    mounted() {
+      mapboxgl.accessToken = Environment.MAP_TOKEN;
+      var map = new mapboxgl.Map({
+        container: 'map-container',
+        style: Environment.MAP_STYLE
+      });
+    },
+    methods: {},
+  });
 </script>
 
 <template>

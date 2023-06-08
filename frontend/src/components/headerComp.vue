@@ -2,7 +2,6 @@
   import {defineComponent} from "vue";
 
   export default defineComponent({
-    name: "headerComp",
     data() {
       return {
         visible: false,
@@ -19,8 +18,13 @@
 
     <div class="card flex justify-content-center">
       <sidebarComp v-model:visible="this.visible" position="right">
-        <h2>Sidebar</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <nav>
+          <i class="pi pi-home"></i>
+          <RouterLink to="/" @click="visible = false">Home</RouterLink>
+          <br />
+          <i class="pi pi-directions"></i>
+          <RouterLink to="/mapPage" @click="visible = false">Map Page</RouterLink>
+        </nav>
       </sidebarComp>
     </div>
   </header>

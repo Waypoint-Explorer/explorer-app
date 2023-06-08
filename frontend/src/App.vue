@@ -1,17 +1,21 @@
 <script lang="ts">
   import { defineComponent } from "vue";
-  import MapComponent from "./components/MapComponent.vue"
-  import headerComp from "./components/headerComp.vue"
+  import router from "./router";
+  import headerComp from "./components/headerComp.vue";
 
   export default defineComponent({
-    components: { MapComponent, headerComp },
+    components: { headerComp },
+    mounted() {
+      router.replace({ name: "home" });
+    }
   });
 </script>
 
 <template>
   <headerComp/>
+
   <main>
-    <p>Hello</p>
+    <RouterView />
   </main>
 
 </template>
