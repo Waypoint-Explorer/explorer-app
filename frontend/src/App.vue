@@ -1,22 +1,27 @@
-<script setup lang="ts">
-import MapComponent from "./components/MapComponent.vue"
+<script lang="ts">
+  import { defineComponent } from "vue";
+  import MapComponent from "./components/MapComponent.vue"
+  import headerComp from "./components/headerComp.vue"
+
+  export default defineComponent({
+    components: { MapComponent, headerComp },
+  });
 </script>
 
 <template>
-  <div class="card flex justify-content-center">
-    <sidebarComp v-model:visible="visible">
-        <h2>Sidebar</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-    </sidebarComp>
-    <Button icon="pi pi-arrow-right" @click="visible = true" />
-</div>
-  <MapComponent/>
-  <p>Hello</p>
+  <headerComp/>
+  <main>
+    <p>Hello</p>
+  </main>
+
 </template>
 
-<style scoped>
-* {
-  margin: 0;
-  padding: 0;
-}
+<style lang="scss">
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  main{
+    padding: 0rem 1.728rem;
+  }
 </style>
