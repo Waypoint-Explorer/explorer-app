@@ -13,19 +13,17 @@
 
 <template>
   <headerComp/>
-
-  <main>
-    <RouterView />
-  </main>
-
+  <RouterView />
 </template>
 
 <style lang="scss">
+  @import 'material-icons/iconfont/material-icons.css';
   * {
     margin: 0;
     padding: 0;
   }
-  main{
-    padding: 0rem 1.728rem;
+  main {
+    position: relative;
+    z-index: -1;
   }
 </style>

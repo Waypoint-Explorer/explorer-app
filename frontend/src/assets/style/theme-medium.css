@@ -1610,7 +1610,10 @@
     padding: .75rem 1.25rem;
     font-size: 1rem;
     transition: background-color .2s, color .2s, border-color .2s, box-shadow .2s;
-    border-radius: 12px
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .p-button:enabled:hover {
     background: #32624b;
@@ -1710,7 +1713,7 @@
     border-radius: 2rem
 }
 .p-button.p-button-icon-only {
-    width: 3rem;
+    width: 2.488rem;
     padding: .75rem 0
 }
 .p-button.p-button-icon-only .p-button-icon-left, .p-button.p-button-icon-only .p-button-icon-right {
@@ -1718,7 +1721,7 @@
 }
 .p-button.p-button-icon-only.p-button-rounded {
     border-radius: 50%;
-    height: 3rem
+    height: 2.488rem;
 }
 .p-button.p-button-sm {
     font-size: .875rem;
