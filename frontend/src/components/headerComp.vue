@@ -14,10 +14,9 @@
   <header>
     <img src="src/assets/images/logo/logo.svg" alt="Waypoint Explorer Logo">
     <div class="header_divider"></div>
-    <buttonComp icon="face" rounded raised @click="visible = true">
+    <buttonComp icon="menu" rounded raised @click="visible = true">
       <span class="material-icons">menu</span>
     </buttonComp>
-
 
     <div class="card flex justify-content-center">
       <sidebarComp v-model:visible="this.visible" position="right">
@@ -34,13 +33,6 @@
 </template>
 
 <style lang="scss">
-  header{
-    height: 3rem;
-    padding: 0rem 1.728rem;
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-  }
   img {
     height: 2.488rem;
   }

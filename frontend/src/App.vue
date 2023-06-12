@@ -12,7 +12,6 @@
 </script>
 
 <template>
-  <headerComp/>
   <RouterView />
 </template>
 
@@ -25,5 +24,13 @@
   main {
     position: relative;
     z-index: -1;
+  }
+  header{
+    height: 3rem;
+    padding: 0rem 1.728rem;
+    margin: 1rem 0;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
   }
 </style>

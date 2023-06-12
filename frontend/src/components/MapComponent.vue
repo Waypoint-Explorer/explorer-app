@@ -26,28 +26,31 @@
       var customPane = this.map.createPane("customPane");
       var canvasRenderer = L.canvas({ pane: "customPane" });
       customPane.style.zIndex = 399; // put just behind the standard overlay pane which is at 400
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          this.map.flyTo([position.coords.latitude, position.coords.longitude]);
+        });
+      }
+
+      this.emitter.on("locationSearch", (coordinates) => {
+        this.map.flyTo(coordinates);
+      });
     },
     methods: {},
   });
 </script>
 
 <template>
-  <main>
     <div id="map"></div>
-  </main>
 </template>
 
 <style lang="scss" scoped>
-  main {
+  #map {
     position: absolute;
     top: 0;
-    left: 0;
-    padding: 0 0 !important;
-  }
-  #map {
     width: 100vw;
     height: 100vh;
     z-index: 1;
   }
-
 </style>
