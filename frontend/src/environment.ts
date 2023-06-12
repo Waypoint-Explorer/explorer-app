@@ -5,7 +5,7 @@ import {DOCKER_ENVIRONMENT} from "./docker-environment";
  */
 export class Environment {
   /** The map token used to access map tiles provider services. */
-  public static readonly MAP_TOKEN: string = DOCKER_ENVIRONMENT.map((env) => env.MAP_TOKEN).getOrDefault("");
+  public static readonly MAP_TOKEN: string = DOCKER_ENVIRONMENT.map((env) => env.MAP_TOKEN).getOrDefault(import.meta.env["VITE_MAP_TOKEN"]);
   /** The list of map styles. */
-  public static readonly MAP_STYLE: string = DOCKER_ENVIRONMENT.map((env) => env.MAP_STYLE).getOrDefault("");
+  public static readonly MAP_STYLE: string = DOCKER_ENVIRONMENT.map((env) => env.MAP_STYLE).getOrDefault(import.meta.env["VITE_MAP_STYLE"]);
 }
