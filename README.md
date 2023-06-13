@@ -24,4 +24,4 @@ Some documents contained in this repository may be the copyrighted properties of
 ```
 The following works are instead subject to a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a> :<br/>
-- Title by <a rel="Waypoint Explorer Organization" href="https://github.com/Waypoint-Explorer">Waypoint Explorer Organization</a>
+- <a rel="Waypoint Explorer Logo" href="https://github.com/Waypoint-Explorer/lss-report/blob/main/img/logo.svg">Waypoint Explorer Logo</a> by <a rel="Waypoint Explorer Organization" href="https://github.com/Waypoint-Explorer">Waypoint Explorer Organization</a>

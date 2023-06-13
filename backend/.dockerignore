@@ -1,0 +1,12 @@
+# Ignore all
+*
+
+# Except
+!src
+!.dockerignore
+!Dockerfile
+!nodemon.json
+!package.json
+!package-lock.json
+!tsconfig.json
+!tslint.json
