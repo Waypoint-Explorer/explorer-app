@@ -31,7 +31,10 @@ jobs:
         uses: anothrNick/github-tag-action@1.64.0 
         env:
           WITH_V: false
-          INITIAL_VERSION: 0.1.0
+          DEFAULT_BUMP: patch
+          MAJOR_STRING_TOKEN: "major"
+          MINOR_STRING_TOKEN: "feat"
+          PATCH_STRING_TOKEN: "fix"
 
   create-release:
     needs: push-tag
