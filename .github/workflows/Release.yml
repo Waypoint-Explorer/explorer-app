@@ -1,0 +1,81 @@
+name: Release
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+
+env:
+  REGISTRY: ghcr.io
+  REPOSITORY: ${{ github.repository }}
+  GITHUB_USER: ${{ github.repository_owner }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+
+  push-tag:
+    name: Push Tag
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      tag: ${{ steps.bump-version-and-push-tag.outputs.new_tag }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: '0'
+      - id: bump-version-and-push-tag
+        name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.64.0 
+        env:
+          WITH_V: false
+          INITIAL_VERSION: 0.1.0
+
+  create-release:
+    needs: push-tag
+    name: Create Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - uses: actions/checkout@v3
+    - uses: ncipollo/release-action@v1
+      with:
+        tag: ${{ needs.push-tag.outputs.tag }}
+
+  build-and-push-image:
+    name: Build and push image
+    needs: [create-release, push-tag]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - dockerfile: ./frontend/Dockerfile
+            image: ghcr.io/${{ github.repository }}-frontend
+            context: ./frontend
+            name: frontend
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Log in to the Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ env.GITHUB_USER }}
+          password: ${{ env.GITHUB_TOKEN }}
+      - name: Set lower case repository name
+        run: |
+          echo "REPOSITORY_LC=${REPOSITORY,,}" >>${GITHUB_ENV}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: ${{ matrix.context }}
+          file: ${{ matrix.dockerfile }}
+          push: true
+          tags: ghcr.io/${{ env.REPOSITORY_LC }}-${{ matrix.name }}:${{ needs.push-tag.outputs.tag }}
