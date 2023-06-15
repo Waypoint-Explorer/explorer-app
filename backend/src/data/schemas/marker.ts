@@ -20,7 +20,7 @@ interface Marker {
 
 /** Schema for an itinerary */
 const MARKER_SCHEMA = new Schema<Marker>({
-    marker_id: { type: SchemaTypes.ObjectId, required: true },
+    marker_id: { type: SchemaTypes.String, required: true },
     type: { type: SchemaTypes.String, enum: MarkerTypeArray, required: true },
     coordinates: { type: COORDINATES_SCHEMA, required: true },
     points: { type: SchemaTypes.Number, required: false },

@@ -38,7 +38,7 @@ services:
       - "${SERVICE_HOSTNAME:-127.0.0.1}:${EXPOSED_BACKEND_PORT:-3001}:3001"
 
   database:
-    container_name: ${DATABASE_BACKEND_CONTAINER_NAME:-database}
+    container_name: ${DATABASE_CONTAINER_NAME:-database}
     image: mongo:4
     restart: always
     environment:
@@ -48,7 +48,7 @@ services:
       DATABASE_PASSWORD: "${DATABASE_PASSWORD:-password}"
       DATABASE_NAME: "${DATABASE_NAME:-database}"
     ports:
-      - "${SERVICE_HOSTNAME:-127.0.0.1}:${EXPOSED_DATABASE_BACKEND_PORT_FIRST:-27017}-${EXPOSED_DATABASE_BACKEND_PORT_LAST:-27019}:27017-27019"
+      - "${SERVICE_HOSTNAME:-127.0.0.1}:${EXPOSED_DATABASE_PORT_FIRST:-27017}-${EXPOSED_DATABASE_PORT_LAST:-27019}:27017-27019"
     expose:
       - "27017"
     volumes:

@@ -20,32 +20,32 @@ const OPENING_SHIFT_SCHEMA = new Schema<OpeningShift>({
 /** Models opening hours of a waypoint */
 interface OpeningHours {
     /** Monday opening hours */
-    monday_hours: OpeningShift[],
+    monday_hours?: OpeningShift[],
     /** Tuesday opening hours */
-    tuesday_hours: OpeningShift[],
+    tuesday_hours?: OpeningShift[],
     /** Wednesday opening hours */
-    wednesday_hours: OpeningShift[],
+    wednesday_hours?: OpeningShift[],
     /** Thursday opening hours */
-    thursday_hours: OpeningShift[],
+    thursday_hours?: OpeningShift[],
     /** Friday opening hours */
-    friday_hours: OpeningShift[],
+    friday_hours?: OpeningShift[],
     /** Saturday opening hours */
-    saturday_hours: OpeningShift[],
+    saturday_hours?: OpeningShift[],
     /** Sunday opening hours */
-    sunday_hours: OpeningShift[],
+    sunday_hours?: OpeningShift[],
     /** The closing days of a waypoint */
     closing_days?: Date[],
 }
 
 /** Schema of the opening hours of a waypoint */
 const OPENING_HOURS_SCHEMA = new Schema<OpeningHours>({
-    monday_hours: { type: Array(OPENING_SHIFT_SCHEMA), required: true },
-    tuesday_hours: { type: Array(OPENING_SHIFT_SCHEMA), required: true },
-    wednesday_hours: { type: Array(OPENING_SHIFT_SCHEMA), required: true },
-    thursday_hours: { type: Array(OPENING_SHIFT_SCHEMA), required: true },
-    friday_hours: { type: Array(OPENING_SHIFT_SCHEMA), required: true },
-    saturday_hours: { type: Array(OPENING_SHIFT_SCHEMA), required: true },
-    sunday_hours: { type: Array(OPENING_SHIFT_SCHEMA), required: true },
+    monday_hours: { type: Array(OPENING_SHIFT_SCHEMA), required: false },
+    tuesday_hours: { type: Array(OPENING_SHIFT_SCHEMA), required: false },
+    wednesday_hours: { type: Array(OPENING_SHIFT_SCHEMA), required: false },
+    thursday_hours: { type: Array(OPENING_SHIFT_SCHEMA), required: false },
+    friday_hours: { type: Array(OPENING_SHIFT_SCHEMA), required: false },
+    saturday_hours: { type: Array(OPENING_SHIFT_SCHEMA), required: false },
+    sunday_hours: { type: Array(OPENING_SHIFT_SCHEMA), required: false },
     closing_days: { type: Array(SchemaTypes.Date), required: false},
 }, { _id: false });
 
@@ -79,8 +79,8 @@ interface Waypoint {
     price?: Price,
     /** Accessibility informations of this waypoint */
     accessibility_info?: string,
-    /** The marker binded with this waypoint */
-    marker?: Marker,
+    /** The id of the marker binded with this waypoint */
+    marker?: MongooseTypes.ObjectId,
 }
 
 /** Schema for a waypoint */
@@ -91,7 +91,7 @@ const WAYPOINT_SCHEMA = new Schema<Waypoint>({
     opening_hours: { type: OPENING_HOURS_SCHEMA, required: false },
     price: { type: PRICE_SCHEMA, required: false },
     accessibility_info: { type: SchemaTypes.String, required: false },
-    marker: { type: MARKER_SCHEMA, required: false },
+    marker: { type: SchemaTypes.ObjectId, required: false },
 });
 
 export {

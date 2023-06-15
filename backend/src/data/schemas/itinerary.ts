@@ -15,7 +15,7 @@ interface Itinerary {
     description?: string,
     /** The extra points gained completing this itinerary */
     extra_points: number,
-    /** The waypoints included in the itinerary */
+    /** The waypoints included in this itinerary */
     waypoints?: MongooseTypes.ObjectId[],
 }
 
