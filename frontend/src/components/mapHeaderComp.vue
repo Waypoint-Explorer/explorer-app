@@ -33,7 +33,7 @@
 
 <template>
   <header>
-    <img src="src/assets/images/logo/logo.svg" alt="Waypoint Explorer Logo">
+    <img src="src/assets/images/logo/logo_bg.svg" alt="Waypoint Explorer Logo">
     <div class="p-inputgroup flex-1" id="search-bar">
       <inputTextComp v-model="searchValue" id="search-input-text" placeholder="Search"/>
       <buttonComp id="search-button" icon="pi pi-search" @click="search">

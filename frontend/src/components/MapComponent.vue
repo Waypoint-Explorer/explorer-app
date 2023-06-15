@@ -4,6 +4,7 @@
   import "leaflet/dist/leaflet.css";
   import L from "leaflet";
   import { Environment } from "../environment";
+  import axios from "axios";
 
   export default defineComponent({
     data() {
@@ -36,6 +37,33 @@
       this.emitter.on("locationSearch", (coordinates) => {
         this.map.flyTo(coordinates);
       });
+
+      var itineraries = [];
+
+      axios.get(`http://${Environment.BACKEND_HOST}/itineraries`)
+        .then((itinerariesResponse) => {
+          const itineraries = itinerariesResponse.data;
+          axios.get(`http://${Environment.BACKEND_HOST}/waypoints/`)
+            .then((waypointsResponse) => {
+              const waypoints = waypointsResponse.data;
+              axios.get(`http://${Environment.BACKEND_HOST}/markers/`)
+                .then((markersResponse) => {
+                  const markers = markersResponse.data;
+                  itineraries.forEach(itinerary => {
+                    itinerary.waypoints = waypoints.filter(waypoint => itinerary.waypoints.includes(waypoint._id));
+                    if(itinerary.waypoints != undefined) {
+                      itinerary.waypoints.forEach(waypoint => {
+                        waypoint.marker = markers.find(marker => marker._id === waypoint.marker)
+                      });
+                    }
+                  });
+
+                  console.log(itineraries);
+
+              });
+          });
+      });
+
     },
     methods: {},
   });

@@ -3,6 +3,7 @@
     "version": "0.0.0",
     "scripts": {
         "start": "docker-compose -f docker-compose.yml up --build --remove-orphans",
+        "backend": "docker-compose -f docker-compose-backend.yml up --build --remove-orphans",
         "database": "docker-compose -f docker-compose-db.yml up --build --remove-orphans",
         "database-develop": "docker-compose -f docker-compose-db-frontend.yml up --build --remove-orphans",
         "deploy": "docker-compose -f docker-compose-auto.yml up --build --remove-orphans --detach",
