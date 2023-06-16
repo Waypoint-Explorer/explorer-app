@@ -77,7 +77,6 @@
                       waypoint.Lmarker = Lmarker;
                     });
                     const markersCoordinates = Array.from(itinerary.waypoints.map(waypoint => Array.from([waypoint.marker.coordinates.latitude, waypoint.marker.coordinates.longitude])));
-                    console.log(`${markersCoordinates}`);
                     const polyline = L.polyline(markersCoordinates, {color: '#0078D7', weight: 5}).addTo(this.map);
                   });
               });
