@@ -13,6 +13,7 @@
       return {
         map: null,
         itineraries: [],
+        selectedItineraryIndex: 0,
       };
     },
     unmounted() {},
@@ -44,6 +45,16 @@
 
         this.emitter.on("locationSearch", (coordinates) => {
           this.map.flyTo(coordinates);
+        });
+
+        this.emitter.on("selectItinerary", (direction: string) => {
+          if (this.itineraries != undefined) {
+            if (direction === "next") {
+              this.emitter.emit("itinerarySelected", this.itineraries[(this.selectedItineraryIndex++)%this.itineraries.length]);
+            } else if (direction === "previous") {
+              this.emitter.emit("itinerarySelected", this.itineraries[(this.selectedItineraryIndex--)%this.itineraries.length]);
+            }
+          }
         });
 
       axios.get(`http://${Environment.BACKEND_HOST}/itineraries`)

@@ -5,10 +5,21 @@
   export default defineComponent({
     data() {
       return {
-        isDetailsExpanded: false
+        isDetailsExpanded: false,
+        itinerary: {
+          name: "Percorso libero"
+        }
       };
     },
+    mounted() {
+        this.emitter.on("itinerarySelected", (itinerary) => {
+          this.itinerary = itinerary;
+        });
+    },
     methods: {
+      selectItinerary(direction: string) {
+        this.emitter.emit("selectItinerary", direction);
+      },
     }
   });
 </script>
@@ -20,11 +31,11 @@
       <span v-if="isDetailsExpanded" class="material-icons">expand_more</span>
     </button>
     <div class="details-card">
-      <button class="p-button p-component p-button-icon-only p-button-rounded p-button-transparent" type="button">
+      <button class="p-button p-component p-button-icon-only p-button-rounded p-button-transparent" type="button" @click="selectItinerary('previous')">
         <span class="material-icons">navigate_before</span>
       </button>
-      <p>Itinerary name</p>
-      <button class="p-button p-component p-button-icon-only p-button-rounded p-button-transparent" type="button">
+      <p>{{ this.itinerary.name }}</p>
+      <button class="p-button p-component p-button-icon-only p-button-rounded p-button-transparent" type="button" @click="selectItinerary('next')">
         <span class="material-icons">navigate_next</span>
       </button>
     </div>
