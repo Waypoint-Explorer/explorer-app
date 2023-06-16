@@ -3,10 +3,22 @@ version: '3.1'
 services:
 
   frontend:
-    image: ghcr.io/repo:main
+    image: ghcr.io/waypoint-explorer/explorer-app-frontend:latest
     restart: always
     ports:
       - "127.0.0.1:${EXPOSED_FRONTEND_PORT:-3000}:3000"
+
+  backend:
+    image: ghcr.io/waypoint-explorer/explorer-app-backend:latest
+    restart: always
+    ports:
+      - "127.0.0.1:${EXPOSED_BACKEND_PORT:-3001}:3001"
+
+  database:
+    image: ghcr.io/waypoint-explorer/explorer-app-database:latest
+    restart: always
+    ports:
+      - "${SERVICE_HOSTNAME:-127.0.0.1}:${EXPOSED_DATABASE_PORT_FIRST:-27017}-${EXPOSED_DATABASE_PORT_LAST:-27019}:27017-27019"
 
   watchtower:
     image: index.docker.io/containrrr/watchtower:latest

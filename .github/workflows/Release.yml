@@ -63,6 +63,14 @@ jobs:
             image: ghcr.io/${{ github.repository }}-frontend
             context: ./frontend
             name: frontend
+          - dockerfile: ./backend/Dockerfile
+            image: ghcr.io/${{ github.repository }}-backend
+            context: ./backend
+            name: backend
+          - dockerfile: ./database/Dockerfile
+            image: ghcr.io/${{ github.repository }}-database
+            context: ./database
+            name: database
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
