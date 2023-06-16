@@ -1,8 +1,11 @@
 import express from "express";
-import {ApplicationHandlers, ApplicationMiddlewares} from "../controllers/application-handlers";
-import {AccessControlHandlers, authorized, authenticated} from "../controllers/authentication-handlers";
-import {UsersQueryHandlers} from "../controllers/users-query-handlers";
-import {Environment} from "../environment";
+import { Environment } from "../environment";
+import { ApplicationHandlers, ApplicationMiddlewares } from "../controllers/application-handlers";
+import { AccessControlHandlers, authorized, authenticated } from "../controllers/authentication-handlers";
+import { UsersQueryHandlers } from "../controllers/users-query-handlers";
+import { ItinerariesQueryHandlers } from "../controllers/itineraries-query-handlers";
+import { WaypointsQueryHandlers } from "../controllers/waypoints-query-handlers";
+import { MarkersQueryHandlers } from "../controllers/markers-query-handlers";
 
 type ExpressRouter = express.Router;
 
@@ -19,6 +22,14 @@ export const MainRouter: ExpressRouter = express.Router()
 
     .post("/login", AccessControlHandlers.authenticateUser)
     .get("/logout", authenticated(), AccessControlHandlers.logoutUser)
-    // add routes here (or create new routers)...
-;
 
+    .get("/itineraries", ItinerariesQueryHandlers.findAll)
+    .get("/itineraries/id/:itineraryId", ItinerariesQueryHandlers.findById)
+
+    .get("/waypoints", WaypointsQueryHandlers.findAll)
+    .get("/waypoints/id/:waypointId", WaypointsQueryHandlers.findById)
+
+    .get("/markers", MarkersQueryHandlers.findAll)
+    .get("/markers/id/:markerId", MarkersQueryHandlers.findById)
+
+;

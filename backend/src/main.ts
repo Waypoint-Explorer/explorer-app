@@ -14,7 +14,9 @@ const app : Application = express();
 app.use(cors({
     origin: CorsOrigins([
         `http://${Environment.FRONTEND_HOST}`,
-        `https://${Environment.FRONTEND_HOST}`
+        `https://${Environment.FRONTEND_HOST}`,
+        `http://localhost:3000`,
+        `https://localhost:3000`,
     ]),
     credentials: true,
     optionsSuccessStatus: 200,
