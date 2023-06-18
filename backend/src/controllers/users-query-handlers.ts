@@ -42,6 +42,9 @@ export class UsersQueryHandlers {
                             hash: PasswordHasher.hash(req.body.password),
                             role: req.body.role,
                         });
+                        if (!!req.body.country) { newUser.country = req.body.country; }
+                        if (!!req.body.city) { newUser.city = req.body.city; }
+                        if (!!req.body.birth_year) { newUser.city = req.body.birth_year; }
                         ExplorerAppDatabase.Singleton.Users    // Add the requested user to the database
                             .insertMany([newUser])
                             .then(sendJson(req, res), sendError(req, res));
@@ -66,6 +69,9 @@ export class UsersQueryHandlers {
                     if (!!req.body.name) { userUpdate.name = req.body.name; }
                     if (!!req.body.email) { userUpdate.email = req.body.email; }
                     if (!!req.body.password && !PasswordHasher.check(req.body.password, updatingUser.hash)) { userUpdate.hash = PasswordHasher.hash(req.body.password); }
+                    if (req.body.country !== undefined) { userUpdate.country = req.body.country; }
+                    if (req.body.city !== undefined) { userUpdate.city = req.body.city; }
+                    if (req.body.birth_year !== undefined) { userUpdate.birth_year = req.body.birth_year; }
                     ExplorerAppDatabase.Singleton.Users    // Add the requested user to the database
                         .findOneAndUpdate({ _id: updatingUser._id, }, userUpdate, { new: true, }).exec()
                         .then(sendJson(req, res), sendError(req, res));
