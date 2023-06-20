@@ -10,7 +10,6 @@
       };
     },
     mounted() {
-      
     },
     methods: {
       search() {

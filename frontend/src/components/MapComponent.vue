@@ -6,8 +6,6 @@
   import { Environment } from "../environment";
   import axios from "axios";
 
-  import counterIconSVG from "../assets/icons/counter_0.svg"
-
   export default defineComponent({
     data() {
       return {
@@ -49,10 +47,14 @@
 
         this.emitter.on("selectItinerary", (direction: string) => {
           if (this.itineraries != undefined) {
-            if (direction === "next") {
-              this.emitter.emit("itinerarySelected", this.itineraries[(this.selectedItineraryIndex++)%this.itineraries.length]);
-            } else if (direction === "previous") {
-              this.emitter.emit("itinerarySelected", this.itineraries[(this.selectedItineraryIndex--)%this.itineraries.length]);
+            if (direction === "previous") {
+              this.selectedItineraryIndex = this.selectedItineraryIndex - 1;
+              if (this.selectedItineraryIndex < 0) this.selectedItineraryIndex = this.itineraries.length - 1;
+              this.emitter.emit("itinerarySelected", this.itineraries[this.selectedItineraryIndex]);
+            } else if (direction === "next") {
+              this.selectedItineraryIndex = this.selectedItineraryIndex + 1;
+              if (this.selectedItineraryIndex >= this.itineraries.length) this.selectedItineraryIndex = 0;
+              this.emitter.emit("itinerarySelected", this.itineraries[this.selectedItineraryIndex]);
             }
           }
         });

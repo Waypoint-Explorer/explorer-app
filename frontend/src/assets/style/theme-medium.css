@@ -1,4 +1,18 @@
 :root {
+    --we-palette-main-darker: #214132;
+    --we-palette-main-dark: #32624B;
+    --we-palette-main-medium: #7CA985;
+    --we-palette-main-light: #CBDDD0;
+    --we-palette-main-lighter: #E9F1EB;
+    --we-palette-yellow: #FDA131;
+    --we-palette-yellow-light: #FFF1E1;
+    --we-palette-green: #389F48;
+    --we-palette-green-light: #E1F4E4;
+    --we-palette-blue: #0078D7;
+    --we-palette-blue-light: #D6EDFF;
+    --we-palette-purple: #784FCE;
+    --we-palette-red: #DB1F1C;
+    --we-palette-red-light: #FBE0DF;
     --surface-a: #ffffff;
     --surface-b: #f2f2f2;
     --surface-c: #e9f1eb;
@@ -3625,7 +3639,7 @@
     padding: 1.25rem 1.25rem
 }
 .p-accordion .p-accordion-header .p-accordion-header-link {
-    padding: 1.25rem;
+    padding: 1rem;
     border: 1px solid #ccc;
     color: #666;
     background: #f2f2f2;

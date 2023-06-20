@@ -10,6 +10,10 @@ import mitt from 'mitt';
 import Sidebar from 'primevue/sidebar';
 import Button from 'primevue/button';
 import InputText from "primevue/inputtext";
+import Tag from "primevue/tag";
+import ScrollPanel from "primevue/scrollpanel";
+import Accordion from "primevue/accordion";
+import AccordionTab from "primevue/accordiontab";
 
 import 'primeflex/primeflex.css';
 import 'primeicons/primeicons.css';
@@ -24,5 +28,9 @@ app.use(router);
 app.component('sidebarComp', Sidebar);
 app.component('buttonComp', Button);
 app.component('inputTextComp', InputText);
+app.component('tagComp', Tag);
+app.component('scrollPanelComp', ScrollPanel);
+app.component('accordionComp', Accordion);
+app.component('accordionTabComp', AccordionTab);
 
 app.mount("#app");
