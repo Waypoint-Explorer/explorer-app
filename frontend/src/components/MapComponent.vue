@@ -6,13 +6,12 @@
   import { Environment } from "../environment";
   import axios from "axios";
 
-  import counterIconSVG from "../assets/icons/counter_0.svg"
-
   export default defineComponent({
     data() {
       return {
         map: null,
         itineraries: [],
+        selectedItineraryIndex: 0,
       };
     },
     unmounted() {},
@@ -46,6 +45,20 @@
           this.map.flyTo(coordinates);
         });
 
+        this.emitter.on("selectItinerary", (direction: string) => {
+          if (this.itineraries != undefined) {
+            if (direction === "previous") {
+              this.selectedItineraryIndex = this.selectedItineraryIndex - 1;
+              if (this.selectedItineraryIndex < 0) this.selectedItineraryIndex = this.itineraries.length - 1;
+              this.emitter.emit("itinerarySelected", this.itineraries[this.selectedItineraryIndex]);
+            } else if (direction === "next") {
+              this.selectedItineraryIndex = this.selectedItineraryIndex + 1;
+              if (this.selectedItineraryIndex >= this.itineraries.length) this.selectedItineraryIndex = 0;
+              this.emitter.emit("itinerarySelected", this.itineraries[this.selectedItineraryIndex]);
+            }
+          }
+        });
+
       axios.get(`http://${Environment.BACKEND_HOST}/itineraries`)
       .then((itinerariesResponse) => {
         this.itineraries = itinerariesResponse.data;
@@ -77,7 +90,6 @@
                       waypoint.Lmarker = Lmarker;
                     });
                     const markersCoordinates = Array.from(itinerary.waypoints.map(waypoint => Array.from([waypoint.marker.coordinates.latitude, waypoint.marker.coordinates.longitude])));
-                    console.log(`${markersCoordinates}`);
                     const polyline = L.polyline(markersCoordinates, {color: '#0078D7', weight: 5}).addTo(this.map);
                   });
               });
