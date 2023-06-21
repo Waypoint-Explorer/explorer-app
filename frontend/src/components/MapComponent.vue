@@ -12,6 +12,11 @@
         map: null,
         itineraries: [],
         selectedItineraryIndex: 0,
+        culturalItineraryOptions: {color: "#0078D7", weight: 5},
+        themedItineraryOptions: {color: '#DB1F1C', weight: 5},
+        naturalisticItineraryOptions: {color: '#389F48', weight: 5},
+        touristicItineraryOptions: {color: '#FDA131', weight: 5},
+        fitnessItineraryOptions: {color: '#784FCE', weight: 5},
       };
     },
     unmounted() {},
@@ -32,7 +37,6 @@
         `https://api.mapbox.com/styles/v1/${Environment.MAP_STYLE}/tiles/{z}/{x}/{y}?access_token=${Environment.MAP_TOKEN}`, {
           tileSize: 512,
           zoomOffset: -1,
-          attribution: '© <a href="https://www.mapbox.com/map-feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(this.map);
         var customPane = this.map.createPane("customPane");
         var canvasRenderer = L.canvas({ pane: "customPane" });
@@ -90,7 +94,24 @@
                       waypoint.Lmarker = Lmarker;
                     });
                     const markersCoordinates = Array.from(itinerary.waypoints.map(waypoint => Array.from([waypoint.marker.coordinates.latitude, waypoint.marker.coordinates.longitude])));
-                    const polyline = L.polyline(markersCoordinates, {color: '#0078D7', weight: 5}).addTo(this.map);
+                    const polyline = L.polyline(markersCoordinates, {weigth: 5}).addTo(this.map);
+                    switch (itinerary.type) {
+                      case "CULTURAL":
+                        polyline.setStyle(this.culturalItineraryOptions);
+                        break;
+                      case "THEMED":
+                        polyline.setStyle(this.themedItineraryOptions);
+                        break;
+                      case "NATURALISTIC":
+                        polyline.setStyle(this.naturalisticItineraryOptions);
+                        break;
+                      case "TOURISTIC":
+                        polyline.setStyle(this.touristicItineraryOptions);
+                        break;
+                      case "FITNESS":
+                        polyline.setStyle(this.fitnessItineraryOptions);
+                        break;
+                    }
                   });
               });
           });

@@ -28,5 +28,25 @@ const markers = [
       longitude: 12.200971
     },
     points: 5
+  },
+  {
+    _id: ObjectId('64930acdcaa070225c91b563'),
+    marker_id: '3290497011433578',
+    type: 'Device',
+    coordinates: {
+      latitude: 44.428174,
+      longitude: 12.207072
+    },
+    points: 4
+  },
+  {
+    _id: ObjectId('64930b07caa070225c91b565'),
+    marker_id: '6571929568885711',
+    type: 'Device',
+    coordinates: {
+      latitude: 44.414594,
+      longitude: 12.208892
+    },
+    points: 4
   }
 ]
