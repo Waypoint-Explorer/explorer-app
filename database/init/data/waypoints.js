@@ -28,5 +28,16 @@ const waypoints = [
       sunday_hours: [{shift_start: 10, shift_end: 19}],
     },
     marker: ObjectId('648af727eae56e17c9bb8009')
+  },
+  {
+    _id: ObjectId('64930b56caa070225c91b567'),
+    name: 'Parco Teodorico',
+    place: 'Via Pomposa, 48122 Ravenna RA, Italia',
+    marker: ObjectId('64930acdcaa070225c91b563')
+  },
+  {
+    _id: ObjectId('64930b92caa070225c91b569'),
+    name: 'Giardini pubblici di Ravenna',
+    marker: ObjectId('64930b07caa070225c91b565')
   }
 ]
