@@ -12,11 +12,18 @@
       };
     },
     mounted() {
+        this.emitter.on("filterButtonClicked", () => {
+          this.isDetailsExpanded = false;
+        });
         this.emitter.on("itinerarySelected", (itinerary) => {
           this.itinerary = itinerary;
         });
     },
     methods: {
+      toggleDetails() {
+        this.isDetailsExpanded = !this.isDetailsExpanded;
+        this.emitter.emit("expandDetailsButtonClicked");
+      },
       selectItinerary(direction: string) {
         this.emitter.emit("selectItinerary", direction);
       },
@@ -26,7 +33,7 @@
 
 <template>
   <div class="details-container" :class="{expanded: isDetailsExpanded}">
-    <button id="expand-button" class="p-button p-component p-button-icon-only p-button-raised p-button-rounded" type="button" @click="isDetailsExpanded = !isDetailsExpanded">
+    <button id="expand-button" class="p-button p-component p-button-icon-only p-button-raised p-button-rounded" type="button" @click="toggleDetails()">
       <span v-if="!isDetailsExpanded" class="material-icons">expand_less</span>
       <span v-if="isDetailsExpanded" class="material-icons">expand_more</span>
     </button>
@@ -82,7 +89,7 @@
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .details-container {
     position: absolute;
     z-index: 1;
