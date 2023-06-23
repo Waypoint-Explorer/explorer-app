@@ -5,7 +5,7 @@ const itineraries = [
     name: 'I parchi di Ravenna',
     type: 'NATURALISTIC',
     extra_points: 0,
-    waypoints: [ObjectId('648b2ba1ba71ca0f34cce9b5')]
+    waypoints: [ObjectId('648b2ba1ba71ca0f34cce9b5'), ObjectId('64930b56caa070225c91b567'), ObjectId('64930b92caa070225c91b569')]
   },
   {
     _id: ObjectId('6489cdde18f54e1c4c985496'),
