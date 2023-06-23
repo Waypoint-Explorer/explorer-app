@@ -1,16 +1,16 @@
 <script lang="ts">
-import {defineComponent} from "vue";
+  import {defineComponent} from "vue";
 
-export default defineComponent({
-  data() {
-    return {
-      visible: false,
-    };
-  },
-  mounted() {
-    this.emitter.on('showMenu', ()=>{this.visible = !this.visible});
-  }
-});
+  export default defineComponent({
+    data() {
+      return {
+        visible: false,
+      };
+    },
+    mounted() {
+      this.emitter.on('showMenu', ()=>{this.visible = !this.visible});
+    }
+  });
 </script>
 
 <template>
@@ -29,7 +29,3 @@ export default defineComponent({
     </sidebarComp>
   </div>
 </template>
-
-<style scoped>
-
-</style>
