@@ -5,7 +5,13 @@
     data() {
       return {
         isFiltersExpanded: false,
-
+        itineraryTypeSelected: {
+          "CULTURAL": true,
+          "THEMED": true,
+          "NATURALISTIC": true,
+          "TOURISTIC": true,
+          "FITNESS": true,
+        },
       };
     },
     mounted() {
@@ -23,7 +29,11 @@
 
 <template>
   <div class="filters-container" :class="{expanded: isFiltersExpanded}">
-
+      <buttonComp outlined label="Culturale" class="filter-button" :class="{'button-expanded': isFiltersExpanded, CULTURAL: this.itineraryTypeSelected.CULTURAL}" @click="this.itineraryTypeSelected.CULTURAL = !this.itineraryTypeSelected.CULTURAL"></buttonComp>
+      <buttonComp outlined label="Tematico" class="filter-button" :class="{'button-expanded': isFiltersExpanded, THEMED: this.itineraryTypeSelected.THEMED}" @click="this.itineraryTypeSelected.THEMED = !this.itineraryTypeSelected.THEMED"></buttonComp>
+      <buttonComp outlined label="Naturalistico" class="filter-button" :class="{'button-expanded': isFiltersExpanded, NATURALISTIC: this.itineraryTypeSelected.NATURALISTIC}" @click="this.itineraryTypeSelected.NATURALISTIC = !this.itineraryTypeSelected.NATURALISTIC"></buttonComp>
+      <buttonComp outlined label="Turistico" class="filter-button" :class="{'button-expanded': isFiltersExpanded, TOURISTIC: this.itineraryTypeSelected.TOURISTIC}" @click="this.itineraryTypeSelected.TOURISTIC = !this.itineraryTypeSelected.TOURISTIC"></buttonComp>
+      <buttonComp outlined label="Fitness" class="filter-button" :class="{'button-expanded': isFiltersExpanded, FITNESS: this.itineraryTypeSelected.FITNESS}" @click="this.itineraryTypeSelected.FITNESS = !this.itineraryTypeSelected.FITNESS"></buttonComp>
   </div>
 </template>
 
@@ -45,8 +55,23 @@
     box-sizing: border-box;
   }
   .expanded {
-    height: 9rem;
-    padding: 1.2rem 1.2rem 0 1.2rem;
+    height: fit-content;
+    padding: 1rem;
+  }
+  .filter-button.button-expanded {
+    font-size: 1rem;
+    padding: 0.75rem 1.25rem;
+    border: 1px solid;
+  }
+  .filter-button {
+    display: inline-block;
+    font-size: 0;
+    padding: 0;
+    border: 0;
+    margin: 0.2rem;
+  }
+  .CULTURAL, .THEMED, .NATURALISTIC, .TOURISTIC, .FITNESS {
+    color: #fff;
   }
   .CULTURAL {
     background-color: var(--we-palette-blue);

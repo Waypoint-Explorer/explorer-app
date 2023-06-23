@@ -69,6 +69,7 @@
     justify-content: center;
     align-items: center;
     display: flex;
+    margin: 0 1.2rem;
   }
   #search-input-text, #search-button {
     height: 2.488rem;
@@ -76,6 +77,7 @@
   }
   #search-input-text {
     border-radius: 100px 0 0 100px;
+    width: 80%;
   }
   #search-button {
     border-radius: 0 100px 100px 0;
