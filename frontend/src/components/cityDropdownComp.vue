@@ -6,22 +6,18 @@
       return {
         selectedCity: null,
         cities: [
-          { name: 'Australia', code: 'AU' },
-          { name: 'Brazil', code: 'BR' },
-          { name: 'China', code: 'CN' },
-          { name: 'Egypt', code: 'EG' },
-          { name: 'France', code: 'FR' },
-          { name: 'Germany', code: 'DE' },
-          { name: 'India', code: 'IN' },
-          { name: 'Japan', code: 'JP' },
-          { name: 'Spain', code: 'ES' },
-          { name: 'United States', code: 'US' }
+          { name: 'Ravenna', code: 'RA' },
+          { name: 'Cesena', code: 'FC' },
+          { name: 'Roma', code: 'RO' },
+          { name: 'Rimini', code: 'RN' },
+          { name: 'Bologna', code: 'BO' },
+          { name: 'Fano', code: 'PU' }
         ]
       };
-    }
+    },
   });
 </script>
 
 <template>
-    <dropdownComp id="city" v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Seleziona la tua Città"/>
+    <dropdownComp id="city" v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Seleziona la tua Città" @change="this.emitter.emit('city',selectedCity['name'])"/>
 </template>

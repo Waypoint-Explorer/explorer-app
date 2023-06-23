@@ -18,10 +18,10 @@
           { name: 'United States', code: 'US' }
         ]
       };
-    }
+    },
   });
 </script>
 
 <template>
-    <dropdownComp id="country" v-model="selectedCountry" :options="countries" optionLabel="name" placeholder="Seleziona il tuo Paese *"/>
+    <dropdownComp id="country" v-model="selectedCountry" :options="countries" optionLabel="name" placeholder="Seleziona il tuo Paese *"  @change="this.emitter.emit('country',selectedCountry['name'])"/>
 </template>

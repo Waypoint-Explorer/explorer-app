@@ -13,6 +13,7 @@ import InputText from "primevue/inputtext";
 import Password from "primevue/password";
 import Dropdown from 'primevue/dropdown';
 import Calendar from 'primevue/calendar';
+import Message from 'primevue/message';
 
 import 'primeflex/primeflex.css';
 import 'primeicons/primeicons.css';
@@ -33,5 +34,6 @@ app.component('inputTextComp', InputText);
 app.component('passwordComp', Password);
 app.component('dropdownComp', Dropdown);
 app.component('calendarComp', Calendar);
+app.component('messageComp', Message);
 
 app.mount("#app");
