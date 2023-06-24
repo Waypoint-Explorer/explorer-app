@@ -14,6 +14,10 @@ import Password from "primevue/password";
 import Dropdown from 'primevue/dropdown';
 import Calendar from 'primevue/calendar';
 import Message from 'primevue/message';
+import Tag from "primevue/tag";
+import ScrollPanel from "primevue/scrollpanel";
+import Accordion from "primevue/accordion";
+import AccordionTab from "primevue/accordiontab";
 
 import 'primeflex/primeflex.css';
 import 'primeicons/primeicons.css';
@@ -35,5 +39,9 @@ app.component('passwordComp', Password);
 app.component('dropdownComp', Dropdown);
 app.component('calendarComp', Calendar);
 app.component('messageComp', Message);
+app.component('tagComp', Tag);
+app.component('scrollPanelComp', ScrollPanel);
+app.component('accordionComp', Accordion);
+app.component('accordionTabComp', AccordionTab);
 
 app.mount("#app");

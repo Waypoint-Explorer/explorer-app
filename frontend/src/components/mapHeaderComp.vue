@@ -10,6 +10,8 @@
         searchValue: ""
       };
     },
+    mounted() {
+    },
     methods: {
       search() {
         let query = `[out:json];(node[name='${this.searchValue}'][place~"city|town|village|hamlet"];);out geom;`;

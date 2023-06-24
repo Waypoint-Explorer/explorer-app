@@ -6,13 +6,17 @@
   import { Environment } from "../environment";
   import axios from "axios";
 
-  import counterIconSVG from "../assets/icons/counter_0.svg"
-
   export default defineComponent({
     data() {
       return {
         map: null,
         itineraries: [],
+        selectedItineraryIndex: 0,
+        culturalItineraryOptions: {color: "#0078D7", weight: 5},
+        themedItineraryOptions: {color: '#DB1F1C', weight: 5},
+        naturalisticItineraryOptions: {color: '#389F48', weight: 5},
+        touristicItineraryOptions: {color: '#FDA131', weight: 5},
+        fitnessItineraryOptions: {color: '#784FCE', weight: 5},
       };
     },
     unmounted() {},
@@ -33,7 +37,6 @@
         `https://api.mapbox.com/styles/v1/${Environment.MAP_STYLE}/tiles/{z}/{x}/{y}?access_token=${Environment.MAP_TOKEN}`, {
           tileSize: 512,
           zoomOffset: -1,
-          attribution: '© <a href="https://www.mapbox.com/map-feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(this.map);
         var customPane = this.map.createPane("customPane");
         var canvasRenderer = L.canvas({ pane: "customPane" });
@@ -44,6 +47,20 @@
 
         this.emitter.on("locationSearch", (coordinates) => {
           this.map.flyTo(coordinates);
+        });
+
+        this.emitter.on("selectItinerary", (direction: string) => {
+          if (this.itineraries != undefined) {
+            if (direction === "previous") {
+              this.selectedItineraryIndex = this.selectedItineraryIndex - 1;
+              if (this.selectedItineraryIndex < 0) this.selectedItineraryIndex = this.itineraries.length - 1;
+              this.emitter.emit("itinerarySelected", this.itineraries[this.selectedItineraryIndex]);
+            } else if (direction === "next") {
+              this.selectedItineraryIndex = this.selectedItineraryIndex + 1;
+              if (this.selectedItineraryIndex >= this.itineraries.length) this.selectedItineraryIndex = 0;
+              this.emitter.emit("itinerarySelected", this.itineraries[this.selectedItineraryIndex]);
+            }
+          }
         });
 
       axios.get(`http://${Environment.BACKEND_HOST}/itineraries`)
@@ -77,8 +94,24 @@
                       waypoint.Lmarker = Lmarker;
                     });
                     const markersCoordinates = Array.from(itinerary.waypoints.map(waypoint => Array.from([waypoint.marker.coordinates.latitude, waypoint.marker.coordinates.longitude])));
-                    console.log(`${markersCoordinates}`);
-                    const polyline = L.polyline(markersCoordinates, {color: '#0078D7', weight: 5}).addTo(this.map);
+                    const polyline = L.polyline(markersCoordinates, {weigth: 5}).addTo(this.map);
+                    switch (itinerary.type) {
+                      case "CULTURAL":
+                        polyline.setStyle(this.culturalItineraryOptions);
+                        break;
+                      case "THEMED":
+                        polyline.setStyle(this.themedItineraryOptions);
+                        break;
+                      case "NATURALISTIC":
+                        polyline.setStyle(this.naturalisticItineraryOptions);
+                        break;
+                      case "TOURISTIC":
+                        polyline.setStyle(this.touristicItineraryOptions);
+                        break;
+                      case "FITNESS":
+                        polyline.setStyle(this.fitnessItineraryOptions);
+                        break;
+                    }
                   });
               });
           });
