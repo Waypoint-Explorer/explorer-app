@@ -4,12 +4,11 @@
   import axios, {AxiosError} from "axios";
   import headerComp from "../components/headerComp.vue";
   import countryDropdownComp from "../components/countryDropdownComp.vue";
-  import cityDropdownComp from "../components/cityDropdownComp.vue";
   import { Environment } from "../environment";
   import {FieldDescriptions, FieldRegexs} from "../services/FieldRegexs";
 
   export default defineComponent({
-    components: { headerComp, countryDropdownComp, cityDropdownComp },
+    components: { headerComp, countryDropdownComp },
     data() {
       return {
         name: "",
@@ -32,9 +31,6 @@
       this.setLimitYears();
     },
     mounted() {
-      this.emitter.on("city", (city) => {
-        this.city = city;
-      });
       this.emitter.on("country", (country) => {
         this.country = country;
       });
@@ -160,9 +156,9 @@
         <small v-if="formError.cause === 'country'" class="p-error">{{ this.formError.message }}</small>
       </div>
 
-      <div class="p-field">
+      <div class="p-field" v-if="country">
         <label for="city">Città di Residenza</label>
-        <cityDropdownComp ></cityDropdownComp>
+        <inputTextComp id="city" v-model="city" type="text" placeholder="Città di Residenza"/>
       </div>
 
       <div class="p-field">
