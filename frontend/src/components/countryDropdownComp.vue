@@ -1,23 +1,28 @@
 <script  lang="ts">
   import {defineComponent} from "vue";
+  import axios from "axios";
 
   export default defineComponent({
     data() {
       return {
         selectedCountry: null,
-        countries: [
-          { name: 'Australia', code: 'AU' },
-          { name: 'Brazil', code: 'BR' },
-          { name: 'China', code: 'CN' },
-          { name: 'Egypt', code: 'EG' },
-          { name: 'France', code: 'FR' },
-          { name: 'Germany', code: 'DE' },
-          { name: 'India', code: 'IN' },
-          { name: 'Japan', code: 'JP' },
-          { name: 'Spain', code: 'ES' },
-          { name: 'United States', code: 'US' }
-        ]
+        countries: []
       };
+    },
+    created() {
+      axios.get(`https://restcountries.com/v3.1/all`)
+          .then((response) => {
+            response.data.forEach((c: any) => {
+              this.countries.push({
+                name: `${c.name.common}`,
+                code: `${c.cca2}`,
+              });
+            });
+            this.countries.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     },
   });
 </script>
