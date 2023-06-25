@@ -16,7 +16,13 @@
         },
       }
     },
+    mounted() {
+      if (this.isLoggedIn()) {
+        axios.get(`http://${Environment.BACKEND_HOST}/logout`);
+      }
+    },
     methods:{
+      isLoggedIn() : boolean { return this.$cookies.isKey("user"); },
       login(){
         if (this.checkForm()) {
           axios.post(`http://${Environment.BACKEND_HOST}/login`, {name: this.name,password: this.password})
@@ -57,6 +63,8 @@
       resetForm(){
         this.name= "";
         this.password= "";
+        this.formError.cause = "";
+        this.formError.message = "";
       },
     },
   });
@@ -67,8 +75,8 @@
 
   <div class="p-formgroup-inline">
     <div class="p-field">
-      <label for="name">Nome Utente *</label>
-      <inputTextComp id="name" v-model="name" type="text" placeholder="Nome Utente *" :class="{'p-invalid': formError.cause === 'name'}"/>
+      <label for="username">Nome Utente *</label>
+      <inputTextComp id="username" v-model="name" type="text" placeholder="Nome Utente *" :class="{'p-invalid': formError.cause === 'name'}"/>
       <small v-if="formError.cause === 'name'" class="p-error">{{ this.formError.message }}</small>
     </div>
 
