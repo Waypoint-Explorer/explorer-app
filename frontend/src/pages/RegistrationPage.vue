@@ -2,13 +2,12 @@
   import router from "../router";
   import { defineComponent } from "vue";
   import axios, {AxiosError} from "axios";
-  import headerComp from "../components/headerComp.vue";
   import countryDropdownComp from "../components/countryDropdownComp.vue";
   import { Environment } from "../environment";
   import {FieldDescriptions, FieldRegexs} from "../services/FieldRegexs";
 
   export default defineComponent({
-    components: { headerComp, countryDropdownComp },
+    components: { countryDropdownComp },
     data() {
       return {
         name: "",
@@ -131,8 +130,6 @@
 </script>
 
 <template>
-  <headerComp></headerComp>
-  <main>
     <h1>Registrazione</h1>
 
     <messageComp severity="success" v-if="success" @click="toHomePage">Registrazione avvenuta con successo!</messageComp>
@@ -180,7 +177,6 @@
 
       <buttonComp class="confirm-button" type="button" label="Conferma" @click.prevent="registerUser"/>
     </div>
-  </main>
 </template>
 
 <style lang="scss">

@@ -24,7 +24,7 @@
         <RouterLink to="/mapPage" @click="visible = false">Map Page</RouterLink>
         <br />
         <i class="pi pi-user"></i>
-        <RouterLink to="/registrationPage" @click="visible = false">Accesso</RouterLink>
+        <RouterLink to="/accessPage" @click="visible = false">Accesso</RouterLink>
       </nav>
     </sidebarComp>
   </div>

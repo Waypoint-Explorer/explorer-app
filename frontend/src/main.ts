@@ -18,6 +18,8 @@ import Tag from "primevue/tag";
 import ScrollPanel from "primevue/scrollpanel";
 import Accordion from "primevue/accordion";
 import AccordionTab from "primevue/accordiontab";
+import TabView from 'primevue/tabview';
+import TabPanel from 'primevue/tabpanel';
 
 import 'primeflex/primeflex.css';
 import 'primeicons/primeicons.css';
@@ -43,5 +45,7 @@ app.component('tagComp', Tag);
 app.component('scrollPanelComp', ScrollPanel);
 app.component('accordionComp', Accordion);
 app.component('accordionTabComp', AccordionTab);
+app.component('tabViewComp', TabView);
+app.component('tabPanelComp', TabPanel);
 
 app.mount("#app");

@@ -3865,7 +3865,8 @@
 .p-tabview .p-tabview-nav {
     background: #fff;
     border: 1px solid #ccc;
-    border-width: 0 0 2px 0
+    border-width: 0 0 2px 0;
+    justify-content: center
 }
 .p-tabview .p-tabview-nav li {
     margin-right: 0
