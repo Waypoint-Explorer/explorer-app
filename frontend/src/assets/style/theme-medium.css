@@ -5151,7 +5151,13 @@
     color: #1ea97c
 }
 .p-message.p-message-success .p-message-close {
+    width: 2.488rem;
     color: #1ea97c
+}
+@media screen and (min-width: 600px) {
+    .p-message.p-message-success .p-message-close{
+        height: 2.488rem;
+    }
 }
 .p-message.p-message-warn {
     background: #fff1e1;
@@ -5695,4 +5701,9 @@
 }
 .p-speeddial-item.p-focus>.p-speeddial-action {
     box-shadow: 0 0 0 2px #fff, 0 0 0 4px #76ba9a, 0 1px 2px 0 #000
+}
+.p-input-icon-left>i, .p-input-icon-left>svg, .p-input-icon-right>i, .p-input-icon-right>svg {
+    margin-top: -0.5rem;
+    position: absolute;
+    top: 50%;
 }

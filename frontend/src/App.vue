@@ -23,7 +23,6 @@
   }
   main {
     position: relative;
-    z-index: -1;
   }
   header{
     height: 3rem;
@@ -32,5 +31,6 @@
     align-items: center;
     display: flex;
     flex-direction: row;
+    z-index: 1;
   }
 </style>

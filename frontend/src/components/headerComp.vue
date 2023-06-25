@@ -1,12 +1,9 @@
-<script>
+<script lang="ts">
   import {defineComponent} from "vue";
+  import menuComp from "./menuComp.vue";
 
   export default defineComponent({
-    data() {
-      return {
-        visible: false,
-      };
-    },
+    components: { menuComp },
   });
 </script>
 
@@ -14,21 +11,11 @@
   <header>
     <img src="src/assets/images/logo/logo.svg" alt="Waypoint Explorer Logo">
     <div class="header_divider"></div>
-    <buttonComp icon="menu" rounded raised @click="visible = true">
+    <buttonComp icon="menu" rounded raised @click="this.emitter.emit('showMenu')">
       <span class="material-icons">menu</span>
     </buttonComp>
 
-    <div class="card flex justify-content-center">
-      <sidebarComp v-model:visible="this.visible" position="right">
-        <nav>
-          <i class="pi pi-home"></i>
-          <RouterLink to="/" @click="visible = false">Home</RouterLink>
-          <br />
-          <i class="pi pi-directions"></i>
-          <RouterLink to="/mapPage" @click="visible = false">Map Page</RouterLink>
-        </nav>
-      </sidebarComp>
-    </div>
+    <menuComp></menuComp>
   </header>
 </template>
 

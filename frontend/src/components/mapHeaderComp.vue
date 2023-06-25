@@ -1,11 +1,12 @@
 <script lang="ts">
   import {defineComponent} from "vue";
   import axios from "axios";
+  import menuComp from "./menuComp.vue";
 
   export default defineComponent({
+    components: { menuComp },
     data() {
       return {
-        visible: false,
         searchValue: ""
       };
     },
@@ -42,24 +43,18 @@
         <span class="material-icons">search</span>
       </buttonComp>
     </div>
-    <buttonComp icon="menu" rounded raised @click="visible = true">
+    <buttonComp icon="menu" rounded raised @click="this.emitter.emit('showMenu')">
       <span class="material-icons">menu</span>
     </buttonComp>
-    <div class="card flex justify-content-center">
-      <sidebarComp v-model:visible="this.visible" position="right">
-        <nav>
-          <i class="pi pi-home"></i>
-          <RouterLink to="/" @click="visible = false">Home</RouterLink>
-          <br />
-          <i class="pi pi-directions"></i>
-          <RouterLink to="/mapPage" @click="visible = false">Map Page</RouterLink>
-        </nav>
-      </sidebarComp>
-    </div>
+
+    <menuComp></menuComp>
   </header>
 </template>
 
 <style lang="scss">
+  header{
+    position: relative;
+  }
   img {
     height: 2.488rem;
   }
@@ -70,7 +65,6 @@
   }
   #search-input-text, #search-button {
     height: 2.488rem;
-    z-index: 3;
   }
   #search-input-text {
     border-radius: 100px 0 0 100px;
