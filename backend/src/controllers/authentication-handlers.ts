@@ -15,12 +15,12 @@ import {Time} from "../utils/time";
 export class AccessControlHandlers {
     /** Authenticates a user in the backend application creating and returning his session id. */
     public static readonly authenticateUser: RequestHandler = (req: Request, res: Response) => {
-        Require.fields(req.body, "email", "password").then(requirementSatisfied => {
+        Require.fields(req.body, "name", "password").then(requirementSatisfied => {
             ExplorerAppDatabase.Singleton.Users
-                .findOne({ email: req.body.email, },{ _id: 1, hash: 1, }).exec()
+                .findOne({ name: req.body.name, },{ _id: 1, hash: 1, }).exec()
                 .then(authenticatingUser => {
                     if (authenticatingUser === null){
-                        res.status(StatusCodes.UNAUTHORIZED).send("Wrong email.");
+                        res.status(StatusCodes.UNAUTHORIZED).send("Wrong username.");
                     } else if (!PasswordHasher.check(req.body.password, authenticatingUser.hash)) {
                         res.status(StatusCodes.UNAUTHORIZED).send("Wrong password.");
                     } else {
@@ -56,7 +56,7 @@ export class AccessControlHandlers {
                     }
                 }, sendError(req, res));
         }, failure => {
-            res.status(StatusCodes.BAD_REQUEST).send("The request must contain an [email] and a [password].");
+            res.status(StatusCodes.BAD_REQUEST).send("The request must contain a [username] and a [password].");
         });
     }
     /** Logs out a user by deleting his session in the database and in the cookies. */
