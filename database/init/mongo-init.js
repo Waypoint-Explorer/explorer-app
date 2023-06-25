@@ -20,6 +20,7 @@ const explorer_app_database = createOrGetDB(connection, "explorer-app-database")
 
 const user_collection = createAndClearCollection(explorer_app_database, "users", user_schema);
 user_collection.insertMany(users);
+user_collection.createIndex({ name: 1 }, { unique: true });
 
 const itinerary_collection = createAndClearCollection(explorer_app_database, "itineraries", itinerary_schema);
 itinerary_collection.insertMany(itineraries);

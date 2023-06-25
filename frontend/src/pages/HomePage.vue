@@ -16,9 +16,6 @@
 </template>
 
 <style lang="scss">
-
-</style>
-<style lang="scss" scoped>
   main{
     padding: 0rem 1.728rem;
   }
