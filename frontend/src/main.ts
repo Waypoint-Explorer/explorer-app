@@ -24,6 +24,7 @@ import TabPanel from 'primevue/tabpanel';
 import 'primeflex/primeflex.css';
 import 'primeicons/primeicons.css';
 
+import VueCookies from "vue-cookies";
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
@@ -33,6 +34,7 @@ app.config.globalProperties.emitter = emitter;
 
 app.use(PrimeVue);
 app.use(router);
+app.use(VueCookies);
 
 app.component('sidebarComp', Sidebar);
 app.component('buttonComp', Button);
