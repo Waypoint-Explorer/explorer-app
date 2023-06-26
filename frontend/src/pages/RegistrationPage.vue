@@ -123,6 +123,7 @@
         this.success = true;
       },
       toHomePage(){
+        this.success= false;
         router.push({ name: 'home' });
       }
     },
@@ -132,7 +133,7 @@
 <template>
     <h1>Registrazione</h1>
 
-    <messageComp severity="success" v-if="success" @click="toHomePage">Registrazione avvenuta con successo!</messageComp>
+    <messageComp severity="success" v-if="success" :sticky=false :life=5000 @click="toHomePage">Registrazione avvenuta con successo!</messageComp>
 
     <div class="p-formgroup-inline">
       <div class="p-field">
