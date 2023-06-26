@@ -2,13 +2,12 @@
   import router from "../router";
   import { defineComponent } from "vue";
   import axios, {AxiosError} from "axios";
-  import headerComp from "../components/headerComp.vue";
   import countryDropdownComp from "../components/countryDropdownComp.vue";
   import { Environment } from "../environment";
   import {FieldDescriptions, FieldRegexs} from "../services/FieldRegexs";
 
   export default defineComponent({
-    components: { headerComp, countryDropdownComp },
+    components: { countryDropdownComp },
     data() {
       return {
         name: "",
@@ -124,6 +123,7 @@
         this.success = true;
       },
       toHomePage(){
+        this.success= false;
         router.push({ name: 'home' });
       }
     },
@@ -131,11 +131,9 @@
 </script>
 
 <template>
-  <headerComp></headerComp>
-  <main>
     <h1>Registrazione</h1>
 
-    <messageComp severity="success" v-if="success" @click="toHomePage">Registrazione avvenuta con successo!</messageComp>
+    <messageComp severity="success" v-if="success" :sticky=false :life=5000 @click="toHomePage">Registrazione avvenuta con successo!</messageComp>
 
     <div class="p-formgroup-inline">
       <div class="p-field">
@@ -180,7 +178,6 @@
 
       <buttonComp class="confirm-button" type="button" label="Conferma" @click.prevent="registerUser"/>
     </div>
-  </main>
 </template>
 
 <style lang="scss">

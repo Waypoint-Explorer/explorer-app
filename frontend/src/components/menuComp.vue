@@ -9,7 +9,10 @@
     },
     mounted() {
       this.emitter.on('showMenu', ()=>{this.visible = !this.visible});
-    }
+    },
+    methods:{
+      isLoggedIn() : boolean { return this.$cookies.isKey("user"); },
+    },
   });
 </script>
 
@@ -24,7 +27,8 @@
         <RouterLink to="/mapPage" @click="visible = false">Map Page</RouterLink>
         <br />
         <i class="pi pi-user"></i>
-        <RouterLink to="/registrationPage" @click="visible = false">Accesso</RouterLink>
+        <RouterLink v-if="!isLoggedIn()" to="/accessPage" @click="visible = false">Accesso</RouterLink>
+        <RouterLink v-if="isLoggedIn()" to="/accessPage" @click="visible = false">Logout</RouterLink>
       </nav>
     </sidebarComp>
   </div>
