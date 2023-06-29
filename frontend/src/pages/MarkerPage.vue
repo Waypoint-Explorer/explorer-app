@@ -15,10 +15,7 @@
         },
         marker_type: "",
         points: "",
-        types: [
-          { name: 'Device', code: 'Dev' },
-          { name: 'QRmarker', code: 'qr' },
-        ],
+        types: [],
         markers: [],
         formError: {
           cause: "",
@@ -28,6 +25,7 @@
     },
     mounted(){
       this.allMarkers();
+      this.markerTypes();
     },
     methods:{
       allMarkers(){
@@ -70,6 +68,21 @@
               })
               .catch(this.displayError);
         }
+      },
+      markerTypes(){
+        axios.get(`http://${Environment.BACKEND_HOST}/markerTypes`)
+            .then((response) => {
+              this.types = [];
+              response.data.types.forEach((type)=>{
+                this.types.push({
+                  name: `${type}`,
+                  code: `${type}`,
+                });
+              });
+            })
+            .catch((error) => {
+              console.log(error);
+            });
       },
       checkForm() : boolean {
         if (this.marker_id === "") {
