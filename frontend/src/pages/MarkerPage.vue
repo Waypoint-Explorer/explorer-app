@@ -1,51 +1,111 @@
 <script lang="ts">
   import {defineComponent} from "vue";
-  import axios, {AxiosError} from "axios/index";
+  import axios, {AxiosError} from "axios";
   import {Environment} from "../environment";
 
   export default defineComponent({
     data(){
       return {
         showMenu: false,
-        marker_id: "46fgeydf",
+        success: false,
+        marker_id: "",
         coordinates: {
-          latitude: "157.85",
-          longitude: "245.08"
+          latitude: "",
+          longitude: ""
         },
         marker_type: "",
-        points: "15",
+        points: "",
         types: [
           { name: 'Device', code: 'Dev' },
           { name: 'QRmarker', code: 'qr' },
         ],
+        markers: [],
         formError: {
           cause: "",
           message: "",
         },
       }
     },
-    created(){
+    mounted(){
       this.allMarkers();
-      this.markerTypes();
     },
     methods:{
       allMarkers(){
         axios.get(`http://${Environment.BACKEND_HOST}/markers`)
             .then((response) => {
-              console.log(response.data);
+              this.markers = [];
+              response.data.forEach((marker) =>{
+                this.markers.push({
+                  marker_id: `${marker.marker_id}`,
+                  coordinates: {
+                    latitude: `${marker.coordinates.latitude}`,
+                    longitude: `${marker.coordinates.longitude}`,
+                  },
+                  type: `${marker.type}`,
+                  points: `${marker.points}`,
+                });
+              });
             })
             .catch((error) => {
               console.log(error);
             });
       },
-      markerTypes(){
-        axios.get(`http://${Environment.BACKEND_HOST}/markerTypes`)
-            .then((response) => {
-              console.log(response.data);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
+      addMarker(){
+        if(this.checkForm()){
+          const newMarker = {
+            marker_id: this.marker_id,
+            coordinates: {
+              latitude: this.coordinates.latitude,
+              longitude: this.coordinates.longitude
+            },
+            type: this.marker_type['name'],
+            points: this.points,
+          };
+          axios.post(`http://${Environment.BACKEND_HOST}/markers`, newMarker)
+              .then(() => {
+                this.showMenu=false;
+                this.allMarkers();
+                this.resetForm();
+                this.success = true;
+              })
+              .catch(this.displayError);
+        }
+      },
+      checkForm() : boolean {
+        if (this.marker_id === "") {
+          this.formError.cause = "marker_id";
+          this.formError.message = "L'id del marcatore è richiesto per l'inserimento.";
+        } else if(this.coordinates.latitude === ""){
+          this.formError.cause = "latitude";
+          this.formError.message = "La latitudine del marcatore è richiesto per l'inserimento.";
+        }else if (this.coordinates.longitude === ""){
+          this.formError.cause = "longitude";
+          this.formError.message = "La longitudine del marcatore è richiesto per l'inserimento.";
+        } else if (this.marker_type === "") {
+          this.formError.cause = "marker_type";
+          this.formError.message = "La tipologia del marcatore è richiesto per l'inserimento.";
+        }  else {
+          return true;
+        }
+        return false;
+      },
+      displayError(error: AxiosError) {
+        switch (error.response?.data){
+          case "There is already a marker with the same marker_id.":
+            this.formError.cause = "marker_id";
+            this.formError.message = "L'id del marcatore inserito è già presente su questo servizio.";
+            return;
+        }
+        console.log("Add marker error: " + error.response + "\tMessage: " + error.response?.data);
+      },
+      resetForm(){
+        this.marker_id="";
+        this.coordinates = {
+          latitude: "",
+          longitude: ""
+        };
+        this.marker_type="";
+        this.points="";
       },
     }
   });
@@ -55,46 +115,48 @@
   <h1>Marcatori</h1>
   <buttonComp v-if="showMenu!==true" class="confirm-button" type="button" label="Aggiungi marcatore" icon="pi pi-plus" @click.prevent="this.showMenu=true"/>
 
+  <messageComp severity="success" v-if="success" :sticky=false :life=5000 :closable="false" style="text-align: left">Inserimento avvenuto con successo!</messageComp>
+
   <div v-if="showMenu===true" class="p-formgroup-inline">
     <div class="p-field">
-      <label for="marker_id">marker_id *</label>
-      <inputTextComp id="marker_id" v-model="marker_id" type="text" placeholder="marker_id *" :class="{'p-invalid': formError.cause === 'marker_id'}"/>
+      <label for="marker_id">Id marcatore *</label>
+      <inputTextComp id="marker_id" v-model="marker_id" type="text" placeholder="Id marcatore *" :class="{'p-invalid': formError.cause === 'marker_id'}"/>
       <small v-if="formError.cause === 'marker_id'" class="p-error">{{ this.formError.message }}</small>
     </div>
 
     <div class="p-field">
-      <label for="latitude">latitude *</label>
-      <inputTextComp id="latitude" v-model="coordinates.latitude" type="text" placeholder="latitude *" :class="{'p-invalid': formError.cause === 'latitude'}"/>
+      <label for="latitude">Latitudine *</label>
+      <inputTextComp id="latitude" v-model="coordinates.latitude" type="text" placeholder="Latitudine *" :class="{'p-invalid': formError.cause === 'latitude'}"/>
       <small v-if="formError.cause === 'latitude'" class="p-error">{{ this.formError.message }}</small>
     </div>
 
     <div class="p-field">
-      <label for="longitude">longitude *</label>
-      <inputTextComp id="longitude" v-model="coordinates.longitude" type="text" placeholder="longitude *" :class="{'p-invalid': formError.cause === 'longitude'}"/>
+      <label for="longitude">Longitudine *</label>
+      <inputTextComp id="longitude" v-model="coordinates.longitude" type="text" placeholder="Longitudine *" :class="{'p-invalid': formError.cause === 'longitude'}"/>
       <small v-if="formError.cause === 'longitude'" class="p-error">{{ this.formError.message }}</small>
     </div>
 
     <div class="p-field">
-      <label for="marker_type">type *</label>
-      <dropdownComp id="marker_type" v-model="marker_type" :options="types" optionLabel="marker_type" placeholder="type *" :class="{'p-invalid': formError.cause === 'marker_type'}"/>
+      <label for="marker_type">Tipologia</label>
+      <dropdownComp id="marker_type" v-model="marker_type" :options="types" optionLabel="name" placeholder="Tipologia *" :class="{'p-invalid': formError.cause === 'marker_type'}"/>
       <small v-if="formError.cause === 'marker_type'" class="p-error">{{ this.formError.message }}</small>
     </div>
 
     <div class="p-field">
-      <label for="points">points</label>
-      <inputTextComp id="points" v-model="points" type="text" placeholder="points" :class="{'p-invalid': formError.cause === 'points'}"/>
+      <label for="points">Punti</label>
+      <inputTextComp id="points" v-model="points" type="text" placeholder="Punti" :class="{'p-invalid': formError.cause === 'points'}"/>
       <small v-if="formError.cause === 'points'" class="p-error">{{ this.formError.message }}</small>
     </div>
 
-    <buttonComp class="confirm-button" type="button" label="Aggiungi" @click.prevent="this.showMenu=false"/>
+    <buttonComp class="confirm-button" type="button" label="Aggiungi" @click.prevent="addMarker"/>
   </div>
 
   <div class="card">
-    <cardComp>
-      <template #title> {{ this.marker_id }} </template>
-      <template #subtitle> {{ this.marker_type }}</template>
+    <cardComp v-for="marker in this.markers">
+      <template #title> {{ marker.marker_id }} </template>
+      <template #subtitle> {{ marker.type }}</template>
       <template #content>
-        <p>{{this.coordinates.latitude}}, {{this.coordinates.longitude}}</p>
+        <p>{{marker.coordinates.latitude}}, {{marker.coordinates.longitude}}</p>
       </template>
       <template #footer>
         <buttonComp icon="pi pi-pencil" label="Modifica" severity="secondary" />
@@ -103,14 +165,44 @@
     </cardComp>
   </div>
 
-
 </template>
 
 <style lang="scss">
+  .card{
+    text-align: center;
+  }
   .p-card .p-card-subtitle{
-    margin: 0;
+    text-align: left;
+    margin-bottom: 0;
   }
   .p-card .p-card-footer{
     padding: 0;
+  }
+  .p-card .p-card-content {
+    text-align: left;
+    padding: 0.25rem 0 1.25rem 0;
+  }
+  .p-card .p-card-title{
+    text-align: left;
+    margin-bottom: 0;
+  }
+  p{
+    margin: 0;
+  }
+  @media screen and (min-width: 800px){
+    .p-card{
+      width: 40%;
+      display: inline-block;
+      margin: 0px 5px 10px 5px;
+      padding: 0px 20px;
+    }
+  }
+  @media screen and (min-width: 1250px){
+    .p-card{
+      width: 30%;
+      display: inline-block;
+      margin: 0px 5px 10px 5px;
+      padding: 0px 20px;
+    }
   }
 </style>
