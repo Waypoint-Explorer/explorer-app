@@ -169,7 +169,8 @@
       <template #title> {{ marker.marker_id }} </template>
       <template #subtitle> {{ marker.type }}</template>
       <template #content>
-        <p>{{marker.coordinates.latitude}}, {{marker.coordinates.longitude}}</p>
+        <p>coordinate: {{marker.coordinates.latitude}}, {{marker.coordinates.longitude}}</p>
+        <p v-if="this.points===''">punti: {{marker.points}}</p>
       </template>
       <template #footer>
         <buttonComp icon="pi pi-pencil" label="Modifica" severity="secondary" />
