@@ -20,6 +20,7 @@ import Accordion from "primevue/accordion";
 import AccordionTab from "primevue/accordiontab";
 import TabView from 'primevue/tabview';
 import TabPanel from 'primevue/tabpanel';
+import Card from 'primevue/card';
 
 import 'primeflex/primeflex.css';
 import 'primeicons/primeicons.css';
@@ -49,5 +50,6 @@ app.component('accordionComp', Accordion);
 app.component('accordionTabComp', AccordionTab);
 app.component('tabViewComp', TabView);
 app.component('tabPanelComp', TabPanel);
+app.component('cardComp', Card);
 
 app.mount("#app");

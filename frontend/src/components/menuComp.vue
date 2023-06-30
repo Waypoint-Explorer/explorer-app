@@ -23,9 +23,15 @@
         <i class="pi pi-home"></i>
         <RouterLink to="/" @click="visible = false">Home</RouterLink>
         <br />
+
         <i class="pi pi-directions"></i>
         <RouterLink to="/mapPage" @click="visible = false">Map Page</RouterLink>
         <br />
+
+        <i class="pi pi-pencil"></i>
+        <RouterLink to="/managementPage" @click="visible = false">Management Page</RouterLink>
+        <br />
+
         <i class="pi pi-user"></i>
         <RouterLink v-if="!isLoggedIn()" to="/accessPage" @click="visible = false">Accesso</RouterLink>
         <RouterLink v-if="isLoggedIn()" to="/accessPage" @click="visible = false">Logout</RouterLink>

@@ -31,5 +31,7 @@ export const MainRouter: ExpressRouter = express.Router()
 
     .get("/markers", MarkersQueryHandlers.findAll)
     .get("/markers/id/:markerId", MarkersQueryHandlers.findById)
+    .get("/markerTypes", MarkersQueryHandlers.findAllTypes)
+    .post("/markers", MarkersQueryHandlers.insertOne)
 
 ;
