@@ -11,13 +11,14 @@ import {PasswordHasher} from "../utils/password-hasher";
  * Request handlers that handles queries on users.
  */
 export class UsersQueryHandlers {
-    /** Retrieves all the users from the database. */
+    /** Retrieve all the users from the database. */
     public static readonly findAll: RequestHandler = (req: Request, res: Response) => {
         ExplorerAppDatabase.Singleton.Users
             .find({},{}).exec()
             .then(sendJson(req,res), sendError(req, res));
     }
-    /** Retrieves a user from the database. */
+
+    /** Retrieve a user from the database. */
     public static readonly findById: RequestHandler = (req: Request, res: Response) => {
         if (req.params.userId !== req.cookies.sessionToken.userId) {
             res.status(StatusCodes.FORBIDDEN).send("You don't have permissions to access the details of this user.");
@@ -27,7 +28,8 @@ export class UsersQueryHandlers {
                 .then(sendJson(req, res), sendError(req, res));
         }
     }
-    /** Inserts the requested user into the database. */
+
+    /** Insert the requested user into the database. */
     public static readonly insertOne: RequestHandler = (req: Request, res: Response) => {
         Require.fields(req.body, "name", "email", "password", "role").then(requirementSatisfied => {
             ExplorerAppDatabase.Singleton.Users    // Search for a user with the same name
@@ -54,7 +56,8 @@ export class UsersQueryHandlers {
             res.status(StatusCodes.BAD_REQUEST).send("The request must contain a [name], [email], [password] and a [role].");
         });
     }
-    /** Updates the requested user's profile. */ //todo: controllare gli if di country, city e birthyear
+
+    /** Update the requested user's profile. */
     public static readonly updateProfile: RequestHandler = (req: Request, res: Response) => {
         ExplorerAppDatabase.Singleton.Users    // Search for a user with the same id or the same new email
             .find({ $or: [{_id: new Types.ObjectId(req.params.userId)}, {name: req.body.name}]}).exec()
