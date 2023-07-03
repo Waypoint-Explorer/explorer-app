@@ -1,6 +1,7 @@
 <script lang="ts">
   import {defineComponent} from "vue";
   import axios from "axios";
+  import router from "../router";
 
   export default defineComponent({
     data() {
@@ -19,6 +20,14 @@
     methods: {
       selectItinerary(direction: string) {
         this.emitter.emit("selectItinerary", direction);
+      },
+      startItinerary() {
+        router.replace({
+          name: "navigationPage",
+          query: {
+            itineraryId: this.itinerary._id,
+          }
+        })
       },
     }
   });
@@ -39,6 +48,10 @@
         <span class="material-icons">navigate_next</span>
       </button>
     </div>
+    <button id="start-button" class="p-button p-component p-button-raised p-button-rounded" type="button" @click="startItinerary">
+      <p>Avvia</p>
+      <span class="material-icons-outlined">navigation</span>
+    </button>
     <div class="itinerary-details">
       <scrollPanelComp id="itinerary-details-scroll-panel">
         <tagComp v-if="this.itinerary.type" :class="this.itinerary.type" value="{{this.itinerary.type}}">
@@ -88,7 +101,7 @@
     z-index: 1;
     bottom: 0;
     width: calc(100vw - 2 * 1.2rem);
-    height: 5.2rem;
+    height: 8.2rem;
     padding: 1.2rem 1.2rem 0 1.2rem;
     margin: 0 1.2rem;
     align-items: center;
@@ -107,6 +120,18 @@
     position: absolute;
     top: -1.244rem;
     left: calc(50% - 1.244rem);
+  }
+  #start-button {
+    display: inline-flex;
+    width: 50%;
+    height: 2.488rem;
+    border-radius: 2rem;
+    margin: 0 25%;
+
+  }
+  #start-button p {
+    margin: 0 0.579rem 0 0;
+    font-size: 1.2rem;
   }
   .details-controls {
     width: 100%;
