@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomePage from '../pages/HomePage.vue';
 import MapPage from "../pages/MapPage.vue";
+import NavigationPage from "../pages/NavigationPage.vue";
 import AccessPage from "../pages/AccessPage.vue";
 import ManagementPage from "../pages/ManagementPage.vue";
 
@@ -16,6 +17,11 @@ const router = createRouter({
             path: "/mapPage",
             name: "mapPage",
             component: MapPage,
+        },
+        {
+            path: "/navigationPage",
+            name: "navigationPage",
+            component: NavigationPage,
         },
         {
             path: "/accessPage",
