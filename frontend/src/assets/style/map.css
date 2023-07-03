@@ -1,0 +1,23 @@
+.marker {
+    width: 36px;
+    height: 36px;
+}
+
+.user-marker {
+    background-image: url('../assets/icons/navigation.svg');
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.mapboxgl-ctrl-bottom-left {
+    display: none;
+}
