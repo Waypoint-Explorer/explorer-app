@@ -11,6 +11,8 @@
     data() {
       return {
         map: null,
+        markers: [],
+        completedItinerary: {},
       };
     },
     unmounted() {},
@@ -48,35 +50,71 @@
       }), 'bottom-right');
 
       map.on('load', () => {
-        axios.get(`http://${Environment.BACKEND_HOST}/itineraries/id/${this.$route.query.itineraryId}`)
-          .then((itineraryResponse) => {
-            let itinerary = itineraryResponse.data;
-            axios.get(`http://${Environment.BACKEND_HOST}/waypoints/`)
-              .then((waypointsResponse) => {
-                const waypoints = waypointsResponse.data;
-                axios.get(`http://${Environment.BACKEND_HOST}/markers/`)
-                  .then((markersResponse) => {
-                    const markers = markersResponse.data;
-                    waypoints.forEach(waypoint => {
-                      waypoint.marker = markers.find(marker => marker._id === waypoint.marker)
-                    });
-                    itinerary.waypoints = waypoints.filter(waypoint => itinerary.waypoints.includes(waypoint._id));
-                    waypoints.forEach(waypoint => {
-                      const element = document.createElement("div");
-                      element.className = 'marker';
-                      if (itinerary.waypoints.includes(waypoint)) {
-                        element.innerHTML = itineraryMarkerIcon.replace(">0<", `>${itinerary.waypoints.indexOf(waypoint) + 1}<`);
-                        new mapboxgl.Marker(element).setLngLat([waypoint.marker.coordinates.longitude, waypoint.marker.coordinates.latitude]).addTo(map);
-                      } else {
-                        element.innerHTML = nearbyMarkerIcon;
-                        new mapboxgl.Marker(element).setLngLat([waypoint.marker.coordinates.longitude, waypoint.marker.coordinates.latitude]).addTo(map);
-                      }
-                    });
-                  });
+        axios.get(`http://${Environment.BACKEND_HOST}/completed-itineraries/id/${this.$route.query.completedItineraryId}`).then((completedItineraryResponse) => {
+            this.completedItinerary = completedItineraryResponse.data;
+          axios.get(`http://${Environment.BACKEND_HOST}/waypoints/`).then((waypointsResponse) => {
+            const waypoints = waypointsResponse.data;
+            axios.get(`http://${Environment.BACKEND_HOST}/markers/`).then((markersResponse) => {
+              const markers = markersResponse.data;
+              waypoints.forEach(waypoint => {
+                waypoint.marker = markers.find(marker => marker._id === waypoint.marker)
+                const element = document.createElement("div");
+                element.className = 'marker';
+                  element.innerHTML = nearbyMarkerIcon;
+                  const newMarker = new mapboxgl.Marker(element).setLngLat([waypoint.marker.coordinates.longitude, waypoint.marker.coordinates.latitude]);
+                  newMarker.related_waypoint = waypoint._id;
+                  newMarker.addTo(map);
+                  this.markers.push(newMarker);
               });
+              if (this.completedItinerary.hasOwnProperty("related_itinerary")) {
+                map.addSource("itineraryLineSource", {
+                  type: "geojson",
+                  data: {
+                    type: "FeatureCollection",
+                    features: [],
+                  },
+                });
+                map.addLayer({
+                  id: "itineraryLine",
+                  type: "line",
+                  source: "itineraryLineSource",
+                  layout: {
+                    "line-join": "round",
+                    "line-cap": "round",
+                  },
+                  paint: {
+                    "line-color": '#0078D7',
+                    "line-width": 8,
+                  },
+                  minzoom: 10,
+                });
+                axios.get(`http://${Environment.BACKEND_HOST}/itineraries/id/${this.completedItinerary.related_itinerary}`).then((itineraryResponse) => {
+                  let itinerary = itineraryResponse.data;
+                  this.completedItinerary.related_itinerary = itinerary;
+                  const itineraryWaypoints = waypoints.filter(waypoint => itinerary.waypoints.includes(waypoint._id));
+                  itineraryWaypoints.forEach(waypoint => {
+                    this.markers.find(marker => marker.related_waypoint === waypoint._id)._element.innerHTML = itineraryMarkerIcon.replace(">0<", `>${itinerary.waypoints.indexOf(waypoint._id) + 1}<`);
+                  });
+                  const markersCoordinates = Array.from(itineraryWaypoints.map(waypoint => Array.from([waypoint.marker.coordinates.longitude, waypoint.marker.coordinates.latitude])));
+                  map.getSource("itineraryLineSource")._data.features.push(
+                      {
+                        type: "Feature",
+                        geometry: {
+                          type: "LineString",
+                          coordinates: markersCoordinates,
+                        },
+                      }
+                  );
+                  map.getSource("itineraryLineSource").setData(map.getSource("itineraryLineSource")._data);
+                  this.markers.forEach(marker => marker._element.classList.remove("next-waypoint"));
+                  this.markers.find(marker => marker.related_waypoint === this.completedItinerary.related_itinerary.waypoints.filter(waypoint => !this.markers.map(marker => marker.related_waypoint).includes(waypoint._id))[0])._element.classList.add("next-waypoint");
+                });
+              }
+            });
           });
+        });
+        this.map = map;
       });
-      this.map = map;
     },
     methods: {
     },
