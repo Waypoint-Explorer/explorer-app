@@ -7,9 +7,13 @@
   export default defineComponent({
     data() {
       return {
+        suggestedItineraryCompleted: false
       };
     },
     mounted() {
+      this.emitter.on("suggestedItineraryCompleted", () => {
+        this.suggestedItineraryCompleted = true;
+      });
     },
     methods: {
       visit() {
@@ -21,11 +25,12 @@
 
 <template>
   <div class="controls-container">
-    <div class="details-controls">
-      <button class="p-button p-component p-button-icon-only p-button-rounded" type="button" @click="visit">
-        <span class="material-icons-outlined">skip_next</span>
-      </button>
-    </div>
+    <button class="p-button p-component p-button-icon-only p-button-rounded" type="button" @click="visit">
+      <span class="material-icons-outlined">skip_next</span>
+    </button>
+    <button class="p-button p-component p-button-icon-only p-button-rounded" type="button" v-show="this.suggestedItineraryCompleted">
+      <span class="material-icons-outlined">stop</span>
+    </button>
   </div>
 </template>
 
@@ -34,17 +39,12 @@
     position: absolute;
     z-index: 1;
     bottom: 0;
+    width: 100%;
     height: 3rem;
     padding: 0 1.728rem;
     margin: 1rem 0;
     align-items: center;
-    display: flex;
-    flex-direction: row;
-  }
-  .details-controls {
-    width: 100%;
-    height: 3rem;
-    align-items: center;
+    justify-content: space-around;
     display: flex;
     flex-direction: row;
   }

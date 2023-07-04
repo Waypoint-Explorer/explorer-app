@@ -118,8 +118,15 @@
       this.emitter.on("waypointVisited", () => {
         const nextWaypoints = this.getNextWaypoints();
         if (nextWaypoints.length > 0) {
-          this.completedItinerary.visited_waypoints.push(nextWaypoints[0]);
-          this.highlightNextMarker();
+          axios.patch(`http://${Environment.BACKEND_HOST}/completed-itineraries/${this.completedItinerary._id}`, {
+            visitedWaypoint: nextWaypoints[0],
+          }).then(updateResponse => {
+            this.completedItinerary.visited_waypoints = updateResponse.data.visited_waypoints;
+            this.highlightNextMarker();
+            if (this.getNextWaypoints().length <= 0) {
+              this.emitter.emit("suggestedItineraryCompleted");
+            }
+          });
         }
       });
 
