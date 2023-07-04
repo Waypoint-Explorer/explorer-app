@@ -106,8 +106,7 @@
                       }
                   );
                   map.getSource("itineraryLineSource").setData(map.getSource("itineraryLineSource")._data);
-                  this.markers.forEach(marker => marker._element.classList.remove("next-waypoint"));
-                  this.markers.find(marker => marker.related_waypoint === this.completedItinerary.related_itinerary.waypoints.filter(waypoint => !this.markers.map(marker => marker.related_waypoint).includes(waypoint._id))[0])._element.classList.add("next-waypoint");
+                  this.highlightNextMarker();
                 });
               }
             });
@@ -115,8 +114,27 @@
         });
         this.map = map;
       });
+
+      this.emitter.on("waypointVisited", () => {
+        const nextWaypoints = this.getNextWaypoints();
+        if (nextWaypoints.length > 0) {
+          this.completedItinerary.visited_waypoints.push(nextWaypoints[0]);
+          this.highlightNextMarker();
+        }
+      });
+
     },
     methods: {
+      getNextWaypoints(): Array<String> {
+        return this.completedItinerary.related_itinerary.waypoints.filter(waypoint => !this.completedItinerary.visited_waypoints.includes(waypoint));
+      },
+      highlightNextMarker() {
+        this.markers.forEach(marker => marker._element.classList.remove("next-waypoint"));
+        const nextWaypoints = this.getNextWaypoints();
+        if (nextWaypoints.length > 0) {
+          this.markers.find(marker => marker.related_waypoint === nextWaypoints[0])._element.classList.add("next-waypoint");
+        }
+      }
     },
   });
 </script>
