@@ -1,5 +1,6 @@
 <script lang="ts">
   import {defineComponent} from "vue";
+  import { Environment } from "../environment";
   import axios from "axios";
   import router from "../router";
 
@@ -22,12 +23,23 @@
         this.emitter.emit("selectItinerary", direction);
       },
       startItinerary() {
-        router.replace({
-          name: "navigationPage",
-          query: {
-            itineraryId: this.itinerary._id,
-          }
-        })
+        let data = {};
+        if (this.itinerary.hasOwnProperty("_id")) {
+          data.itineraryId = this.itinerary._id;
+        }
+        axios
+          .post(`http://${Environment.BACKEND_HOST}/completed-itineraries`, data)
+          .then((response) => {
+            router.replace({
+              name: "navigationPage",
+              query: {
+                completedItineraryId: response.data.completedItinerary[0]._id,
+              }
+            });
+          })
+          .catch((error) => {
+              console.log(error);
+          });
       },
     }
   });
