@@ -79,7 +79,7 @@ interface Waypoint {
     price?: Price,
     /** Accessibility informations of this waypoint */
     accessibility_info?: string,
-    /** The id of the marker binded with this waypoint */
+    /** The id of the marker bound with this waypoint */
     marker?: MongooseTypes.ObjectId,
 }
 
