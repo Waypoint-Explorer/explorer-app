@@ -17,7 +17,7 @@ const waypoint_schema = {
     },
     place: {
       bsonType: "string",
-      description: "The place of this wayoint",
+      description: "The place of this waypoint",
     },
     opening_hours: {
       bsonType: "object",
@@ -195,7 +195,7 @@ const waypoint_schema = {
     },
     marker: {
       bsonType: "objectId",
-      description: "The id of the marker binded with this waypoint",
+      description: "The id of the marker bound with this waypoint",
     },
   },
 };
