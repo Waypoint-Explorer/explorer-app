@@ -34,7 +34,7 @@ interface OpeningHours {
     /** Sunday opening hours */
     sunday_hours?: OpeningShift[],
     /** The closing days of a waypoint */
-    closing_days?: Date[],
+    closing_days?: string[],
 }
 
 /** Schema of the opening hours of a waypoint */
@@ -46,7 +46,7 @@ const OPENING_HOURS_SCHEMA = new Schema<OpeningHours>({
     friday_hours: { type: Array(OPENING_SHIFT_SCHEMA), required: false },
     saturday_hours: { type: Array(OPENING_SHIFT_SCHEMA), required: false },
     sunday_hours: { type: Array(OPENING_SHIFT_SCHEMA), required: false },
-    closing_days: { type: Array(SchemaTypes.Date), required: false},
+    closing_days: { type: Array(SchemaTypes.String), required: false},
 }, { _id: false });
 
 /** Models a price category for a waypoint visit */
@@ -79,7 +79,7 @@ interface Waypoint {
     price?: Price,
     /** Accessibility informations of this waypoint */
     accessibility_info?: string,
-    /** The id of the marker binded with this waypoint */
+    /** The id of the marker bound with this waypoint */
     marker?: MongooseTypes.ObjectId,
 }
 

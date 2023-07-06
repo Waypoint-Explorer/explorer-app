@@ -33,6 +33,7 @@ export const MainRouter: ExpressRouter = express.Router()
 
     .get("/waypoints", WaypointsQueryHandlers.findAll)
     .get("/waypoints/id/:waypointId", WaypointsQueryHandlers.findById)
+    .post("/waypoints", WaypointsQueryHandlers.insertOne)
 
     .get("/markers", MarkersQueryHandlers.findAll)
     .get("/markers/id/:markerId", MarkersQueryHandlers.findById)
