@@ -33,6 +33,7 @@
             .then((response) => {
               this.markers = [];
               response.data.forEach((marker) =>{
+                let points = !!marker.points ? marker.points : "";
                 this.markers.push({
                   marker_id: `${marker.marker_id}`,
                   coordinates: {
@@ -40,7 +41,7 @@
                     longitude: `${marker.coordinates.longitude}`,
                   },
                   type: `${marker.type}`,
-                  points: `${marker.points}`,
+                  points: `${points}`,
                 });
               });
             })
@@ -50,6 +51,9 @@
       },
       addMarker(){
         if(this.checkForm()){
+          if(this.marker_type['name'] !== 'Device' && this.points!==""){
+            this.points="";
+          }
           const newMarker = {
             marker_id: this.marker_id,
             coordinates: {
@@ -88,16 +92,16 @@
         if (this.marker_id === "") {
           this.formError.cause = "marker_id";
           this.formError.message = "L'id del marcatore è richiesto per l'inserimento.";
-        } else if(this.coordinates.latitude === ""){
+        } else if (this.coordinates.latitude === "") {
           this.formError.cause = "latitude";
           this.formError.message = "La latitudine del marcatore è richiesto per l'inserimento.";
-        }else if (this.coordinates.longitude === ""){
+        } else if (this.coordinates.longitude === "") {
           this.formError.cause = "longitude";
           this.formError.message = "La longitudine del marcatore è richiesto per l'inserimento.";
         } else if (this.marker_type === "") {
           this.formError.cause = "marker_type";
           this.formError.message = "La tipologia del marcatore è richiesto per l'inserimento.";
-        }  else {
+        } else {
           return true;
         }
         return false;
@@ -150,15 +154,14 @@
     </div>
 
     <div class="p-field">
-      <label for="marker_type">Tipologia</label>
+      <label for="marker_type">Tipologia *</label>
       <dropdownComp id="marker_type" v-model="marker_type" :options="types" optionLabel="name" placeholder="Tipologia *" :class="{'p-invalid': formError.cause === 'marker_type'}"/>
       <small v-if="formError.cause === 'marker_type'" class="p-error">{{ this.formError.message }}</small>
     </div>
 
-    <div class="p-field">
+    <div v-if="marker_type['name']==='Device'" class="p-field">
       <label for="points">Punti</label>
-      <inputTextComp id="points" v-model="points" type="text" placeholder="Punti" :class="{'p-invalid': formError.cause === 'points'}"/>
-      <small v-if="formError.cause === 'points'" class="p-error">{{ this.formError.message }}</small>
+      <inputTextComp id="points" v-model="points" type="text" placeholder="Punti"/>
     </div>
 
     <buttonComp class="confirm-button" type="button" label="Aggiungi" @click.prevent="addMarker"/>
@@ -170,7 +173,7 @@
       <template #subtitle> {{ marker.type }}</template>
       <template #content>
         <p>coordinate: {{marker.coordinates.latitude}}, {{marker.coordinates.longitude}}</p>
-        <p v-if="this.points===''">punti: {{marker.points}}</p>
+        <p v-if="marker.points!==''">punti: {{marker.points}}</p>
       </template>
       <template #footer>
         <buttonComp icon="pi pi-pencil" label="Modifica" severity="secondary" />
