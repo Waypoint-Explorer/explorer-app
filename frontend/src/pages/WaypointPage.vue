@@ -15,7 +15,7 @@
         accessibility_info: "",
         price: {
           description: "",
-          price: 0
+          price: null
         },
         selected_day: "",
         opening_hour: "",
@@ -45,6 +45,15 @@
         formError: {
           cause: "",
           message: "",
+        },
+        opening_hours_formatted: {
+          monday_hours: [],
+          tuesday_hours: [],
+          wednesday_hours: [],
+          thursday_hours: [],
+          friday_hours: [],
+          saturday_hours: [],
+          sunday_hours: [],
         },
       }
     },
@@ -107,7 +116,6 @@
           if (this.accessibility_info!=="") { newWaypoint.accessibility_info = this.accessibility_info; }
           if (this.opening_hours!==null) {newWaypoint.opening_hours = this.opening_hours;}
           if (this.closed_days!==null) {newWaypoint.opening_hours.closing_days = this.closed_days;}
-          console.log(JSON.stringify(this.opening_hours));
           axios.post(`http://${Environment.BACKEND_HOST}/waypoints`, newWaypoint)
               .then(() => {
                 this.showMenu=false;
@@ -127,13 +135,19 @@
           this.formError.message = "Il marcatore associato è richiesto per l'inserimento.";
         } else if((this.selected_day!=='') && (this.opening_hour!=='' && this.closing_hour==='')){
           this.formError.cause = "closing_hour";
-          this.formError.message = "Inserire l'orario di chiusura";
+          this.formError.message = "Inserire l'orario di chiusura.";
         } else if((this.selected_day!=='') && (this.opening_hour==='' && this.closing_hour!=='')){
           this.formError.cause = "opening_hour";
-          this.formError.message = "Inserire l'orario di apertura";
+          this.formError.message = "Inserire l'orario di apertura.";
         } else if((this.selected_day!=='') && (this.opening_hour==='' && this.closing_hour==='')){
           this.formError.cause = "hours";
-          this.formError.message = "Inserire gli orari";
+          this.formError.message = "Inserire gli orari.";
+        } else if(this.price.description!=="" && this.price.price===null){
+          this.formError.cause = "price";
+          this.formError.message = "Inserire il prezzo.";
+        }else if(this.price.description==="" && this.price.price!==null){
+          this.formError.cause = "priceDescription";
+          this.formError.message = "Inserire la descrizione del prezzo.";
         }
         else {
           return true;
@@ -146,30 +160,37 @@
           switch (this.selected_day['code']) {
             case "lun": {
               this.opening_hours.monday_hours.push({shift_start: Number(this.opening_hour.replace(":","")), shift_end: Number(this.closing_hour.replace(":",""))});
+              this.opening_hours_formatted.monday_hours.push(this.opening_hour+'-'+this.closing_hour);
               break;
             }
             case "mar": {
               this.opening_hours.tuesday_hours.push({shift_start: Number(this.opening_hour.replace(":","")), shift_end: Number(this.closing_hour.replace(":",""))});
+              this.opening_hours_formatted.tuesday_hours.push(this.opening_hour+'-'+this.closing_hour);
               break;
             }
             case "mer": {
               this.opening_hours.wednesday_hours.push({shift_start: Number(this.opening_hour.replace(":","")), shift_end: Number(this.closing_hour.replace(":",""))});
+              this.opening_hours_formatted.wednesday_hours.push(this.opening_hour+'-'+this.closing_hour);
               break;
             }
             case "gio": {
               this.opening_hours.thursday_hours.push({shift_start: Number(this.opening_hour.replace(":","")), shift_end: Number(this.closing_hour.replace(":",""))});
+              this.opening_hours_formatted.thursday_hours.push(this.opening_hour+'-'+this.closing_hour);
               break;
             }
             case "ven": {
               this.opening_hours.friday_hours.push({shift_start: Number(this.opening_hour.replace(":","")), shift_end: Number(this.closing_hour.replace(":",""))});
+              this.opening_hours_formatted.friday_hours.push(this.opening_hour+'-'+this.closing_hour);
               break;
             }
             case "sab": {
               this.opening_hours.saturday_hours.push({shift_start: Number(this.opening_hour.replace(":","")), shift_end: Number(this.closing_hour.replace(":",""))});
+              this.opening_hours_formatted.saturday_hours.push(this.opening_hour+'-'+this.closing_hour);
               break;
             }
             case "dom": {
               this.opening_hours.sunday_hours.push({shift_start: Number(this.opening_hour.replace(":","")), shift_end: Number(this.closing_hour.replace(":",""))});
+              this.opening_hours_formatted.sunday_hours.push(this.opening_hour+'-'+this.closing_hour);
               break;
             }
           }
@@ -206,11 +227,19 @@
         };
         this.price= {
           description: "",
-          price: 0
+          price: null
         };
         this.formError.cause = "";
         this.formError.message = "";
-
+        this.opening_hours_formatted= {
+          monday_hours: [],
+          tuesday_hours: [],
+          wednesday_hours: [],
+          thursday_hours: [],
+          friday_hours: [],
+          saturday_hours: [],
+          sunday_hours: [],
+        };
       },
     }
   });
@@ -237,28 +266,26 @@
 
     <div class="p-field">
       <label for="description">Descrizione</label>
-      <textareaComp id="description" v-model="description" autoResize rows="5" cols="30" :class="{'p-invalid': formError.cause === 'description'}"/>
-      <small v-if="formError.cause === 'description'" class="p-error">{{ this.formError.message }}</small>
+      <textareaComp id="description" v-model="description" autoResize rows="5" cols="30"/>
     </div>
 
     <div class="p-field">
       <label for="place">Luogo</label>
-      <inputTextComp id="place" v-model="place" type="text" placeholder="Luogo" :class="{'p-invalid': formError.cause === 'place'}"/>
-      <small v-if="formError.cause === 'place'" class="p-error">{{ this.formError.message }}</small>
+      <inputTextComp id="place" v-model="place" type="text" placeholder="Luogo"/>
     </div>
 
     <div class="p-field">
       <label for="price">Prezzo</label>
-      <inputTextComp id="price" v-model="price.description" type="text" placeholder="Descrizione" :class="{'p-invalid': formError.cause === 'price'}"/>
-      <small v-if="formError.cause === 'price'" class="p-error">{{ this.formError.message }}</small>
+      <inputTextComp id="price" v-model="price.description" type="text" placeholder="Descrizione" :class="{'p-invalid': formError.cause === 'priceDescription'}"/>
+      <small v-if="formError.cause === 'priceDescription'" class="p-error">{{ this.formError.message }}</small>
 
-      <inputNumberComp id="price" v-model="price.price" placeholder="Costo €" mode="currency" currency="EUR"/>
+      <inputNumberComp id="price" v-model="price.price" placeholder="Costo €" mode="currency" currency="EUR" :class="{'p-invalid': formError.cause === 'price'}"/>
+      <small v-if="formError.cause === 'price'" class="p-error">{{ this.formError.message }}</small>
     </div>
 
     <div class="p-field">
       <label for="accessibility">Accessibilità</label>
-      <inputTextComp id="accessibility" v-model="accessibility_info" type="text" placeholder="Accessibilità" :class="{'p-invalid': formError.cause === 'accessibility'}"/>
-      <small v-if="formError.cause === 'accessibility'" class="p-error">{{ this.formError.message }}</small>
+      <inputTextComp id="accessibility" v-model="accessibility_info" type="text" placeholder="Accessibilità"/>
     </div>
 
     <div class="p-field">
@@ -290,25 +317,25 @@
 
     <div class="p-field" v-if="newSlot">
       <label v-if="opening_hours.monday_hours.length>0" for="monday_time_slot">Lunedì</label>
-      <chipsComp v-if="opening_hours.monday_hours.length>0" id="monday_time_slot" v-model="opening_hours.monday_hours" separator="," />
+      <chipsComp v-if="opening_hours.monday_hours.length>0" id="monday_time_slot" v-model="opening_hours_formatted.monday_hours" separator="," />
 
       <label v-if="opening_hours.tuesday_hours.length>0" for="tuesday_time_slot">Martedì</label>
-      <chipsComp v-if="opening_hours.tuesday_hours.length>0" id="tuesday_time_slot" v-model="opening_hours.tuesday_hours" separator="," />
+      <chipsComp v-if="opening_hours.tuesday_hours.length>0" id="tuesday_time_slot" v-model="opening_hours_formatted.tuesday_hours" separator="," />
 
       <label v-if="opening_hours.wednesday_hours.length>0" for="wednesday_time_slot">Mercoledì</label>
-      <chipsComp v-if="opening_hours.wednesday_hours.length>0" id="wednesday_time_slot" v-model="opening_hours.wednesday_hours" separator="," />
+      <chipsComp v-if="opening_hours.wednesday_hours.length>0" id="wednesday_time_slot" v-model="opening_hours_formatted.wednesday_hours" separator="," />
 
       <label v-if="opening_hours.thursday_hours.length>0" for="thursday_time_slot">Giovedì</label>
-      <chipsComp v-if="opening_hours.thursday_hours.length>0" id="thursday_time_slot" v-model="opening_hours.thursday_hours" separator="," />
+      <chipsComp v-if="opening_hours.thursday_hours.length>0" id="thursday_time_slot" v-model="opening_hours_formatted.thursday_hours" separator="," />
 
       <label v-if="opening_hours.friday_hours.length>0" for="friday_time_slot">Venerdì</label>
-      <chipsComp v-if="opening_hours.friday_hours.length>0" id="friday_time_slot" v-model="opening_hours.friday_hours" separator="," />
+      <chipsComp v-if="opening_hours.friday_hours.length>0" id="friday_time_slot" v-model="opening_hours_formatted.friday_hours" separator="," />
 
       <label v-if="opening_hours.saturday_hours.length>0" for="saturday_time_slot">Sabato</label>
-      <chipsComp v-if="opening_hours.saturday_hours.length>0" id="saturday_time_slot" v-model="opening_hours.saturday_hours" separator="," />
+      <chipsComp v-if="opening_hours.saturday_hours.length>0" id="saturday_time_slot" v-model="opening_hours_formatted.saturday_hours" separator="," />
 
       <label v-if="opening_hours.sunday_hours.length>0" for="sunday_time_slot">Domenica</label>
-      <chipsComp v-if="opening_hours.sunday_hours.length>0" id="sunday_time_slot" v-model="opening_hours.sunday_hours" separator="," />
+      <chipsComp v-if="opening_hours.sunday_hours.length>0" id="sunday_time_slot" v-model="opening_hours_formatted.sunday_hours" separator="," />
     </div>
 
     <buttonComp class="confirm-button" type="button" label="Aggiungi" @click.prevent="addWaypoint"/>
