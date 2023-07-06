@@ -23,6 +23,7 @@
   }
   main {
     position: relative;
+    padding: 0rem 1.2rem;
   }
   header{
     height: 3rem;
