@@ -36,6 +36,7 @@ export class WaypointsQueryHandlers {
         if (!!req.body.place) { newWaypoint.place = req.body.place; }
         if (!!req.body.price) { newWaypoint.price = req.body.price; }
         if (!!req.body.accessibility_info) { newWaypoint.accessibility_info = req.body.accessibility_info; }
+        if (!!req.body.opening_hours) { newWaypoint.opening_hours = req.body.opening_hours; }
         if (!!req.body.marker) { newWaypoint.marker = new Types.ObjectId(req.body.marker); }
         ExplorerAppDatabase.Singleton.Waypoints    // Add the requested waypoint to the database
             .insertMany([newWaypoint]).then(addedWaypoint => {
