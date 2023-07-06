@@ -115,12 +115,10 @@
         this.map = map;
       });
 
-      this.emitter.on("waypointVisited", () => {
+      this.emitter.on("waypointVisited", (qrData) => {
         const nextWaypoints = this.getNextWaypoints();
         if (nextWaypoints.length > 0) {
-          axios.patch(`http://${Environment.BACKEND_HOST}/completed-itineraries/${this.completedItinerary._id}`, {
-            visitedWaypoint: nextWaypoints[0],
-          }).then(updateResponse => {
+          axios.patch(`http://${Environment.BACKEND_HOST}/completed-itineraries/${this.completedItinerary._id}`, qrData).then(updateResponse => {
             this.completedItinerary.visited_waypoints = updateResponse.data.visited_waypoints;
             this.highlightNextMarker();
             if (this.getNextWaypoints().length <= 0) {

@@ -158,7 +158,7 @@
   }
   #itinerary-details-scroll-panel {
     width: 100%;
-    height: calc(80vh - 1.728rem - 3rem);
+    height: calc(80vh - 1.2rem - 3rem - 2.488rem);
     padding-top: 1.728rem;
   }
   #itinerary-name {
