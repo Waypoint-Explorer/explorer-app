@@ -2,9 +2,10 @@
   import {defineComponent} from "vue";
   import headerComp from "../components/headerComp.vue";
   import MarkerPage from "./MarkerPage.vue";
+  import WaypointPage from "./WaypointPage.vue";
 
   export default defineComponent({
-    components: {MarkerPage, headerComp },
+    components: {MarkerPage, headerComp, WaypointPage },
   });
 </script>
 
@@ -18,6 +19,7 @@
         </tabPanelComp>
 
         <tabPanelComp header="Tappe">
+          <WaypointPage></WaypointPage>
         </tabPanelComp>
 
         <tabPanelComp header="Percorsi">

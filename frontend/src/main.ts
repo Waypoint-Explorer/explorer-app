@@ -22,6 +22,10 @@ import AccordionTab from "primevue/accordiontab";
 import TabView from 'primevue/tabview';
 import TabPanel from 'primevue/tabpanel';
 import Card from 'primevue/card';
+import Textarea from 'primevue/textarea';
+import Chips from 'primevue/chips';
+import InputMask from 'primevue/inputmask';
+import InputNumber from 'primevue/inputnumber';
 
 import 'primeflex/primeflex.css';
 import 'primeicons/primeicons.css';
@@ -52,5 +56,9 @@ app.component('accordionTabComp', AccordionTab);
 app.component('tabViewComp', TabView);
 app.component('tabPanelComp', TabPanel);
 app.component('cardComp', Card);
+app.component('textareaComp', Textarea);
+app.component('chipsComp', Chips);
+app.component('inputNumberComp', InputNumber);
+app.component('inputMaskComp', InputMask);
 
 app.mount("#app");
