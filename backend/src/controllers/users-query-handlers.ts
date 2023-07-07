@@ -46,7 +46,7 @@ export class UsersQueryHandlers {
                         });
                         if (!!req.body.country) { newUser.country = req.body.country; }
                         if (!!req.body.city) { newUser.city = req.body.city; }
-                        if (!!req.body.birth_year) { newUser.city = req.body.birth_year; }
+                        if (!!req.body.birth_year) { newUser.birth_year = req.body.birth_year; }
                         ExplorerAppDatabase.Singleton.Users    // Add the requested user to the database
                             .insertMany([newUser])
                             .then(sendJson(req, res), sendError(req, res));
