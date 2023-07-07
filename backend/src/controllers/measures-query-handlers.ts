@@ -36,7 +36,7 @@ export class MeasuresQueryHandlers {
             req.body.measurements.forEach((measure: { timestamp: any; temperature: any; atmosphericPressure: any; humidity: any; airQuality: any; }) => {
               const newMeasure = new MeasuresDocument({
                 coordinates: marker.coordinates,
-                date: measure.timestamp,
+                timestamp: measure.timestamp,
                 temperature: measure.temperature,
                 atmospheric_pressure: measure.atmosphericPressure,
                 humidity: measure.humidity,
@@ -44,9 +44,25 @@ export class MeasuresQueryHandlers {
               });
               measurements.push(newMeasure);
             });
-            ExplorerAppDatabase.Singleton.Measures    // Add the requested marker to the database
-              .insertMany(measurements)
-              .then(sendJson(req, res), sendError(req, res));
+            ExplorerAppDatabase.Singleton.Measures.bulkWrite(
+              measurements.map((measure: any) => ({
+                updateOne: {
+                  filter: {
+                    coordinates: measure.coordinates,
+                    timestamp: measure.timestamp,
+                  },
+                  update: {
+                    coordinates: measure.coordinates,
+                    timestamp: measure.timestamp,
+                    temperature: measure.temperature,
+                    atmospheric_pressure: measure.atmospheric_pressure,
+                    humidity: measure.humidity,
+                    air_quality: measure.air_quality,
+                  },
+                  upsert: true,
+                },
+              })),
+            ).then(sendJson(req, res), sendError(req, res));
           }
         });
     }, failure => {

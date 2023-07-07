@@ -40,22 +40,31 @@ export class CompletedItinerariesQueryHandlers {
         } else {
           const completedItineraryUpdate: any = {};
           if (!!req.body.visitedWaypoint) {
-            completedItineraryUpdate.visited_waypoints = updatingCompletedItinerary.visited_waypoints?.concat(new Types.ObjectId(req.body.visitedWaypoint));
             ExplorerAppDatabase.Singleton.Waypoints.findOne({ _id: new Types.ObjectId(req.body.visitedWaypoint)}).exec()
             .then(searchedWaypoint => {
               if (!!searchedWaypoint) {
                 ExplorerAppDatabase.Singleton.Markers.findOne({ _id: searchedWaypoint.marker}).exec()
                 .then(searchedMarker => {
-                  if (!!searchedMarker && !!searchedMarker.points) {
-                    completedItineraryUpdate.points_earned = (updatingCompletedItinerary.points_earned ?? 0) + searchedMarker.points;
+                  if (!!searchedMarker) {
+                    if (!(updatingCompletedItinerary.visited_waypoints ?? []).includes(req.body.visitedWaypoint)) {
+                      completedItineraryUpdate.visited_waypoints = (updatingCompletedItinerary.visited_waypoints ?? []).concat(new Types.ObjectId(req.body.visitedWaypoint));
+                      if (!searchedMarker.dynamic_codes?.includes(req.body.dynamicCode) && !!searchedMarker.points) {
+                        completedItineraryUpdate.points_earned = (updatingCompletedItinerary.points_earned ?? 0) + searchedMarker.points;
+                        searchedMarker.dynamic_codes?.push(req.body.dynamicCode);
+                        ExplorerAppDatabase.Singleton.Markers
+                          .findOneAndUpdate({ _id: searchedMarker._id, }, searchedMarker, { new: true, }).exec();
+                      }
+                      ExplorerAppDatabase.Singleton.CompletedItineraries
+                        .findOneAndUpdate({ _id: updatingCompletedItinerary._id, }, completedItineraryUpdate, { new: true, }).exec()
+                        .then(sendJson(req, res), sendError(req, res));
+                    } else {
+                      sendJson(req, res);
+                    }
                   }
                 });
               }
             });
           }
-          ExplorerAppDatabase.Singleton.CompletedItineraries
-            .findOneAndUpdate({ _id: updatingCompletedItinerary._id, }, completedItineraryUpdate, { new: true, }).exec()
-            .then(sendJson(req, res), sendError(req, res));
         }
       }, sendError(req, res));
   }

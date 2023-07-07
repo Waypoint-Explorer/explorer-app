@@ -1,7 +1,7 @@
 /** The schema of a measure as defined in the database */
 const measure_schema = {
   bsonType: "object",
-  required: ["_id", "coordinates", "date", "temperature", "atmospheric_pressure", "humidity", "air_quality"],
+  required: ["_id", "coordinates", "timestamp", "temperature", "atmospheric_pressure", "humidity", "air_quality"],
   properties: {
     _id: {
       bsonType: "objectId",
@@ -22,9 +22,9 @@ const measure_schema = {
         },
       },
     },
-    date: {
+    timestamp: {
       bsonType: "date",
-      description: "The date of this measure",
+      description: "The timestamp of this measure",
     },
     temperature: {
       bsonType: "number",

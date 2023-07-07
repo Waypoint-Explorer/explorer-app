@@ -123,9 +123,11 @@
       });
 
       this.emitter.on("waypointVisited", (qrData) => {
+        console.log(qrData);
         axios.post(`http://${Environment.BACKEND_HOST}/measures`, qrData).then((measuresResponse) => {
           axios.patch(`http://${Environment.BACKEND_HOST}/completed-itineraries/${this.completedItinerary._id}`, {
             visitedWaypoint: this.markers.find(marker => marker.marker_id === qrData.markerId).related_waypoint,
+            dynamicCode: qrData.dynamicCode,
           }).then(updateResponse => {
             this.completedItinerary.visited_waypoints = updateResponse.data.visited_waypoints;
             this.disableVisitedMarkers();
