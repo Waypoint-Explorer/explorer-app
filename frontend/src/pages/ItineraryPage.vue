@@ -14,8 +14,7 @@
         extraPoints: 0,
         categories: [],
         waypoints: [],
-        selectedWaypoint: "",
-        allSelectedWaypoints: [],
+        selectedWaypoints: null,
         itineraries: [],
         formError: {
           cause: "",
@@ -45,18 +44,14 @@
             });
       },
       addItinerary(){
-        if(this.checkForm()){     //TODO
-          if(this.selectedWaypoint!=""){
-            this.allSelectedWaypoints.push(this.selectedWaypoint['id']);
-          }
+        if(this.checkForm()){
           let newItinerary: any = {
             name: this.name,
             type: this.selectedCategory['name'],
             extra_points: this.extraPoints,
           };
           if (this.description!=="") { newItinerary.description = this.description; }
-          if (this.allSelectedWaypoints.length>0) {newItinerary.waypoints = this.allSelectedWaypoints;}
-          console.log(JSON.stringify(newItinerary));
+          if (this.selectedWaypoints.length>0) {newItinerary.waypoints = this.selectedWaypoints;}
           axios.post(`http://${Environment.BACKEND_HOST}/itineraries`, newItinerary)
               .then(() => {
                 this.showMenu=false;
@@ -127,8 +122,7 @@
         this.extraPoints= 0;
         this.categories= [];
         this.waypoints= [];
-        this.selectedWaypoint= "";
-        this.allSelectedWaypoints= [];
+        this.selectedWaypoints= null;
         this.itineraries= [];
         this.formError.cause = "";
         this.formError.message = "";
@@ -169,7 +163,7 @@
 
     <div class="p-field">
       <label for="waypoint">Tappe</label>
-      <dropdownComp id="waypoint" v-model="selectedWaypoint" :options="waypoints" optionLabel="name" placeholder="Tappe"/>
+      <multiSelectComp v-model="selectedWaypoints" :options="waypoints" optionLabel="name" placeholder="Tappe"/>
     </div>
 
     <buttonComp class="confirm-button" type="button" label="Aggiungi" @click.prevent="addItinerary"/>
@@ -197,5 +191,11 @@
   }
   p{
     margin: 0;
+  }
+  .p-checkbox .p-checkbox-box.p-highlight,
+  .p-checkbox .p-checkbox-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 </style>
