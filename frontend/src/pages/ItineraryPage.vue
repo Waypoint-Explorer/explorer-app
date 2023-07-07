@@ -15,6 +15,7 @@
         categories: [],
         waypoints: [],
         selectedWaypoint: "",
+        allSelectedWaypoints: [],
         itineraries: [],
         formError: {
           cause: "",
@@ -45,14 +46,28 @@
       },
       addItinerary(){
         if(this.checkForm()){     //TODO
-          axios.post(`http://${Environment.BACKEND_HOST}/`, )
+          if(this.selectedWaypoint!=""){
+            this.allSelectedWaypoints.push(this.selectedWaypoint['id']);
+          }
+          let newItinerary: any = {
+            name: this.name,
+            type: this.selectedCategory['name'],
+            extra_points: this.extraPoints,
+          };
+          if (this.description!=="") { newItinerary.description = this.description; }
+          if (this.allSelectedWaypoints.length>0) {newItinerary.waypoints = this.allSelectedWaypoints;}
+          console.log(JSON.stringify(newItinerary));
+          axios.post(`http://${Environment.BACKEND_HOST}/itineraries`, newItinerary)
               .then(() => {
+                this.showMenu=false;
+                this.allItineraries();
+                this.resetForm();
+                this.success = true;
               })
               .catch(this.displayError);
         }
       },
       itineraryCategories(){
-        this.showMenu = true;
         axios.get(`http://${Environment.BACKEND_HOST}/itinerariesTypes`)
             .then((response) => {
               this.categories = [];
@@ -67,19 +82,36 @@
               console.log(error);
             });
       },
-      checkForm() : boolean {     //TODO
-        if (this.marker_id === "") {
-          this.formError.cause = "marker_id";
-          this.formError.message = "L'id del marcatore è richiesto per l'inserimento.";
-        } else if (this.coordinates.latitude === "") {
-          this.formError.cause = "latitude";
-          this.formError.message = "La latitudine del marcatore è richiesto per l'inserimento.";
-        } else if (this.coordinates.longitude === "") {
-          this.formError.cause = "longitude";
-          this.formError.message = "La longitudine del marcatore è richiesto per l'inserimento.";
-        } else if (this.marker_type === "") {
-          this.formError.cause = "marker_type";
-          this.formError.message = "La tipologia del marcatore è richiesto per l'inserimento.";
+      allWaypoints(){
+        axios.get(`http://${Environment.BACKEND_HOST}/waypoints`)
+            .then((response) => {
+              this.waypoints = [];
+              response.data.forEach((waypoint) =>{
+                this.waypoints.push({
+                  id: `${waypoint._id}`,
+                  name: `${waypoint.name}`,
+                });
+              });
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+      },
+      uploadData(){
+        this.showMenu = true;
+        this.itineraryCategories();
+        this.allWaypoints();
+      },
+      checkForm() : boolean {
+        if (this.name === "") {
+          this.formError.cause = "name";
+          this.formError.message = "Il nome del percorso è richiesto per l'inserimento.";
+        } else if (this.selectedCategory === "") {
+          this.formError.cause = "category";
+          this.formError.message = "La categoria del percorso è richiesto per l'inserimento.";
+        } else if (this.extraPoints === "") {
+          this.formError.cause = "points";
+          this.formError.message = "I punti extra del percorso sono richiesti per l'inserimento.";
         } else {
           return true;
         }
@@ -89,6 +121,17 @@
         console.log("Add itinerary error: " + error.response + "\tMessage: " + error.response?.data);
       },
       resetForm(){
+        this.name= "";
+        this.description= "";
+        this.selectedCategory= "";
+        this.extraPoints= 0;
+        this.categories= [];
+        this.waypoints= [];
+        this.selectedWaypoint= "";
+        this.allSelectedWaypoints= [];
+        this.itineraries= [];
+        this.formError.cause = "";
+        this.formError.message = "";
       },
     }
   });
@@ -96,7 +139,7 @@
 
 <template>
   <h1>Percorsi</h1>
-  <buttonComp v-if="showMenu!==true" class="confirm-button" type="button" label="Aggiungi percorso" icon="pi pi-plus" @click.prevent="itineraryCategories"/>
+  <buttonComp v-if="showMenu!==true" class="confirm-button" type="button" label="Aggiungi percorso" icon="pi pi-plus" @click.prevent="uploadData"/>
 
   <messageComp severity="success" v-if="success" :sticky=false :life=5000 :closable="false" style="text-align: left">Inserimento avvenuto con successo!</messageComp>
 
@@ -115,7 +158,8 @@
 
     <div class="p-field">
       <label for="points">Punti Extra *</label>
-      <inputTextComp id="points" v-model="extraPoints" type="text" placeholder="Punti Extra *"/>
+      <inputNumberComp id="points" v-model="extraPoints" placeholder="Punti Extra *" :class="{'p-invalid': formError.cause === 'points'}"/>
+      <small v-if="formError.cause === 'points'" class="p-error">{{ this.formError.message }}</small>
     </div>
 
     <div class="p-field">
@@ -125,8 +169,7 @@
 
     <div class="p-field">
       <label for="waypoint">Tappe</label>
-      <dropdownComp id="waypoint" v-model="selectedWaypoint" :options="waypoints" optionLabel="name" placeholder="Tappe" :class="{'p-invalid': formError.cause === 'waypoint'}"/>
-      <small v-if="formError.cause === 'waypoint'" class="p-error">{{ this.formError.message }}</small>
+      <dropdownComp id="waypoint" v-model="selectedWaypoint" :options="waypoints" optionLabel="name" placeholder="Tappe"/>
     </div>
 
     <buttonComp class="confirm-button" type="button" label="Aggiungi" @click.prevent="addItinerary"/>
@@ -149,41 +192,10 @@
 </template>
 
 <style lang="scss">
-.card{
-  text-align: center;
-}
-.p-card .p-card-subtitle{
-  text-align: left;
-  margin-bottom: 0;
-}
-.p-card .p-card-footer{
-  padding: 0;
-}
-.p-card .p-card-content {
-  text-align: left;
-  padding: 0.25rem 0 1.25rem 0;
-}
-.p-card .p-card-title{
-  text-align: left;
-  margin-bottom: 0;
-}
-p{
-  margin: 0;
-}
-@media screen and (min-width: 800px){
-  .p-card{
-    width: 40%;
-    display: inline-block;
-    margin: 0px 5px 10px 5px;
-    padding: 0px 20px;
+  .card{
+    text-align: center;
   }
-}
-@media screen and (min-width: 1250px){
-  .p-card{
-    width: 30%;
-    display: inline-block;
-    margin: 0px 5px 10px 5px;
-    padding: 0px 20px;
+  p{
+    margin: 0;
   }
-}
 </style>
