@@ -16,17 +16,14 @@
       });
     },
     methods: {
-      visit() {
-        this.emitter.emit("waypointVisited");
-      }
     }
   });
 </script>
 
 <template>
   <div class="controls-container">
-    <button class="p-button p-component p-button-icon-only p-button-rounded" type="button" @click="visit">
-      <span class="material-icons-outlined">skip_next</span>
+    <button class="p-button p-component p-button-icon-only p-button-rounded" type="button" @click="this.emitter.emit('qrScannerToggle');">
+      <span class="material-icons-outlined">qr_code_scanner</span>
     </button>
     <button class="p-button p-component p-button-icon-only p-button-rounded" type="button" v-show="this.suggestedItineraryCompleted">
       <span class="material-icons-outlined">stop</span>

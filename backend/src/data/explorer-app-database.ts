@@ -6,6 +6,7 @@ import { CompletedItinerary, COMPLETED_ITINERARY_SCHEMA } from "./schemas/comple
 import { Itinerary, ITINERARY_SCHEMA } from "./schemas/itinerary";
 import { Waypoint, WAYPOINT_SCHEMA } from "./schemas/waypoint";
 import { Marker, MARKER_SCHEMA } from "./schemas/marker";
+import { Measure, MEASURE_SCHEMA } from "./schemas/measure";
 
 /**
  * Database needed to access related data
@@ -25,6 +26,8 @@ export class ExplorerAppDatabase {
     public readonly Waypoints: mongoose.Model<Waypoint>;
     /** The collection of the markers */
     public readonly Markers: mongoose.Model<Marker>;
+    /** The collection of the measures */
+    public readonly Measures: mongoose.Model<Measure>;
 
     private readonly connection : mongoose.Connection;
 
@@ -42,6 +45,7 @@ export class ExplorerAppDatabase {
         this.Itineraries = this.connection.model<Itinerary>('itineraries', ITINERARY_SCHEMA);
         this.Waypoints = this.connection.model<Waypoint>('waypoints', WAYPOINT_SCHEMA);
         this.Markers = this.connection.model<Marker>('markers', MARKER_SCHEMA);
+        this.Measures = this.connection.model<Measure>('measures', MEASURE_SCHEMA);
     }
 }
 
@@ -59,3 +63,6 @@ export const WaypointsDocument = ExplorerAppDatabase.Singleton.Waypoints;
 
 /** Used for creating marker documents. Alias for {@link ExplorerAppDatabase.Singleton.Markers} */
 export const MarkersDocument = ExplorerAppDatabase.Singleton.Markers;
+
+/** Used for creating measure documents. Alias for {@link ExplorerAppDatabase.Singleton.Measures} */
+export const MeasuresDocument = ExplorerAppDatabase.Singleton.Measures;

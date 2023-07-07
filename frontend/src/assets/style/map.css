@@ -27,6 +27,10 @@
     animation: highlight 2s infinite;
 }
 
+.marker-disable {
+    opacity: 0.5 !important;
+}
+
 @keyframes highlight {
     0% { box-shadow: 0px 0px 0px 0px rgba(0,118,215,0.7); }
     50% { box-shadow: 0px 0px 10px 3px rgba(0,118,215,0.7); }
