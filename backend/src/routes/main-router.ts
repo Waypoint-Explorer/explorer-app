@@ -31,6 +31,8 @@ export const MainRouter: ExpressRouter = express.Router()
 
     .get("/itineraries", ItinerariesQueryHandlers.findAll)
     .get("/itineraries/id/:itineraryId", ItinerariesQueryHandlers.findById)
+    .get("/itinerariesTypes", ItinerariesQueryHandlers.findAllTypes)
+    .post("/itineraries", ItinerariesQueryHandlers.insertOne)
 
     .get("/waypoints", WaypointsQueryHandlers.findAll)
     .get("/waypoints/id/:waypointId", WaypointsQueryHandlers.findById)
