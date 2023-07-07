@@ -1,7 +1,7 @@
 /** The schema of a measure as defined in the database */
 const measure_schema = {
   bsonType: "object",
-  required: ["_id", "marker_id", "type", "coordinates"],
+  required: ["_id", "coordinates", "date", "temperature", "atmospheric_pressure", "humidity", "air_quality"],
   properties: {
     _id: {
       bsonType: "objectId",

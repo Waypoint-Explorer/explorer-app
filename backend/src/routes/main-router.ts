@@ -7,6 +7,7 @@ import { CompletedItinerariesQueryHandlers } from "../controllers/completed-itin
 import { ItinerariesQueryHandlers } from "../controllers/itineraries-query-handlers";
 import { WaypointsQueryHandlers } from "../controllers/waypoints-query-handlers";
 import { MarkersQueryHandlers } from "../controllers/markers-query-handlers";
+import { MeasuresQueryHandlers } from "../controllers/measures-query-handlers";
 
 type ExpressRouter = express.Router;
 
@@ -36,7 +37,10 @@ export const MainRouter: ExpressRouter = express.Router()
 
     .get("/markers", MarkersQueryHandlers.findAll)
     .get("/markers/id/:markerId", MarkersQueryHandlers.findById)
+    .get("/markers/marker-id/:markerId", MarkersQueryHandlers.findByMarkerId)
     .get("/markerTypes", MarkersQueryHandlers.findAllTypes)
     .post("/markers", MarkersQueryHandlers.insertOne)
 
+    .get("/measures", MeasuresQueryHandlers.findAll)
+    .post("/measures", MeasuresQueryHandlers.insertMany)
 ;

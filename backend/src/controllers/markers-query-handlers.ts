@@ -26,6 +26,13 @@ export class MarkersQueryHandlers {
       .then(sendJson(req, res), sendError(req, res));
   }
 
+    /** Retrieves a marker given the marker_id of the marker */
+    public static readonly findByMarkerId: RequestHandler = (req: Request, res: Response) => {
+      ExplorerAppDatabase.Singleton.Markers
+        .findOne({marker_id: req.params.markerId}, {}).exec()
+        .then(sendJson(req, res), sendError(req, res));
+    }
+
   /** Retrieves all marker types */
   public static readonly findAllTypes: RequestHandler = (req: Request, res: Response) => {
     const types = MarkerTypeArray;

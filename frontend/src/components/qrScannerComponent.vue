@@ -46,7 +46,7 @@ export default defineComponent({
       let index = 64;
       while (index + 15 <= input.length) {
         const measurement = {
-          timestamp: new Date(timeReference + parseInt(input.substring(index, index + 3)) * 60 * 60 * 1000),
+          timestamp: new Date(timeReference + parseInt(input.substring(index, index + 3)) * 60 * 60 * 1000).toLocaleString('it-IT'),
           temperature: parseInt(input.substring(index + 4, index + 6)) * (parseInt(input.substring(index + 3, index + 4)) === 1 ? 1 : -1),
           atmosphericPressure: parseFloat(input.substring(index + 6, index + 11)) / 10,
           humidity: parseInt(input.substring(index + 11, index + 13)),
@@ -77,10 +77,6 @@ export default defineComponent({
       });
     },
     onScanSuccess(decodedText: any, decodedResult: any) {
-      console.log(`${decodedText}`, decodedResult);
-      // TODO: remove static development string and use decodedText
-      decodedText = "2974596726765117823763479203237421385750634414560000001688601610000127101405892001127101415586002127101445893003127101455792004127101455792005127101455792006127101465792007127101465792008127101495892009127101536191010127101536191";
-      console.log(this.deserializeData(decodedText));
       this.stopQRScanner();
       this.emitter.emit("waypointVisited", this.deserializeData(decodedText));
     },
