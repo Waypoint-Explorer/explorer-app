@@ -3,9 +3,10 @@
   import headerComp from "../components/headerComp.vue";
   import navigationMapComponent from "../components/navigationMapComponent.vue";
   import navigationControlsComponent from "../components/navigationControlsComponent.vue";
+  import qrScannerComponent from "../components/qrScannerComponent.vue";
 
   export default defineComponent({
-    components: { headerComp, navigationMapComponent, navigationControlsComponent },
+    components: { headerComp, navigationMapComponent, qrScannerComponent, navigationControlsComponent },
     data() {
       return {
         searchValue: null,
@@ -18,6 +19,7 @@
   <headerComp></headerComp>
   <main>
     <navigationMapComponent></navigationMapComponent>
+    <qrScannerComponent></qrScannerComponent>
     <navigationControlsComponent></navigationControlsComponent>
   </main>
 </template>
