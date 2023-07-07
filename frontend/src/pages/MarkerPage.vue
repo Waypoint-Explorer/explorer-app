@@ -188,38 +188,7 @@
   .card{
     text-align: center;
   }
-  .p-card .p-card-subtitle{
-    text-align: left;
-    margin-bottom: 0;
-  }
-  .p-card .p-card-footer{
-    padding: 0;
-  }
-  .p-card .p-card-content {
-    text-align: left;
-    padding: 0.25rem 0 1.25rem 0;
-  }
-  .p-card .p-card-title{
-    text-align: left;
-    margin-bottom: 0;
-  }
   p{
     margin: 0;
-  }
-  @media screen and (min-width: 800px){
-    .p-card{
-      width: 40%;
-      display: inline-block;
-      margin: 0px 5px 10px 5px;
-      padding: 0px 20px;
-    }
-  }
-  @media screen and (min-width: 1250px){
-    .p-card{
-      width: 30%;
-      display: inline-block;
-      margin: 0px 5px 10px 5px;
-      padding: 0px 20px;
-    }
   }
 </style>
