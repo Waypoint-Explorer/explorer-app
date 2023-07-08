@@ -14,7 +14,7 @@
         extraPoints: 0,
         categories: [],
         waypoints: [],
-        selectedWaypoints: null,
+        selectedWaypoints: [],
         itineraries: [],
         formError: {
           cause: "",
@@ -45,6 +45,7 @@
       },
       addItinerary(){
         if(this.checkForm()){
+          this.success = false;
           let newItinerary: any = {
             name: this.name,
             type: this.selectedCategory['name'],
@@ -92,7 +93,7 @@
               console.log(error);
             });
       },
-      uploadData(){
+      arrangeForm(){
         this.showMenu = true;
         this.itineraryCategories();
         this.allWaypoints();
@@ -122,7 +123,7 @@
         this.extraPoints= 0;
         this.categories= [];
         this.waypoints= [];
-        this.selectedWaypoints= null;
+        this.selectedWaypoints= [];
         this.itineraries= [];
         this.formError.cause = "";
         this.formError.message = "";
@@ -133,7 +134,7 @@
 
 <template>
   <h1>Percorsi</h1>
-  <buttonComp v-if="showMenu!==true" class="confirm-button" type="button" label="Aggiungi percorso" icon="pi pi-plus" @click.prevent="uploadData"/>
+  <buttonComp v-if="showMenu!==true" class="confirm-button" type="button" label="Aggiungi percorso" icon="pi pi-plus" @click.prevent="arrangeForm"/>
 
   <messageComp severity="success" v-if="success" :sticky=false :life=5000 :closable="false" style="text-align: left">Inserimento avvenuto con successo!</messageComp>
 
