@@ -64,7 +64,6 @@
       allMarkers(){
         axios.get(`http://${Environment.BACKEND_HOST}/markers`)
             .then((response) => {
-              this.showMenu=true;
               this.markers = [];
               response.data.forEach((marker) =>{
                 this.markers.push({
@@ -105,6 +104,7 @@
       },
       addWaypoint(){
         if(this.checkForm()){
+          this.success = false;
           this.addTimeSlot(false);
           let newWaypoint: any = {
             name: this.name,
@@ -125,6 +125,10 @@
               })
               .catch(this.displayError);
         }
+      },
+      arrangeForm(){
+        this.showMenu = true;
+        this.allMarkers();
       },
       checkForm() : boolean {
         if (this.name === "") {
@@ -247,7 +251,7 @@
 
 <template>
   <h1>Tappe</h1>
-  <buttonComp v-if="showMenu!==true" class="confirm-button" type="button" label="Aggiungi tappa" icon="pi pi-plus" @click.prevent="allMarkers"/>
+  <buttonComp v-if="showMenu!==true" class="confirm-button" type="button" label="Aggiungi tappa" icon="pi pi-plus" @click.prevent="arrangeForm"/>
 
   <messageComp severity="success" v-if="success" :sticky=false :life=5000 :closable="false" style="text-align: left">Inserimento avvenuto con successo!</messageComp>
 
