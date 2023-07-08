@@ -9,7 +9,8 @@
       return {
         isDetailsExpanded: false,
         itinerary: {
-          name: "Percorso libero"
+          name: "Percorso libero",
+          _id: null,
         }
       };
     },
@@ -23,10 +24,14 @@
         this.emitter.emit("selectItinerary", direction);
       },
       startItinerary() {
-        let data = {};
+        let data = {
+          itineraryId: null,
+          startDate: "",
+        };
         if (this.itinerary.hasOwnProperty("_id")) {
           data.itineraryId = this.itinerary._id;
         }
+        data.startDate = new Date().toLocaleString("it-IT");
         axios
           .post(`http://${Environment.BACKEND_HOST}/completed-itineraries`, data)
           .then((response) => {
