@@ -21,11 +21,19 @@
 </script>
 
 <template>
+  <div class="message-container" v-show="this.suggestedItineraryCompleted">
+    <messageComp severity="success" icon="none" class="border-primary w-full justify-content-start">
+      <div class="flex align-items-center">
+        <span class="material-icons-outlined">emoji_events</span>
+        <p id="message">Itinerario completato</p>
+      </div>
+    </messageComp>
+  </div>
   <div class="controls-container">
     <button class="p-button p-component p-button-icon-only p-button-rounded" type="button" @click="this.emitter.emit('qrScannerToggle');">
       <span class="material-icons-outlined">qr_code_scanner</span>
     </button>
-    <button class="p-button p-component p-button-icon-only p-button-rounded" type="button" v-show="this.suggestedItineraryCompleted">
+    <button class="p-button p-component p-button-icon-only p-button-rounded" type="button">
       <span class="material-icons-outlined">stop</span>
     </button>
   </div>
@@ -45,4 +53,22 @@
     display: flex;
     flex-direction: row;
   }
+
+  .message-container {
+    width: calc(100vw - 2.4rem);
+    height: fit-content;
+    position: absolute;
+    bottom: 6rem;
+    z-index: 1;
+    margin: 0 1.2rem;
+  }
+
+  .p-message {
+    margin: 0;
+  }
+
+  #message {
+    margin: 0 1rem;
+  }
+
 </style>
