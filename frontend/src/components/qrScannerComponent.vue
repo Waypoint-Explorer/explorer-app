@@ -100,7 +100,7 @@ export default defineComponent({
     height: 0;
     position: absolute !important;
     z-index: 1;
-    bottom: 9vh;
+    bottom: 6rem;
     margin: 0 1.2rem;
     align-items: center;
     flex-direction: row;
