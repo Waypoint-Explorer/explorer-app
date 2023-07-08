@@ -30,14 +30,74 @@ const waypoints = [
     marker: ObjectId('648af727eae56e17c9bb8009')
   },
   {
+    _id: ObjectId('64950b56bba070225c91b567'),
+    name: 'Giardini Speyer',
+    marker: ObjectId('64930b08caa070225c91b565')
+  },
+  {
+    _id: ObjectId('64930b56bba070225c91b567'),
+    name: 'Rocca Brancaleone',
+    marker: ObjectId('64930b07caa070225c91b565')
+  },
+  {
     _id: ObjectId('64930b56caa070225c91b567'),
     name: 'Parco Teodorico',
     place: 'Via Pomposa, 48122 Ravenna RA, Italia',
     marker: ObjectId('64930acdcaa070225c91b563')
   },
   {
+    _id: ObjectId('64930b56caa070335c91b567'),
+    name: 'Mausoleo di Teodorico',
+    marker: ObjectId('648af727eae56e17c9bb8009')
+  },
+  {
     _id: ObjectId('64930b92caa070225c91b569'),
-    name: 'Giardini pubblici di Ravenna',
-    marker: ObjectId('64930b07caa070225c91b565')
-  }
+    name: 'Giardini Pubblici',
+    marker: ObjectId('648af564eae56e17c9bb8007')
+  },
+  {
+    _id: ObjectId('64930b92caa070225c91b568'),
+    name: 'Battistero Neoniano (o degli Ortodossi)',
+    marker: ObjectId('648af4edeae56e17c9bb8005')
+  },
+  {
+    _id: ObjectId('64930b92caa070225c91b570'),
+    name: 'Basilica di Sant\'Apollinare Nuovo',
+    marker: ObjectId('64930b08caa070335c916665')
+  },
+  {
+    _id: ObjectId('64930b92caa070225c91b571'),
+    name: 'Battistero degli Ariani',
+    marker: ObjectId('64930b08caa070335c916765')
+  },
+  {
+    _id: ObjectId('65930b92caa070225c91b571'),
+    name: 'Basilica di Sant\'Apollinare in Classe',
+    marker: ObjectId('64830b08caa070335c916765')
+  },
+  {
+    _id: ObjectId('68830b92caa070225c91b571'),
+    name: 'Basilica di San Vitale',
+    marker: ObjectId('64330b08caa000335c916765')
+  },
+  {
+    _id: ObjectId('69930b92caa070225c91b571'),
+    name: 'Mausoleo di Galla Placidia',
+    marker: ObjectId('64330b08caa870335c916765')
+  },
+  {
+    _id: ObjectId('65530b92caa070225c91b571'),
+    name: 'Cappella Arcivescovile di Sant\'Andrea',
+    marker: ObjectId('64330b08caa070335c916765')
+  },
+  {
+    _id: ObjectId('65530b92bbc070225c91b571'),
+    name: 'Palazzo di Teodorico',
+    marker: ObjectId('64440b08caa870335c916765')
+  },
+  {
+    _id: ObjectId('65530992bbc070225c91b571'),
+    name: 'Basilica dello Spirito Santo',
+    marker: ObjectId('64440b08caa870445c916765')
+  },
 ]
