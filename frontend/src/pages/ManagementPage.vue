@@ -3,9 +3,10 @@
   import headerComp from "../components/headerComp.vue";
   import MarkerPage from "./MarkerPage.vue";
   import WaypointPage from "./WaypointPage.vue";
+  import ItineraryPage from "./ItineraryPage.vue";
 
   export default defineComponent({
-    components: {MarkerPage, headerComp, WaypointPage },
+    components: {MarkerPage, headerComp, WaypointPage, ItineraryPage },
   });
 </script>
 
@@ -23,6 +24,7 @@
         </tabPanelComp>
 
         <tabPanelComp header="Percorsi">
+          <ItineraryPage></ItineraryPage>
         </tabPanelComp>
 
       </tabViewComp>
