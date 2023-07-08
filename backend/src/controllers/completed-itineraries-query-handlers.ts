@@ -69,4 +69,22 @@ export class CompletedItinerariesQueryHandlers {
       }, sendError(req, res));
   }
 
+  /** Stop a completed itinerary in the database */
+  public static readonly stopCompletedItinerary: RequestHandler = (req: Request, res: Response) => {
+    Require.fields(req.body, "completionDate").then(() => {
+      ExplorerAppDatabase.Singleton.CompletedItineraries
+        .findOne({_id: new Types.ObjectId(req.params.completedItineraryId)}).exec()
+        .then(searchedCompletedItinerary => {
+          if (searchedCompletedItinerary === null) {
+            res.status(StatusCodes.FORBIDDEN).send("Item not found");
+          } else {
+            searchedCompletedItinerary.completion_date = req.body.completionDate;
+            ExplorerAppDatabase.Singleton.CompletedItineraries
+              .findOneAndUpdate({ _id: searchedCompletedItinerary._id, }, searchedCompletedItinerary, { new: true, }).exec()
+              .then(sendJson(req, res), sendError(req, res));
+          }
+        }, sendError(req, res));
+    });
+  }
+
 }
