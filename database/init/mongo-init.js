@@ -35,4 +35,4 @@ waypoint_collection.insertMany(waypoints);
 
 const marker_collection = createAndClearCollection(explorer_app_database, "markers", marker_schema);
 marker_collection.insertMany(markers);
-user_collection.createIndex({ marker_id: 1 }, { unique: true });
+marker_collection.createIndex({ marker_id: 1 }, { unique: true });
