@@ -123,6 +123,9 @@
         };
         this.marker_type="";
         this.points="";
+        this.types = [];
+        this.formError.cause = "";
+        this.formError.message = "";
       },
     }
   });
