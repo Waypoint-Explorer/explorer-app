@@ -12,6 +12,8 @@ interface CompletedItinerary {
     visited_waypoints?: MongooseTypes.ObjectId[],
     /** The points earned during this completed itinerary */
     points_earned?: number,
+    /** The start date of this itinerary */
+    start_date: Date,
     /** The completion date of this itinerary */
     completion_date?: Date,
 }
@@ -21,6 +23,7 @@ const COMPLETED_ITINERARY_SCHEMA = new Schema<CompletedItinerary>({
     related_itinerary: { type: SchemaTypes.ObjectId, required: false},
     visited_waypoints: { type: Array(SchemaTypes.ObjectId), required: false},
     points_earned: { type: SchemaTypes.Number, required: false },
+    start_date: { type: SchemaTypes.Date, required: true },
     completion_date: { type: SchemaTypes.Date, required: false },
 });
 

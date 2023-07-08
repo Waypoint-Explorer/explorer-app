@@ -138,15 +138,9 @@
           });
         });
       });
-
-      this.emitter.on("stopItinerary", () => {
-        axios.patch(`http://${Environment.BACKEND_HOST}/completed-itineraries/stop/${this.completedItinerary._id}`, {
-          completionDate: new Date().toLocaleString("it-IT")
-        }).then(() => {
-          this.$router.go(0);
-        });
+      this.emitter.on("stopItineraryButtonPressed", () => {
+        this.emitter.emit("stopItinerary", this.completedItinerary._id);
       });
-
     },
     methods: {
       getNextWaypoints(): Array<String> {
