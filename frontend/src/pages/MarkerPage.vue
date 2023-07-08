@@ -14,7 +14,7 @@
           longitude: ""
         },
         marker_type: "",
-        points: "",
+        points: null,
         types: [],
         markers: [],
         formError: {
@@ -25,7 +25,6 @@
     },
     mounted(){
       this.allMarkers();
-      this.markerTypes();
     },
     methods:{
       allMarkers(){
@@ -51,9 +50,8 @@
       },
       addMarker(){
         if(this.checkForm()){
-          if(this.marker_type['name'] !== 'Device' && this.points!==""){
-            this.points="";
-          }
+          this.success = false;
+
           const newMarker = {
             marker_id: this.marker_id,
             coordinates: {
@@ -87,6 +85,10 @@
             .catch((error) => {
               console.log(error);
             });
+      },
+      arrangeForm(){
+        this.showMenu = true;
+        this.markerTypes();
       },
       checkForm() : boolean {
         if (this.marker_id === "") {
@@ -122,7 +124,10 @@
           longitude: ""
         };
         this.marker_type="";
-        this.points="";
+        this.points=null;
+        this.types = [];
+        this.formError.cause = "";
+        this.formError.message = "";
       },
     }
   });
@@ -130,7 +135,7 @@
 
 <template>
   <h1>Marcatori</h1>
-  <buttonComp v-if="showMenu!==true" class="confirm-button" type="button" label="Aggiungi marcatore" icon="pi pi-plus" @click.prevent="this.showMenu=true"/>
+  <buttonComp v-if="showMenu!==true" class="confirm-button" type="button" label="Aggiungi marcatore" icon="pi pi-plus" @click.prevent="arrangeForm"/>
 
   <messageComp severity="success" v-if="success" :sticky=false :life=5000 :closable="false" style="text-align: left">Inserimento avvenuto con successo!</messageComp>
 
@@ -161,7 +166,7 @@
 
     <div v-if="marker_type['name']==='Device'" class="p-field">
       <label for="points">Punti</label>
-      <inputTextComp id="points" v-model="points" type="text" placeholder="Punti"/>
+      <inputNumberComp id="points" v-model="points" placeholder="Punti"/>
     </div>
 
     <buttonComp class="confirm-button" type="button" label="Aggiungi" @click.prevent="addMarker"/>
