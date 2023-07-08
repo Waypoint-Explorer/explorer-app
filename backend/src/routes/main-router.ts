@@ -27,7 +27,8 @@ export const MainRouter: ExpressRouter = express.Router()
 
     .get("/completed-itineraries/id/:completedItineraryId", CompletedItinerariesQueryHandlers.findById)
     .post("/completed-itineraries", CompletedItinerariesQueryHandlers.insertOne)
-    .patch("/completed-itineraries/:completedItineraryId", CompletedItinerariesQueryHandlers.updateCompletedItinerary)
+    .patch("/completed-itineraries/update/:completedItineraryId", CompletedItinerariesQueryHandlers.updateCompletedItinerary)
+    .patch("/completed-itineraries/stop/:completedItineraryId", CompletedItinerariesQueryHandlers.stopCompletedItinerary)
 
     .get("/itineraries", ItinerariesQueryHandlers.findAll)
     .get("/itineraries/id/:itineraryId", ItinerariesQueryHandlers.findById)

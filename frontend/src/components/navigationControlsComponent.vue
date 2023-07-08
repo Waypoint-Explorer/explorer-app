@@ -33,7 +33,7 @@
     <button class="p-button p-component p-button-icon-only p-button-rounded" type="button" @click="this.emitter.emit('qrScannerToggle');">
       <span class="material-icons-outlined">qr_code_scanner</span>
     </button>
-    <button class="p-button p-component p-button-icon-only p-button-rounded" type="button">
+    <button class="p-button p-component p-button-icon-only p-button-rounded" type="button" @click="this.emitter.emit('stopItinerary')">
       <span class="material-icons-outlined">stop</span>
     </button>
   </div>
