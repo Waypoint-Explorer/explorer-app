@@ -22,11 +22,14 @@ export class CompletedItinerariesQueryHandlers {
 
   /** Insert a completed itinerary in the database */
   public static readonly insertOne: RequestHandler = (req: Request, res: Response) => {
-    const newCompletedItinerary = new CompletedItinerariesDocument();
-    if (!!req.body.itineraryId) { newCompletedItinerary.related_itinerary = req.body.itineraryId; }
-    ExplorerAppDatabase.Singleton.CompletedItineraries.insertMany([newCompletedItinerary]).then(completedItinerary => {
-      res.status(StatusCodes.OK).json({ completedItinerary });
-    }, sendError(req, res));
+    Require.fields(req.body, "startDate").then(() => {
+      const newCompletedItinerary = new CompletedItinerariesDocument();
+      if (!!req.body.itineraryId) { newCompletedItinerary.related_itinerary = req.body.itineraryId; }
+      newCompletedItinerary.start_date = req.body.startDate;
+      ExplorerAppDatabase.Singleton.CompletedItineraries.insertMany([newCompletedItinerary]).then(completedItinerary => {
+        res.status(StatusCodes.OK).json({ completedItinerary });
+      }, sendError(req, res));
+    });
   }
 
   /** Update a completed itinerary in the database */

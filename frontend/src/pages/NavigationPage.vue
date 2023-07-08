@@ -2,11 +2,12 @@
   import { defineComponent } from "vue";
   import minimalHeaderComp from "../components/minimalHeaderComp.vue";
   import navigationMapComponent from "../components/navigationMapComponent.vue";
-  import navigationControlsComponent from "../components/navigationControlsComponent.vue";
+  import completedItinerarySummaryComponent from "../components/completedItinerarySummaryComponent.vue"
   import qrScannerComponent from "../components/qrScannerComponent.vue";
+  import navigationControlsComponent from "../components/navigationControlsComponent.vue";
 
   export default defineComponent({
-    components: { minimalHeaderComp, navigationMapComponent, qrScannerComponent, navigationControlsComponent },
+    components: { minimalHeaderComp, navigationMapComponent, qrScannerComponent, completedItinerarySummaryComponent, navigationControlsComponent },
     data() {
       return {
         searchValue: null,
@@ -19,6 +20,7 @@
   <minimalHeaderComp></minimalHeaderComp>
   <main>
     <navigationMapComponent></navigationMapComponent>
+    <completedItinerarySummaryComponent></completedItinerarySummaryComponent>
     <qrScannerComponent></qrScannerComponent>
     <navigationControlsComponent></navigationControlsComponent>
   </main>
