@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomePage from '../pages/HomePage.vue';
+import AdminMapPage from "../pages/AdminMapPage.vue";
 import MapPage from "../pages/MapPage.vue";
 import NavigationPage from "../pages/NavigationPage.vue";
 import AccessPage from "../pages/AccessPage.vue";
@@ -12,6 +13,11 @@ const router = createRouter({
             path: "/",
             name: "home",
             component: HomePage,
+        },
+        {
+            path: "/adminMapPage",
+            name: "adminMapPage",
+            component: AdminMapPage,
         },
         {
             path: "/mapPage",

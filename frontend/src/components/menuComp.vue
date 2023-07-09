@@ -35,12 +35,12 @@
           </div>
         </div>
 
+        <div class="alignment">
+          <span class="material-icons-outlined">explore</span>
+          <RouterLink to="/adminMapPage" @click="visible = false">Mappa</RouterLink>
+        </div>
         <!-- admin menu -->
         <div v-if="isLoggedIn() && !isUser()">
-          <div class="alignment">
-            <span class="material-icons-outlined">explore</span>
-            <RouterLink to="/adminMapPage" @click="visible = false">Mappa</RouterLink>
-          </div>
 
           <div class="alignment">
             <span class="material-icons-outlined">edit</span>
