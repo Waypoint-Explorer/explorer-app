@@ -12,6 +12,12 @@ import {StatusCodes} from "http-status-codes";
  */
 export class CompletedItinerariesQueryHandlers {
 
+  /** Retrieve all the completed itineraries */
+  public static readonly findAll: RequestHandler = (req: Request, res: Response) => {
+    ExplorerAppDatabase.Singleton.CompletedItineraries
+        .find({}, {}).exec()
+        .then(sendJson(req, res), sendError(req, res));
+  }
 
   /** Retrieves a completed itinerary given the id of the completed itinerary */
   public static readonly findById: RequestHandler = (req: Request, res: Response) => {

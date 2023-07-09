@@ -25,6 +25,7 @@ export const MainRouter: ExpressRouter = express.Router()
     .post("/login", AccessControlHandlers.authenticateUser)
     .get("/logout", authenticated(), AccessControlHandlers.logoutUser)
 
+    .get("/completed-itineraries", CompletedItinerariesQueryHandlers.findAll)
     .get("/completed-itineraries/id/:completedItineraryId", CompletedItinerariesQueryHandlers.findById)
     .post("/completed-itineraries", CompletedItinerariesQueryHandlers.insertOne)
     .patch("/completed-itineraries/update/:completedItineraryId", CompletedItinerariesQueryHandlers.updateCompletedItinerary)
