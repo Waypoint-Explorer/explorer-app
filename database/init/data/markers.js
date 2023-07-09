@@ -139,4 +139,124 @@ const markers = [
     },
     points: 3
   },
+  { //tomba dante
+    _id: ObjectId('68880b08caa870445c916765'),
+    marker_id: '000015',
+    type: 'Device',
+    coordinates: {
+      latitude: 44.416217,
+      longitude: 12.200944
+    },
+    points: 3
+  },
+  { //quadrarco
+    _id: ObjectId('68180b08caa870445c916765'),
+    marker_id: '000016',
+    type: 'Device',
+    coordinates: {
+      latitude: 44.416043,
+      longitude: 12.200769
+    },
+    points: 2
+  },
+  { //san francesco
+    _id: ObjectId('68280b08caa870445c916765'),
+    marker_id: '000017',
+    type: 'Device',
+    coordinates: {
+      latitude: 44.415785,
+      longitude: 12.200940
+    },
+    points: 7
+  },
+  { //mostra dante
+    _id: ObjectId('68380b08caa870445c916765'),
+    marker_id: '000018',
+    type: 'Device',
+    coordinates: {
+      latitude: 44.416038,
+      longitude: 12.200446
+    },
+    points: 8
+  },
+  { //Chiostri Francescani
+    _id: ObjectId('68480b08caa870445c916765'),
+    marker_id: '000019',
+    type: 'Device',
+    coordinates: {
+      latitude: 44.416205,
+      longitude: 12.201189
+    },
+    points: 8
+  },
+  { //museo dante
+    _id: ObjectId('68580b08caa870445c916765'),
+    marker_id: '000020',
+    type: 'Device',
+    coordinates: {
+      latitude: 44.416482,
+      longitude: 12.201060
+    },
+    points: 5
+  },
+  { //casa dante
+    _id: ObjectId('68680b08caa870445c916765'),
+    marker_id: '000021',
+    type: 'Device',
+    coordinates: {
+      latitude: 44.416146,
+      longitude: 12.200495
+    },
+    points: 5
+  },
+  { //murales dante
+    _id: ObjectId('68780b08caa870445c916765'),
+    marker_id: '000022',
+    type: 'Device',
+    coordinates: {
+      latitude: 44.418417,
+      longitude: 12.197163
+    },
+    points: 8
+  },
+  { //classense
+    _id: ObjectId('68980b08caa870445c916765'),
+    marker_id: '000023',
+    type: 'Device',
+    coordinates: {
+      latitude: 44.414395,
+      longitude: 12.199708
+    },
+    points: 10
+  },
+  { //pineta classe
+    _id: ObjectId('61880b08caa870445c916765'),
+    marker_id: '000024',
+    type: 'Device',
+    coordinates: {
+      latitude: 44.356025,
+      longitude: 12.274618
+    },
+    points: 15
+  },
+  { //chiesa S. Agata
+    _id: ObjectId('61881b08caa870445c916765'),
+    marker_id: '000025',
+    type: 'Device',
+    coordinates: {
+      latitude: 44.413959,
+      longitude: 12.201381
+    },
+    points: 6
+  },
+  { //giardini pensili
+    _id: ObjectId('61882b08caa870445c916765'),
+    marker_id: '000026',
+    type: 'Device',
+    coordinates: {
+      latitude: 44.415529,
+      longitude: 12.200597
+    },
+    points: 8
+  },
 ]
