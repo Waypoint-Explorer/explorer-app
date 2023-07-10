@@ -64,7 +64,7 @@
         axios.get(`http://${Environment.BACKEND_HOST}/completed-itineraries`)
             .then((response) => {
               this.completedItineraries = [];
-              console.log(JSON.stringify(response.data));
+
               response.data.forEach((itinerary) =>{
                 let related_itinerary = !!itinerary.related_itinerary ? itinerary.related_itinerary : "";
                 let visited_waypoints = !!itinerary.visited_waypoints ? itinerary.visited_waypoints : "";
@@ -112,7 +112,8 @@
         offestDate.setDate(today.getDate()-offset);
 
         this.completedItineraries.forEach((itinerary: any)=>{
-          if(itinerary.start_date.toISOString() >= offestDate.toISOString() || itinerary.start_date.toISOString() <= today.toISOString()){
+          if(itinerary.start_date.getTime() >= offestDate.getTime() && itinerary.start_date.getTime() <= today.getTime()){
+            console.log(itinerary.start_date.toISOString());
             this.numCompletedItinerariesPeriod+=1;
             this.itinerariesPeriod.push(itinerary);
           }
@@ -122,13 +123,13 @@
           let date = new Date();
           date.setDate(today.getDate()-i);
           this.chartData.push({
-            label: date.toLocaleDateString(),
+            label: date,
             visits: 0
           });
         }
 
         this.chartData.forEach((l) => {
-          this.basicData.labels.push(l.label);
+          this.basicData.labels.push(l.label.toLocaleDateString());
           this.basicData.datasets.data.push(l.visits);
         });
       },
@@ -146,9 +147,9 @@
       <buttonComp type="button" icon="pi pi-search" label="Filtra" @click.prevent="filter" style="margin-top:1rem"/>
     </div>
 
-    <div class="stats" v-if="filter">
+    <div class="stats" v-if="filtered">
       <h3 class="subtitle">Dati Relativi a "{{this.selectedPeriod['name']}}"</h3>
-      <p>Numero totale di percorsi effettuati: {{this.numCompletedItinerariesPeriod}}</p>
+      <p class="info">Numero totale di percorsi effettuati: {{this.numCompletedItinerariesPeriod}}</p>
       <div class="p-chart">
         <chartComp chartComp="margin: 5px 0px 5px 0px" type="bar" :data="basicData" :options="horizontalOptions"/>
       </div>
@@ -167,5 +168,8 @@
   }
   .stats{
     margin-bottom: 5rem;
+  }
+  .info{
+    text-align: center;
   }
 </style>
