@@ -40,13 +40,13 @@ export default defineComponent({
     deserializeData(input: string) {
       const markerId = input.substring(0, 16);
       const dynamicCode = input.substring(16, 48);
-      const errorCode = input.substring(48, 54);
+      const status = parseInt(input.substring(48, 54));
       const timeReference = parseInt(input.substring(54, 64)) * 1000;
       const measurements: any[] = [];
       let index = 64;
       while (index + 15 <= input.length) {
         const measurement = {
-          timestamp: new Date(timeReference + parseInt(input.substring(index, index + 3)) * 60 * 60 * 1000).toLocaleString('it-IT'),
+          timestamp: timeReference + (parseInt(input.substring(index, index + 3)) * 60 * 60),
           temperature: parseInt(input.substring(index + 4, index + 6)) * (parseInt(input.substring(index + 3, index + 4)) === 1 ? 1 : -1),
           atmosphericPressure: parseFloat(input.substring(index + 6, index + 11)) / 10,
           humidity: parseInt(input.substring(index + 11, index + 13)),
@@ -58,7 +58,7 @@ export default defineComponent({
       return {
         markerId,
         dynamicCode,
-        errorCode,
+        status,
         measurements,
       };
     },

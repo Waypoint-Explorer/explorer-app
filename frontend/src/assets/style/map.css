@@ -11,6 +11,11 @@
     cursor: pointer;
 }
 
+.marker-small {
+    width: 24px;
+    height: 24px;
+}
+
 #map {
     position: absolute;
     top: 0;
@@ -19,6 +24,17 @@
 }
 
 .mapboxgl-ctrl-bottom-left {
+    display: none;
+}
+
+.mapboxgl-popup-content {
+    padding: 0.833rem !important;
+    border-radius: 10px !important;
+    font-size: 1rem;
+    color: var(--text-color);
+}
+
+.mapboxgl-popup-close-button {
     display: none;
 }
 
