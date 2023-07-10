@@ -46,7 +46,7 @@ export default defineComponent({
       let index = 64;
       while (index + 15 <= input.length) {
         const measurement = {
-          timestamp: new Date(timeReference + parseInt(input.substring(index, index + 3)) * 60 * 60 * 1000).toLocaleString('it-IT'),
+          timestamp: timeReference + (parseInt(input.substring(index, index + 3)) * 60 * 60),
           temperature: parseInt(input.substring(index + 4, index + 6)) * (parseInt(input.substring(index + 3, index + 4)) === 1 ? 1 : -1),
           atmosphericPressure: parseFloat(input.substring(index + 6, index + 11)) / 10,
           humidity: parseInt(input.substring(index + 11, index + 13)),

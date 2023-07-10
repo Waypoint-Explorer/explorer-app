@@ -9,8 +9,8 @@ interface Measure {
     _id: MongooseTypes.ObjectId,
     /** The geographic coordinates of this measure */
     coordinates: Coordinates,
-    /** The date of this measure */
-    timestamp: Date,
+    /** The timestamp of this measure */
+    timestamp: number,
     /** The temperature measured */
     temperature: number,
     /** The atmispheric pressure measured */
@@ -24,7 +24,7 @@ interface Measure {
 /** Schema for a measure */
 const MEASURE_SCHEMA = new Schema<Measure>({
     coordinates: { type: COORDINATES_SCHEMA, required: true },
-    timestamp: { type: SchemaTypes.Date, required: true },
+    timestamp: { type: SchemaTypes.Number, required: true },
     temperature: { type: SchemaTypes.Number, required: true },
     atmospheric_pressure: { type: SchemaTypes.Number, required: true },
     humidity: { type: SchemaTypes.Number, required: true },

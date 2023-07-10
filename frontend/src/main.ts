@@ -6,6 +6,7 @@ import App from './App.vue';
 import PrimeVue from 'primevue/config';
 import router from "./router";
 
+import moment from 'moment';
 import mitt from 'mitt';
 
 import Sidebar from 'primevue/sidebar';
@@ -27,15 +28,20 @@ import Chips from 'primevue/chips';
 import InputMask from 'primevue/inputmask';
 import InputNumber from 'primevue/inputnumber';
 import MultiSelect from 'primevue/multiselect';
+import Slider from 'primevue/slider';
 
 import 'primeflex/primeflex.css';
 import 'primeicons/primeicons.css';
+
+import 'material-symbols';
 
 import VueCookies from "vue-cookies";
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
 const emitter = mitt();
+moment().format();
+
 const app = createApp(App);
 app.config.globalProperties.emitter = emitter;
 
@@ -62,5 +68,6 @@ app.component('chipsComp', Chips);
 app.component('inputNumberComp', InputNumber);
 app.component('inputMaskComp', InputMask);
 app.component('multiSelectComp', MultiSelect);
+app.component('sliderComp', Slider);
 
 app.mount("#app");
