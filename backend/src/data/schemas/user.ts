@@ -36,6 +36,12 @@ interface User {
     role: UserRole,
     /** The user session in the application. */
     session?: Session,
+    /** The country of residence of this user. */
+    country: string,
+    /** The city of residence of this user. */
+    city: string,
+    /** The year of birth of this user. */
+    birth_year: string,
 }
 
 /** Schema of a user. */
@@ -45,6 +51,9 @@ const USER_SCHEMA = new Schema<User>({
     hash: { type: String, required: true },
     role: { type: String, enum: UserRolesAsArray, required: true },
     session: { type: SESSION_SCHEMA, required: false },
+    country: { type: String, required: true },
+    city: { type: String, required: false },
+    birth_year: { type: String, required: false },
 });
 
 export { UserRole, User, USER_SCHEMA, SESSION_SCHEMA, Session }

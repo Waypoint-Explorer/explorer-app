@@ -1,0 +1,54 @@
+.marker {
+    width: 36px;
+    height: 36px;
+}
+
+.user-marker {
+    background-image: url('../assets/icons/navigation.svg');
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.marker-small {
+    width: 24px;
+    height: 24px;
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.mapboxgl-ctrl-bottom-left {
+    display: none;
+}
+
+.mapboxgl-popup-content {
+    padding: 0.833rem !important;
+    border-radius: 10px !important;
+    font-size: 1rem;
+    color: var(--text-color);
+}
+
+.mapboxgl-popup-close-button {
+    display: none;
+}
+
+.next-waypoint {
+    border-radius: 100%;
+    animation: highlight 2s infinite;
+}
+
+.marker-disable {
+    opacity: 0.5 !important;
+}
+
+@keyframes highlight {
+    0% { box-shadow: 0px 0px 0px 0px rgba(0,118,215,0.7); }
+    50% { box-shadow: 0px 0px 10px 3px rgba(0,118,215,0.7); }
+    100% { box-shadow: 0px 0px 0px 0px rgba(0,118,215,0.7); }
+}

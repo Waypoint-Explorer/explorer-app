@@ -3692,24 +3692,44 @@
     box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
     border-radius: 12px
 }
+@media screen and (min-width: 800px){
+    .p-card{
+        width: 40%;
+        display: inline-block;
+        margin: 0px 5px 10px 5px;
+        padding: 0px 20px;
+    }
+}
+@media screen and (min-width: 1250px){
+    .p-card{
+        width: 30%;
+        display: inline-block;
+        margin: 0px 5px 10px 5px;
+        padding: 0px 20px;
+    }
+}
 .p-card .p-card-body {
+    margin-bottom: 0.25rem;
     padding: 1.25rem
 }
 .p-card .p-card-title {
+    text-align: left;
     font-size: 1.5rem;
     font-weight: 700;
-    margin-bottom: .5rem
+    margin-bottom: 0
 }
 .p-card .p-card-subtitle {
+    text-align: left;
     font-weight: 400;
-    margin-bottom: .5rem;
+    margin-bottom: 0;
     color: #666
 }
 .p-card .p-card-content {
-    padding: 1.25rem 0
+    text-align: left;
+    padding: 0.25rem 0 1.25rem 0;
 }
 .p-card .p-card-footer {
-    padding: 1.25rem 0 0 0
+    padding: 0;
 }
 .p-fieldset {
     border: 1px solid #ccc;
@@ -3865,7 +3885,8 @@
 .p-tabview .p-tabview-nav {
     background: #fff;
     border: 1px solid #ccc;
-    border-width: 0 0 2px 0
+    border-width: 0 0 2px 0;
+    justify-content: center
 }
 .p-tabview .p-tabview-nav li {
     margin-right: 0
@@ -3912,7 +3933,7 @@
 }
 .p-tabview .p-tabview-panels {
     background: #fff;
-    padding: 1.25rem;
+    padding: 1.2rem;
     border: 0 none;
     color: #333333;
     border-bottom-right-radius: 12px;
@@ -5151,7 +5172,16 @@
     color: #1ea97c
 }
 .p-message.p-message-success .p-message-close {
+    width: 2.488rem;
+    min-width: 2.488rem;
+    height: 2.488rem;
+    min-height: 2.488rem;
     color: #1ea97c
+}
+@media screen and (min-width: 600px) {
+    .p-message.p-message-success .p-message-close{
+        height: 2.488rem;
+    }
 }
 .p-message.p-message-warn {
     background: #fff1e1;
@@ -5695,4 +5725,9 @@
 }
 .p-speeddial-item.p-focus>.p-speeddial-action {
     box-shadow: 0 0 0 2px #fff, 0 0 0 4px #76ba9a, 0 1px 2px 0 #000
+}
+.p-input-icon-left>i, .p-input-icon-left>svg, .p-input-icon-right>i, .p-input-icon-right>svg {
+    margin-top: -0.5rem;
+    position: absolute;
+    top: 50%;
 }

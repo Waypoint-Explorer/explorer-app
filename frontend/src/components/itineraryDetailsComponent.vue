@@ -1,13 +1,16 @@
 <script lang="ts">
   import {defineComponent} from "vue";
+  import { Environment } from "../environment";
   import axios from "axios";
+  import router from "../router";
 
   export default defineComponent({
     data() {
       return {
         isDetailsExpanded: false,
         itinerary: {
-          name: "Percorso libero"
+          name: "Percorso libero",
+          _id: null,
         }
       };
     },
@@ -26,6 +29,29 @@
       },
       selectItinerary(direction: string) {
         this.emitter.emit("selectItinerary", direction);
+      },
+      startItinerary() {
+        let data = {
+          itineraryId: null,
+          startDate: "",
+        };
+        if (this.itinerary.hasOwnProperty("_id")) {
+          data.itineraryId = this.itinerary._id;
+        }
+        data.startDate = new Date().toLocaleString("it-IT");
+        axios
+          .post(`http://${Environment.BACKEND_HOST}/completed-itineraries`, data)
+          .then((response) => {
+            router.replace({
+              name: "navigationPage",
+              query: {
+                completedItineraryId: response.data.completedItinerary[0]._id,
+              }
+            });
+          })
+          .catch((error) => {
+              console.log(error);
+          });
       },
     }
   });
@@ -46,6 +72,10 @@
         <span class="material-icons">navigate_next</span>
       </button>
     </div>
+    <button id="start-button" class="p-button p-component p-button-raised p-button-rounded" type="button" @click="startItinerary">
+      <p>Avvia</p>
+      <span class="material-icons-outlined">navigation</span>
+    </button>
     <div class="itinerary-details">
       <scrollPanelComp id="itinerary-details-scroll-panel">
         <tagComp v-if="this.itinerary.type" :class="this.itinerary.type" value="{{this.itinerary.type}}">
@@ -95,7 +125,7 @@
     z-index: 1;
     bottom: 0;
     width: calc(100vw - 2 * 1.2rem);
-    height: 5.2rem;
+    height: 8.2rem;
     padding: 1.2rem 1.2rem 0 1.2rem;
     margin: 0 1.2rem;
     align-items: center;
@@ -115,6 +145,18 @@
     top: -1.244rem;
     left: calc(50% - 1.244rem);
   }
+  #start-button {
+    display: inline-flex;
+    width: 50%;
+    height: 2.488rem;
+    border-radius: 2rem;
+    margin: 0 25%;
+
+  }
+  #start-button p {
+    margin: 0 0.579rem 0 0;
+    font-size: 1.2rem;
+  }
   .details-controls {
     width: 100%;
     height: 3rem;
@@ -128,7 +170,7 @@
   }
   #itinerary-details-scroll-panel {
     width: 100%;
-    height: calc(80vh - 1.728rem - 3rem);
+    height: calc(80vh - 1.2rem - 3rem - 2.488rem);
     padding-top: 1.728rem;
   }
   #itinerary-name {

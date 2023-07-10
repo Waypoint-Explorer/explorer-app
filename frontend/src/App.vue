@@ -17,13 +17,14 @@
 
 <style lang="scss">
   @import 'material-icons/iconfont/material-icons.css';
+  @import 'material-symbols';
   * {
     margin: 0;
     padding: 0;
   }
   main {
     position: relative;
-    z-index: -1;
+    padding: 0rem 1.2rem;
   }
   header{
     height: 3rem;
@@ -32,5 +33,6 @@
     align-items: center;
     display: flex;
     flex-direction: row;
+    z-index: 1;
   }
 </style>

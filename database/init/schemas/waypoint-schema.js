@@ -17,7 +17,7 @@ const waypoint_schema = {
     },
     place: {
       bsonType: "string",
-      description: "The place of this wayoint",
+      description: "The place of this waypoint",
     },
     opening_hours: {
       bsonType: "object",
@@ -26,27 +26,27 @@ const waypoint_schema = {
         monday_hours: {
           bsonType: ["array"],
           description: "Monday opening hours",
-          minItems: 1,
+          minItems: 0,
           items: {
             bsonType: "object",
-              required: ["shift_start", "shift_end"],
-              description: "The opening shift for the opening hours of a waypoint",
-              properties: {
-                shift_start: {
-                  bsonType: "number",
-                  description: "The shift start time",
-                },
-                shift_end: {
-                  bsonType: "number",
-                  description: "The shift end time",
-                },
+            required: ["shift_start", "shift_end"],
+            description: "The opening shift for the opening hours of a waypoint",
+            properties: {
+              shift_start: {
+                bsonType: "number",
+                description: "The shift start time",
               },
+              shift_end: {
+                bsonType: "number",
+                description: "The shift end time",
+              },
+            },
           },
         },
         tuesday_hours: {
           bsonType: ["array"],
           description: "Tuesday opening hours",
-          minItems: 1,
+          minItems: 0,
           items: {
             bsonType: "object",
             required: ["shift_start", "shift_end"],
@@ -66,7 +66,7 @@ const waypoint_schema = {
         wednesday_hours: {
           bsonType: ["array"],
           description: "Wednesday opening hours",
-          minItems: 1,
+          minItems: 0,
           items: {
             bsonType: "object",
             required: ["shift_start", "shift_end"],
@@ -86,7 +86,7 @@ const waypoint_schema = {
         thursday_hours: {
           bsonType: ["array"],
           description: "Thursday opening hours",
-          minItems: 1,
+          minItems: 0,
           items: {
             bsonType: "object",
             required: ["shift_start", "shift_end"],
@@ -106,7 +106,7 @@ const waypoint_schema = {
         friday_hours: {
           bsonType: ["array"],
           description: "Friday opening hours",
-          minItems: 1,
+          minItems: 0,
           items: {
             bsonType: "object",
             required: ["shift_start", "shift_end"],
@@ -126,7 +126,7 @@ const waypoint_schema = {
         saturday_hours: {
           bsonType: ["array"],
           description: "Saturday opening hours",
-          minItems: 1,
+          minItems: 0,
           items: {
             bsonType: "object",
             required: ["shift_start", "shift_end"],
@@ -146,7 +146,7 @@ const waypoint_schema = {
         sunday_hours: {
           bsonType: ["array"],
           description: "Sunday opening hours",
-          minItems: 1,
+          minItems: 0,
           items: {
             bsonType: "object",
             required: ["shift_start", "shift_end"],
@@ -168,7 +168,7 @@ const waypoint_schema = {
           description: "Closing days of a waypoint",
           minItems: 0,
           items: {
-            bsonType: "date",
+            bsonType: "string",
             description: "The date of a closing day",
           },
         },
@@ -195,7 +195,7 @@ const waypoint_schema = {
     },
     marker: {
       bsonType: "objectId",
-      description: "The id of the marker binded with this waypoint",
+      description: "The id of the marker bound with this waypoint",
     },
   },
 };
