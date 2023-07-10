@@ -84,7 +84,7 @@ export default defineComponent({
               18,
               100
             ],
-            'heatmap-opacity': 1,
+            'heatmap-opacity': 0.8,
           }
         });
 
