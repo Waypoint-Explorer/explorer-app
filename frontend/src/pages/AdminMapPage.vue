@@ -2,10 +2,10 @@
   import { defineComponent } from "vue";
   import mapHeaderComp from "../components/mapHeaderComp.vue"
   import adminMapComponent from "../components/adminMapComponent.vue";
-  import itineraryDetailsComponent from "../components/itineraryDetailsComponent.vue";
+  import adminMapControlsComponent from "../components/adminMapControlsComponent.vue";
 
   export default defineComponent({
-    components: { mapHeaderComp, adminMapComponent, itineraryDetailsComponent },
+    components: { mapHeaderComp, adminMapComponent, adminMapControlsComponent },
     data() {
       return {
         searchValue: null,
@@ -18,6 +18,7 @@
   <mapHeaderComp></mapHeaderComp>
   <main>
     <adminMapComponent></adminMapComponent>
+    <adminMapControlsComponent></adminMapControlsComponent>
   </main>
 </template>
 

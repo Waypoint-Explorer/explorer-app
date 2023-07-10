@@ -1,18 +1,23 @@
 <script lang="ts">
 
-  import { defineComponent } from "vue";
-  import "leaflet/dist/leaflet.css";
-  import mapboxgl from "mapbox-gl";
-  import 'mapbox-gl/dist/mapbox-gl.css';
-  import { Environment } from "../environment";
-  import axios from "axios";
+import {defineComponent} from "vue";
+import "leaflet/dist/leaflet.css";
+import mapboxgl from "mapbox-gl";
+import 'mapbox-gl/dist/mapbox-gl.css';
+import {Environment} from "../environment";
+import axios from "axios";
+import moment from "moment";
 
-  export default defineComponent({
+export default defineComponent({
     data() {
       return {
         map: null,
-        itineraries: [],
-        selectedItineraryIndex: 0,
+        minWeight: 20,
+        maxWeight: 30,
+        show: "showTemperature",
+        measures: [],
+        selectedMeasures: [],
+        filteredMeasures: [],
       };
     },
     unmounted() {},
@@ -34,7 +39,7 @@
       });
 
       map.on('load', () => {
-        map.addSource("temperatureSource", {
+        map.addSource("measureSource", {
           type: "geojson",
           data: {
             type: "FeatureCollection",
@@ -43,57 +48,44 @@
         });
 
         map.addLayer({
-          id: "temperature-heat",
+          id: "measure-heat",
           type: "heatmap",
-          source: "temperatureSource",
+          source: "measureSource",
           paint: {
-            // increase weight as diameter breast height increases
-            'heatmap-weight': {
-              property: 'temperature',
-              type: 'exponential',
-              stops: [
-                [1, 0],
-                [62, 1]
-              ]
-            },
-            // increase intensity as zoom level increases
-            'heatmap-intensity': {
-              stops: [
-                [11, 1],
-                [15, 3]
-              ]
-            },
-            // assign color values be applied to points depending on their density
+            'heatmap-weight': [
+              'interpolate',
+              ['linear'],
+              ['get', 'value'],
+              this.minWeight,
+              0,
+              this.maxWeight,
+              1
+            ],
             'heatmap-color': [
               'interpolate',
               ['linear'],
               ['heatmap-density'],
               0,
-              'rgba(143,206,210,0)',
-              0.2,
+              'rgba(0,0,0,0)',
+              0.25,
               'rgb(95,147,192)',
-              0.4,
+              0.5,
               'rgb(96,142,50)',
-              0.6,
+              0.75,
               'rgb(239,153,6)',
-              0.8,
+              1,
               'rgb(157,51,13)'
             ],
-            // increase radius as zoom increases
-            'heatmap-radius': {
-              stops: [
-                [11, 15],
-                [15, 20]
-              ]
-            },
-            // decrease opacity to transition into the circle layer
-            'heatmap-opacity': {
-              default: 1,
-              stops: [
-                [15, 1],
-                [21, 0]
-              ]
-            }
+            'heatmap-radius': [
+              "interpolate",
+              ["exponential", 1.25],
+              ["zoom"],
+              0,
+              10,
+              18,
+              100
+            ],
+            'heatmap-opacity': 1,
           }
         });
 
@@ -105,56 +97,88 @@
                 const markers = markersResponse.data;
                 axios.get(`http://${Environment.BACKEND_HOST}/measures/`)
                   .then((measuresResponse) => {
-                    const measures = measuresResponse.data;
-
-                    measures.forEach((measure: { coordinates: any; temperature: any; }) => {
-                      map.getSource("temperatureSource")._data.features.push(
-                          {
-                            type: "Feature",
-                            geometry: {
-                              type: "Point",
-                              coordinates: [measure.coordinates.longitude, measure.coordinates.latitude],
-                            },
-                            properties: {
-                              temperature: measure.temperature,
-                            }
-                          }
-                      );
-                    });
-
-                    map.getSource("temperatureSource").setData(map.getSource("temperatureSource")._data);
+                    this.measures = measuresResponse.data;
+                    this.emitter.emit("filterByDate", { hour: new Date().getHours(), date: new Date()});
                 });
           });
         });
-
-
-
         this.map = map;
+
       });
 
       this.emitter.on("locationSearch", (coordinates) => {
         this.map.flyTo(coordinates);
       });
 
-      this.emitter.on("selectItinerary", (direction: string) => {
-        if (this.itineraries != undefined) {
-          if (direction === "previous") {
-            this.selectedItineraryIndex = this.selectedItineraryIndex - 1;
-            if (this.selectedItineraryIndex < 0) this.selectedItineraryIndex = this.itineraries.length - 1;
-            this.emitter.emit("itinerarySelected", this.itineraries[this.selectedItineraryIndex]);
-          } else if (direction === "next") {
-            this.selectedItineraryIndex = this.selectedItineraryIndex + 1;
-            if (this.selectedItineraryIndex >= this.itineraries.length) this.selectedItineraryIndex = 0;
-            this.emitter.emit("itinerarySelected", this.itineraries[this.selectedItineraryIndex]);
-          }
-          map.getSource("itineraryLineSource")._data.features.forEach(feature => { feature.properties.selected = 'false' });
-          map.getSource("itineraryLineSource")._data.features.find(feature => feature.properties.id === this.itineraries[this.selectedItineraryIndex]._id).properties.selected = 'true';
-          map.getSource("itineraryLineSource").setData(map.getSource("itineraryLineSource")._data);
-        }
+      this.emitter.on("filterByDate", (selectedDate: { hour: number; date: Date; }) => {
+        let filterDate = moment(new Date(selectedDate.date.setHours(Math.floor(-1*selectedDate.date.getTimezoneOffset()/60), 0, 0)));
+        const filterHour = Math.floor((selectedDate.hour / 100) * 23);
+        const startTimestamp = filterDate.unix() + (filterHour * 60 * 60);
+        const endTimestamp = filterDate.unix() + ((filterHour + 1) * 60 * 60)
+
+        this.filteredMeasures = this.measures.filter(measure =>  measure.timestamp >= startTimestamp && measure.timestamp <= endTimestamp);
+        this.emitter.emit(this.show);
       });
 
+      this.emitter.on("showTemperature", () => {
+        this.show = "showTemperature";
+        this.selectedMeasures = this.filteredMeasures.map(measure => { return { ...measure, value: measure.temperature } });
+        this.showHeatmap();
+      });
+      this.emitter.on("showHumidity", () => {
+        this.show = "showHumidity";
+        this.selectedMeasures = this.filteredMeasures.map(measure => { return { ...measure, value: measure.humidity } });
+        this.showHeatmap();
+      });
+      this.emitter.on("showAtmosphericPressure", () => {
+        this.show = "showAtmosphericPressure";
+        this.selectedMeasures = this.filteredMeasures.map(measure => { return { ...measure, value: measure.atmospheric_pressure } });
+        this.showHeatmap();
+      });
+      this.emitter.on("showAirQuality", () => {
+        this.show = "showAirQuality";
+        this.selectedMeasures = this.filteredMeasures.map(measure => { return { ...measure, value: measure.air_quality } });
+        this.showHeatmap();
+      });
     },
-    methods: {},
+    methods: {
+      showHeatmap() {
+        if (this.selectedMeasures.length > 0) {
+          this.minWeight = Infinity;
+          this.maxWeight = -Infinity;
+          this.selectedMeasures.forEach(measure => {
+            this.minWeight = Math.min(this.minWeight, measure.value);
+            this.maxWeight = Math.max(this.maxWeight, measure.value);
+          });
+
+          this.map.setPaintProperty("measure-heat", "heatmap-weight", [
+            'interpolate',
+            ['linear'],
+            ['get', 'value'],
+            this.minWeight,
+            0,
+            this.maxWeight,
+            1
+          ]);
+        }
+        this.map.getSource("measureSource")._data.features = [];
+        this.selectedMeasures.forEach((measure: { coordinates: { longitude: any; latitude: any; }; timestamp: any; value: any; }) => {
+          this.map.getSource("measureSource")._data.features.push(
+              {
+                type: "Feature",
+                geometry: {
+                  type: "Point",
+                  coordinates: [measure.coordinates.longitude, measure.coordinates.latitude],
+                },
+                properties: {
+                  value: measure.value,
+                }
+              }
+          );
+        });
+        this.map.getSource("measureSource").setData(this.map.getSource("measureSource")._data);
+      },
+    },
   });
 </script>
 
