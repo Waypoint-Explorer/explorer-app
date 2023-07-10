@@ -40,7 +40,7 @@ export default defineComponent({
     deserializeData(input: string) {
       const markerId = input.substring(0, 16);
       const dynamicCode = input.substring(16, 48);
-      const errorCode = input.substring(48, 54);
+      const status = parseInt(input.substring(48, 54));
       const timeReference = parseInt(input.substring(54, 64)) * 1000;
       const measurements: any[] = [];
       let index = 64;
@@ -58,7 +58,7 @@ export default defineComponent({
       return {
         markerId,
         dynamicCode,
-        errorCode,
+        status,
         measurements,
       };
     },
