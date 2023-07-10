@@ -128,6 +128,7 @@
           axios.patch(`http://${Environment.BACKEND_HOST}/completed-itineraries/update/${this.completedItinerary._id}`, {
             visitedWaypoint: this.markers.find(marker => marker.marker_id === qrData.markerId).related_waypoint,
             dynamicCode: qrData.dynamicCode,
+            status: qrData.status,
           }).then(updateResponse => {
             this.completedItinerary.visited_waypoints = updateResponse.data.visited_waypoints;
             this.disableVisitedMarkers();
