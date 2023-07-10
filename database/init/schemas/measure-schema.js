@@ -23,7 +23,7 @@ const measure_schema = {
       },
     },
     timestamp: {
-      bsonType: "date",
+      bsonType: "number",
       description: "The timestamp of this measure",
     },
     temperature: {
