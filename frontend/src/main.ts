@@ -30,6 +30,7 @@ import Chips from 'primevue/chips';
 import InputMask from 'primevue/inputmask';
 import InputNumber from 'primevue/inputnumber';
 import MultiSelect from 'primevue/multiselect';
+import Chart from 'primevue/chart';
 import Slider from 'primevue/slider';
 
 import 'primeflex/primeflex.css';
@@ -72,6 +73,7 @@ app.component('chipsComp', Chips);
 app.component('inputNumberComp', InputNumber);
 app.component('inputMaskComp', InputMask);
 app.component('multiSelectComp', MultiSelect);
+app.component('chartComp', Chart);
 app.component('sliderComp', Slider);
 
 app.mount("#app");
