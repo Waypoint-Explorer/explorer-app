@@ -110,6 +110,7 @@
         var i: number;
         let today = new Date(Date.now());
         this.chartData = [];
+        this.itinerariesPeriod = [];
         let offestDate = new Date();
         offestDate.setDate(today.getDate()-offset);
 
@@ -130,11 +131,10 @@
         }
 
         this.chartData.forEach((data: any)=>{
-          this.itinerariesPeriod.find(itinerary => {
-            if(itinerary.start_date.toLocaleDateString() == data['label'].toLocaleDateString()){
+          this.itinerariesPeriod.forEach(itinerary => {
+            if(itinerary.start_date.toLocaleDateString() === data['label'].toLocaleDateString()){
               data['visits'] +=1;
             }
-            return itinerary.start_date.toLocaleDateString() == data['label'].toLocaleDateString();
           });
         });
 
