@@ -13,6 +13,7 @@
           {name:"Ultimo mese", code:"month"},
           {name:"Ultimo anno", code:"year"},
         ],
+        effectivePeriod: "",
         selectedPeriod: "",
         horizontalOptions: {
           plugins: {
@@ -86,10 +87,11 @@
       },
       filter(){
         if (this.selectedPeriod != null) {
-          this.basicData.datasets.data = [];
+          this.basicData.datasets[0].data = [];
           this.basicData.labels = [];
           this.numCompletedItinerariesPeriod = 0;
           this.filtered = true;
+          this.effectivePeriod = this.selectedPeriod['name'];
 
           switch (this.selectedPeriod['code']){
             case "week":
@@ -113,7 +115,6 @@
 
         this.completedItineraries.forEach((itinerary: any)=>{
           if(itinerary.start_date.getTime() >= offestDate.getTime() && itinerary.start_date.getTime() <= today.getTime()){
-            console.log(itinerary.start_date.toISOString());
             this.numCompletedItinerariesPeriod+=1;
             this.itinerariesPeriod.push(itinerary);
           }
@@ -128,9 +129,18 @@
           });
         }
 
-        this.chartData.forEach((l) => {
+        this.chartData.forEach((data: any)=>{
+          this.itinerariesPeriod.find(itinerary => {
+            if(itinerary.start_date.toLocaleDateString() == data['label'].toLocaleDateString()){
+              data['visits'] +=1;
+            }
+            return itinerary.start_date.toLocaleDateString() == data['label'].toLocaleDateString();
+          });
+        });
+
+        this.chartData.forEach((l: any) => {
           this.basicData.labels.push(l.label.toLocaleDateString());
-          this.basicData.datasets.data.push(l.visits);
+          this.basicData.datasets[0].data.push(l.visits);
         });
       },
     },
@@ -148,7 +158,7 @@
     </div>
 
     <div class="stats" v-if="filtered">
-      <h3 class="subtitle">Dati Relativi a "{{this.selectedPeriod['name']}}"</h3>
+      <h3 class="subtitle">Dati Relativi a "{{this.effectivePeriod}}"</h3>
       <p class="info">Numero totale di percorsi effettuati: {{this.numCompletedItinerariesPeriod}}</p>
       <div class="p-chart">
         <chartComp chartComp="margin: 5px 0px 5px 0px" type="bar" :data="basicData" :options="horizontalOptions"/>
