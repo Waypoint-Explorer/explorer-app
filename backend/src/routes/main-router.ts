@@ -8,6 +8,7 @@ import { ItinerariesQueryHandlers } from "../controllers/itineraries-query-handl
 import { WaypointsQueryHandlers } from "../controllers/waypoints-query-handlers";
 import { MarkersQueryHandlers } from "../controllers/markers-query-handlers";
 import { MeasuresQueryHandlers } from "../controllers/measures-query-handlers";
+import {CouponsQueryHandlers} from "../controllers/coupons-query-handlers";
 
 type ExpressRouter = express.Router;
 
@@ -48,4 +49,7 @@ export const MainRouter: ExpressRouter = express.Router()
 
     .get("/measures", MeasuresQueryHandlers.findAll)
     .post("/measures", MeasuresQueryHandlers.insertMany)
+
+    .get("/coupons", CouponsQueryHandlers.findAll)
+    .post("/coupons", CouponsQueryHandlers.insertOne)
 ;
