@@ -23,6 +23,14 @@
         });
     },
     methods: {
+    },
+    watch: {
+      itineraryTypeSelected: {
+        handler() {
+          this.emitter.emit("filterSelected", this.itineraryTypeSelected);
+        },
+        deep: true,
+      }
     }
   });
 </script>
@@ -47,7 +55,6 @@
     padding: 0;
     margin: 0 1.2rem;
     align-items: center;
-    flex-direction: row;
     transition-duration: 500ms;
     transition-timing-function: cubic-bezier(0.5,0.25,0,1);
     background-color: var(--surface-a);
@@ -60,15 +67,17 @@
   }
   .filter-button.button-expanded {
     font-size: 1rem;
-    padding: 0.75rem 1.25rem;
+    padding: 0.694rem 1.2rem;
     border: 1px solid;
   }
   .filter-button {
     display: inline-block;
+    width: fit-content;
     font-size: 0;
     padding: 0;
     border: 0;
     margin: 0.2rem;
+    box-sizing: border-box;
   }
   .CULTURAL, .THEMED, .NATURALISTIC, .TOURISTIC, .FITNESS {
     color: #fff;
