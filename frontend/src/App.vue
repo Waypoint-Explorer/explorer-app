@@ -17,6 +17,7 @@
 
 <style lang="scss">
   @import 'material-icons/iconfont/material-icons.css';
+  @import 'material-symbols';
   * {
     margin: 0;
     padding: 0;

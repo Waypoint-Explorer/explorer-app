@@ -3,9 +3,10 @@
   import mapHeaderComp from "../components/mapHeaderComp.vue"
   import mapComponent from "../components/mapComponent.vue";
   import itineraryDetailsComponent from "../components/itineraryDetailsComponent.vue";
+  import filterComponent from "../components/filterComponent.vue";
 
   export default defineComponent({
-    components: { mapHeaderComp, mapComponent, itineraryDetailsComponent },
+    components: { mapHeaderComp, mapComponent, itineraryDetailsComponent, filterComponent},
     data() {
       return {
         searchValue: null,
@@ -17,6 +18,7 @@
 <template>
   <mapHeaderComp></mapHeaderComp>
   <main>
+    <filterComponent></filterComponent>
     <mapComponent></mapComponent>
     <itineraryDetailsComponent></itineraryDetailsComponent>
   </main>

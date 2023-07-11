@@ -60,6 +60,7 @@ export class CompletedItinerariesQueryHandlers {
                       if (!searchedMarker.dynamic_codes?.includes(req.body.dynamicCode) && !!searchedMarker.points) {
                         completedItineraryUpdate.points_earned = (updatingCompletedItinerary.points_earned ?? 0) + searchedMarker.points;
                         searchedMarker.dynamic_codes?.push(req.body.dynamicCode);
+                        searchedMarker.status = req.body.status;
                         ExplorerAppDatabase.Singleton.Markers
                           .findOneAndUpdate({ _id: searchedMarker._id, }, searchedMarker, { new: true, }).exec();
                       }
