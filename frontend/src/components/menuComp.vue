@@ -46,6 +46,12 @@
             <span class="material-icons-outlined">edit</span>
             <RouterLink to="/managementPage" @click="visible = false">Gestione</RouterLink>
           </div>
+
+          <div class="alignment">
+            <span class="material-icons-outlined">local_activity</span>
+            <RouterLink to="/couponManagementPage" @click="visible = false">Coupon</RouterLink>
+          </div>
+
         </div>
 
         <!-- explorer menu -->

@@ -10,6 +10,7 @@ load(workdir + "/data/itineraries.js");
 load(workdir + "/data/waypoints.js");
 load(workdir + "/data/markers.js");
 load(workdir + "/data/measures.js");
+load(workdir + "/data/coupons.js");
 
 //SCHEMAS
 load(workdir + "/schemas/user-schema.js");
@@ -18,6 +19,7 @@ load(workdir + "/schemas/itinerary-schema.js");
 load(workdir + "/schemas/waypoint-schema.js");
 load(workdir + "/schemas/marker-schema.js");
 load(workdir + "/schemas/measure-schema.js");
+load(workdir + "/schemas/coupon-schema.js");
 
 const connection = connect();
 const explorer_app_database = createOrGetDB(connection, "explorer-app-database");
@@ -41,3 +43,6 @@ marker_collection.createIndex({ marker_id: 1 }, { unique: true });
 
 const measure_collection = createAndClearCollection(explorer_app_database, "measures", measure_schema);
 measure_collection.insertMany(measures);
+
+const coupon_collection = createAndClearCollection(explorer_app_database, "coupons", coupon_schema);
+coupon_collection.insertMany(coupons);
