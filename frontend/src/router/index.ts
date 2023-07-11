@@ -5,6 +5,7 @@ import MapPage from "../pages/MapPage.vue";
 import NavigationPage from "../pages/NavigationPage.vue";
 import AccessPage from "../pages/AccessPage.vue";
 import ManagementPage from "../pages/ManagementPage.vue";
+import CouponManagementPage from "../pages/CouponManagementPage.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +39,11 @@ const router = createRouter({
             path: "/managementPage",
             name: "managementPage",
             component: ManagementPage,
+        },
+        {
+            path: "/couponManagementPage",
+            name: "couponManagementPage",
+            component: CouponManagementPage,
         },
     ],
 });
