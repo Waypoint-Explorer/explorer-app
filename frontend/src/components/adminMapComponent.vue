@@ -127,7 +127,8 @@ export default defineComponent({
       });
 
       this.emitter.on("locationSearch", (coordinates) => {
-        this.map.flyTo(coordinates);
+        console.log(coordinates);
+        this.map.flyTo({center: [coordinates.lng, coordinates.lat], zoom: 13});
       });
 
       this.emitter.on("filterByDate", (selectedDate: { hour: number; date: Date; }) => {
