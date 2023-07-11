@@ -14,9 +14,15 @@ export class ItinerariesQueryHandlers {
 
   /** Retrieves all the itineraries */
   public static readonly findAll: RequestHandler = (req: Request, res: Response) => {
-    ExplorerAppDatabase.Singleton.Itineraries
-      .find({}, {}).exec()
+    if(!!req.query.type) {
+      ExplorerAppDatabase.Singleton.Itineraries
+      .find({ type: { $in: req.query.type }}, {}).exec()
       .then(sendJson(req, res), sendError(req, res));
+    } else {
+      ExplorerAppDatabase.Singleton.Itineraries
+        .find({}, {}).exec()
+        .then(sendJson(req, res), sendError(req, res));
+    }
   }
 
   /** Retrieves an itinerary given the id of the itinerary */
