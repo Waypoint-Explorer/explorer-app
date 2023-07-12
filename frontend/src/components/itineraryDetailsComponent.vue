@@ -76,8 +76,8 @@
       <p>Avvia</p>
       <span class="material-icons-outlined">navigation</span>
     </button>
-    <div class="itinerary-details">
-      <scrollPanelComp id="itinerary-details-scroll-panel">
+    <div class="itinerary-details" :class="{'itinerary-details-expanded': isDetailsExpanded}">
+      <scrollPanelComp id="itinerary-details-scroll-panel" :class="{'scroll-panel-expanded': isDetailsExpanded}">
         <tagComp v-if="this.itinerary.type" :class="this.itinerary.type" value="{{this.itinerary.type}}">
           {{this.itinerary.type}}
         </tagComp>
@@ -164,19 +164,32 @@
     display: flex;
     flex-direction: row;
   }
+  .itinerary-details-expanded {
+    height: fit-content !important;
+  }
   .itinerary-details {
     width: 100%;
-    height: fit-content;
+    height: 0;
+  }
+  .scroll-panel-expanded {
+    height: calc(80vh - 1.2rem - 3rem - 2.488rem) !important;
+    padding: 1.728rem 0 !important;
   }
   #itinerary-details-scroll-panel {
     width: 100%;
-    height: calc(80vh - 1.2rem - 3rem - 2.488rem);
-    padding-top: 1.728rem;
+    height: 0;
+    padding: 0;
   }
   #itinerary-name {
     margin: 0;
+    padding: 0 0.694rem;
     flex: 1;
+    max-height: 1.2rem;
     text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow-x: clip;
+    overflow-y: clip;
   }
   .waypoint-details {
     margin-top: 1.2rem;

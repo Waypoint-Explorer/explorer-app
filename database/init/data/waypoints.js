@@ -1,19 +1,5 @@
 const waypoints = [
   {
-    _id: ObjectId('648b2ba1ba71ca0f34cce9b5'),
-    name: "Parco Baronio",
-    description: "È il secondo parco urbano, dei tre previsti dal Piano del Verde, realizzato e pienamente fruibile dalla cittadinanza. Il parco misura circa 17 ha ed ha visto la luce nel 2013 con la realizzazione del 1° stralcio con cui si sono eseguiti il movimento terra, il lago e tutto il verde di filtro; di seguito di stralci ne sono stati eseguiti altri 3 che hanno portato alla esecuzione di gran parte dei percorsi e dell’impianto vegetale nella zona interna al percorso ad anello.",
-    place: "Via Fiume Montone Abbandonato, 48124 Ravenna RA, Italia",
-    marker: ObjectId('648af4edeae56e17c9bb8005')
-  },
-  {
-    _id: ObjectId('648b2c46ba71ca0f34cce9b7'),
-    name: "Teatro Alighieri",
-    description: "Opera, danza moderna e prosa in una sfarzosa sala ottocentesca con balconcini e decori in stile neoclassico.",
-    place: "Via Angelo Mariani, 2, 48121 Ravenna RA, Italia",
-    marker: ObjectId('648af564eae56e17c9bb8007')
-  },
-  {
     _id: ObjectId('64981b56caa070335c91b567'),
     name: 'Chiesa di S. Agata Maggiore',
     opening_hours: {
