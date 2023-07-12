@@ -10,6 +10,7 @@ const users = [
     birth_year: "1970",
     completed_itineraries: [ObjectId("64aedba29e8384c526937764"), ObjectId("64aedbb99e8384c526937770"), ObjectId("64aedbd49e8384c526937784")],
     redeemed_coupons: [ObjectId('8399cd3d18f54e1c4c985492')],
+    current_points: 25000,
   },
   {
     _id: ObjectId("62ab48841c9ec9d5210f45e1"),

@@ -9,6 +9,7 @@ import { WaypointsQueryHandlers } from "../controllers/waypoints-query-handlers"
 import { MarkersQueryHandlers } from "../controllers/markers-query-handlers";
 import { MeasuresQueryHandlers } from "../controllers/measures-query-handlers";
 import {CouponsQueryHandlers} from "../controllers/coupons-query-handlers";
+import { RedeemedCouponsQueryHandlers } from "../controllers/redeemed-coupons-query-handlers";
 
 type ExpressRouter = express.Router;
 
@@ -53,4 +54,9 @@ export const MainRouter: ExpressRouter = express.Router()
 
     .get("/coupons", CouponsQueryHandlers.findAll)
     .post("/coupons", CouponsQueryHandlers.insertOne)
+
+    .get("/redeemed-coupons", RedeemedCouponsQueryHandlers.findAll)
+    .get("/redeemed-coupons/id/:redeemedCouponId", RedeemedCouponsQueryHandlers.findById)
+    .get("/redeemed-coupons/user/:userId", RedeemedCouponsQueryHandlers.findByUser)
+    .post("/redeemed-coupons", RedeemedCouponsQueryHandlers.insertOne)
 ;
