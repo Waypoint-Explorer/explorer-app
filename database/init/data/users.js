@@ -8,6 +8,8 @@ const users = [
     country: "Italia",
     city: "Roma",
     birth_year: "1970",
+    completed_itineraries: [ObjectId("64aedba29e8384c526937764"), ObjectId("64aedbb99e8384c526937770"), ObjectId("64aedbd49e8384c526937784")],
+    redeemed_coupons: [ObjectId('8399cd3d18f54e1c4c985492')],
   },
   {
     _id: ObjectId("62ab48841c9ec9d5210f45e1"),
@@ -25,7 +27,6 @@ const users = [
     email: "comune.ra@email.com",            //password: "admin2"
     hash: "$2b$10$j0scxRtBBD2fkKqw5r6M5ONF0DgbpLmPtqlvW8OGSYQ.M7mjxZkVS",
     role: "administrator",
-    parking_areas: [ObjectId("62b9ac13d7a80a6e2f907785"), ObjectId("62b9ac51d7a80a6e2f907787")],
   },
   {
     _id: ObjectId("62ab48841c9ec9d5210f45e6"),
@@ -33,6 +34,5 @@ const users = [
     email: "turism.ra@email.com",            //password: "admin3"
     hash: "$2b$10$42WjtFYNfpzR/D5XDelVHuV2X9i9EzAc85cPdRM2pUnUO9vgQj4Wm",
     role: "administrator",
-    parking_areas: [ObjectId("62b9ac94d7a80a6e2f907789"), ObjectId("62b9acbdd7a80a6e2f90778b")],
   },
 ]
