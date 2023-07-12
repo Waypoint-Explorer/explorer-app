@@ -2,9 +2,10 @@
   import { defineComponent } from "vue";
   import headerComp from "../components/headerComp.vue";
   import StatisticsPage from "./StatisticsPage.vue";
+  import footerComp from "../components/footerComp.vue";
 
   export default defineComponent({
-    components: { headerComp, StatisticsPage },
+    components: { headerComp, footerComp, StatisticsPage },
     methods:{
       isLoggedIn() : boolean { return this.$cookies.isKey("user"); },
       isUser() : boolean {
@@ -26,14 +27,37 @@
   <main v-else class="home">
     <div class="info">
       <img class="bigLogo" src="src/assets/images/logo/logo_bg.svg" alt="Waypoint Explorer Logo">
-
       <h1>Waypoint Explorer</h1>
-
       <h2>Un nuovo modo per esplorare il territorio di Ravenna</h2>
-
       <buttonComp class="confirm-button" type="button" label="INIZIA" @click="$router.push('/mapPage')"/>
     </div>
+
+    <dividerComp></dividerComp>
+
+    <div class="guide">
+      <h3>Come esplorare?</h3>
+
+      <div class="card">
+        <cardComp class="steps">
+          <template #title> 1. Scegli un percorso</template>
+        </cardComp>
+
+        <cardComp class="steps">
+          <template #title> 2. Raggiungi una delle tappe indicate</template>
+        </cardComp>
+
+        <cardComp class="steps">
+          <template #title> 3. Scansiona il codice QR che troverai</template>
+        </cardComp>
+
+        <cardComp class="steps">
+          <template #title> 4. Termina il percorso quando preferisci</template>
+        </cardComp>
+      </div>
+    </div>
   </main>
+
+  <footerComp v-if="!isLoggedIn() || (isLoggedIn() && isUser())"></footerComp>
 
 </template>
 
@@ -49,13 +73,19 @@
     color: #32624b;
     font-size: 1.728rem;
   }
-  .info{
+  .info, .guide{
     text-align:center;
   }
   @media screen and (min-width: 600px) {
-    .info{
+    .info, .guide{
       margin-left: 10%;
       margin-right: 10%;
+    }
+  }
+  @media screen and (min-width: 800px) {
+    .steps {
+      height: 9rem;
+      vertical-align: top;
     }
   }
 </style>
