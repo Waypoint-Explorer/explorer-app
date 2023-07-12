@@ -352,11 +352,6 @@
         <p v-if="waypoint.place!==''">luogo: {{waypoint.place}}</p>
         <p v-if="waypoint.marker!==''">marcatore: {{waypoint.marker}}</p>
       </template>
-
-      <template #footer>
-        <buttonComp icon="pi pi-pencil" label="Modifica" severity="secondary" />
-        <buttonComp icon="pi pi-trash" label="Cancella" severity="danger" style="margin-top: 0.25rem"/>
-      </template>
     </cardComp>
   </div>
 
