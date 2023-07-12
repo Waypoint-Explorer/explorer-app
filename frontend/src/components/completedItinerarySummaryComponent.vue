@@ -2,6 +2,7 @@
 import {defineComponent} from "vue";
 import {Environment} from "../environment";
 import axios from "axios";
+import moment from "moment";
 
 export default defineComponent({
     data() {
@@ -23,6 +24,11 @@ export default defineComponent({
               .then((waypointsResponse) => {
                 this.completedItinerary = completedItineraryResponse.data;
                 this.completedItinerary.visited_waypoints = waypointsResponse.data.filter(waypoint => this.completedItinerary.visited_waypoints.includes(waypoint._id));
+                if (this.$cookies.isKey("user")){
+                  axios.patch(`http://${Environment.BACKEND_HOST}/users/${this.$cookies.get("user").userId}`, {
+                    points: this.completedItinerary.points_earned
+                  });
+                }
                 this.isSummaryExpanded = true;
               });
           });
@@ -33,9 +39,10 @@ export default defineComponent({
         this.$router.go(0);
       },
       computeTimeDiff(startDateString: string, completionDateString: string) {
-        const startDate = new Date(new Date(startDateString).toLocaleString("it-IT"));
-        const endDate = new Date(new Date(completionDateString).toLocaleString("it-IT"));
-        const timeDiff = endDate.getTime() - startDate.getTime();
+        const startDate = moment(startDateString);
+        const endDate = moment(completionDateString);
+        console.log(startDate + " - " + endDate);
+        const timeDiff = endDate - startDate;
         const seconds = Math.floor(timeDiff / 1000);
         const minutes = Math.floor(seconds / 60);
         const hours = Math.floor(minutes / 60);

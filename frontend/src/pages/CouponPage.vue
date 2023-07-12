@@ -60,7 +60,7 @@ export default defineComponent({
   <main>
     <h1>Coupon</h1>
     <h5>Totale punti: {{this.userPoints}}</h5>
-    <ul class="user-coupons">
+    <ul class="user-coupons" v-if="this.redeemedCoupons.length">
       <h5 class="redeemed-coupon-title">Coupon riscattati</h5>
       <li v-for="redeemedCoupon in this.redeemedCoupons">
         <p>{{redeemedCoupon.title}}</p>
