@@ -104,7 +104,7 @@
           this.formError.message = "Il nome del percorso è richiesto per l'inserimento.";
         } else if (this.selectedCategory === "") {
           this.formError.cause = "category";
-          this.formError.message = "La categoria del percorso è richiesto per l'inserimento.";
+          this.formError.message = "La categoria del percorso è richiesta per l'inserimento.";
         } else if (this.extraPoints === "") {
           this.formError.cause = "points";
           this.formError.message = "I punti extra del percorso sono richiesti per l'inserimento.";
@@ -176,10 +176,6 @@
       <template #subtitle> {{ itinerary.type }}</template>
       <template #content>
         <p>punti extra: {{itinerary.extra_points}}</p>
-      </template>
-      <template #footer>
-        <buttonComp icon="pi pi-pencil" label="Modifica" severity="secondary" />
-        <buttonComp icon="pi pi-trash" label="Cancella" severity="danger" style="margin-top: 0.25rem"/>
       </template>
     </cardComp>
   </div>
