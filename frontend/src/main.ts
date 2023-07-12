@@ -32,6 +32,7 @@ import InputNumber from 'primevue/inputnumber';
 import MultiSelect from 'primevue/multiselect';
 import Chart from 'primevue/chart';
 import Slider from 'primevue/slider';
+import Divider from 'primevue/divider';
 
 import 'primeflex/primeflex.css';
 import 'primeicons/primeicons.css';
@@ -75,5 +76,6 @@ app.component('inputMaskComp', InputMask);
 app.component('multiSelectComp', MultiSelect);
 app.component('chartComp', Chart);
 app.component('sliderComp', Slider);
+app.component('dividerComp', Divider);
 
 app.mount("#app");
