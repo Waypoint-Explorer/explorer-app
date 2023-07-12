@@ -1,7 +1,7 @@
 const markers = [
   { //battistero neoniano
     _id: ObjectId("648af4edeae56e17c9bb8005"),
-    marker_id: "000001",
+    marker_id: "6525230542987194",
     type: "Device",
     coordinates: {
       latitude: 44.415540,
@@ -11,7 +11,7 @@ const markers = [
   },
   { //giardini pubblici
     _id: ObjectId("648af564eae56e17c9bb8007"),
-    marker_id: "000002",
+    marker_id: "0426143873014407",
     type: "Device",
     coordinates: {
       latitude: 44.413893,
@@ -21,7 +21,7 @@ const markers = [
   },
   { //mausoleo teodorico
     _id: ObjectId("648af727eae56e17c9bb8009"),
-    marker_id: "000003",
+    marker_id: "0311928944468437",
     type: "Device",
     coordinates: {
       latitude: 44.424959,
@@ -31,7 +31,7 @@ const markers = [
   },
   { //parco teodorico
     _id: ObjectId('64930acdcaa070225c91b563'),
-    marker_id: '000004',
+    marker_id: '0094705962231462360004',
     type: 'Device',
     coordinates: {
       latitude: 44.426209,
@@ -41,7 +41,7 @@ const markers = [
   },
   { //rocca brancaleone
     _id: ObjectId('64930b07caa070225c91b565'),
-    marker_id: '000005',
+    marker_id: '7774528093325162',
     type: 'Device',
     coordinates: {
       latitude: 44.422552,
@@ -51,7 +51,7 @@ const markers = [
   },
   { //giardini Speyer
     _id: ObjectId('64930b08caa070225c91b565'),
-    marker_id: '000006',
+    marker_id: '0566208379678912',
     type: 'Device',
     coordinates: {
       latitude: 44.418481,
@@ -61,7 +61,7 @@ const markers = [
   },
   { //sant'apollinare nuovo
     _id: ObjectId('64930b08caa070335c916665'),
-    marker_id: '000007',
+    marker_id: '6431605197938971',
     type: 'Device',
     coordinates: {
       latitude: 44.416713,
@@ -71,7 +71,7 @@ const markers = [
   },
   { //battistero degli ariani
     _id: ObjectId('64930b08caa070335c916765'),
-    marker_id: '000008',
+    marker_id: '6371302950598219',
     type: 'Device',
     coordinates: {
       latitude: 44.418701,
@@ -81,7 +81,7 @@ const markers = [
   },
   { //sant'apollinare in classe
     _id: ObjectId('64830b08caa070335c916765'),
-    marker_id: '000009',
+    marker_id: '3296714001606615',
     type: 'Device',
     coordinates: {
       latitude: 44.380070,
@@ -91,7 +91,7 @@ const markers = [
   },
   { //cappella arcivescovile
     _id: ObjectId('64330b08caa070335c916765'),
-    marker_id: '000010',
+    marker_id: '2518170982133089',
     type: 'Device',
     coordinates: {
       latitude: 44.415220,
@@ -101,7 +101,7 @@ const markers = [
   },
   { //basilica san vitale
     _id: ObjectId('64330b08caa000335c916765'),
-    marker_id: '000011',
+    marker_id: '4701975088032221',
     type: 'Device',
     coordinates: {
       latitude: 44.420298,
@@ -111,7 +111,7 @@ const markers = [
   },
   { //mausoleo galla placidia
     _id: ObjectId('64330b08caa870335c916765'),
-    marker_id: '000012',
+    marker_id: '6774955875269984',
     type: 'Device',
     coordinates: {
       latitude: 44.421058,
@@ -121,7 +121,7 @@ const markers = [
   },
   { //palazzo teodorico
     _id: ObjectId('64440b08caa870335c916765'),
-    marker_id: '000013',
+    marker_id: '6658693930302361',
     type: 'Device',
     coordinates: {
       latitude: 44.416143,
@@ -131,7 +131,7 @@ const markers = [
   },
   { //basilica santo spirito
     _id: ObjectId('64440b08caa870445c916765'),
-    marker_id: '000014',
+    marker_id: '3005115550624120',
     type: 'Device',
     coordinates: {
       latitude: 44.418847,
@@ -141,7 +141,7 @@ const markers = [
   },
   { //tomba dante
     _id: ObjectId('68880b08caa870445c916765'),
-    marker_id: '000015',
+    marker_id: '3183596853813669',
     type: 'Device',
     coordinates: {
       latitude: 44.416217,
@@ -151,7 +151,7 @@ const markers = [
   },
   { //quadrarco
     _id: ObjectId('68180b08caa870445c916765'),
-    marker_id: '000016',
+    marker_id: '5694325518582033',
     type: 'Device',
     coordinates: {
       latitude: 44.416043,
@@ -161,7 +161,7 @@ const markers = [
   },
   { //san francesco
     _id: ObjectId('68280b08caa870445c916765'),
-    marker_id: '000017',
+    marker_id: '4685689195684474',
     type: 'Device',
     coordinates: {
       latitude: 44.415785,
@@ -171,7 +171,7 @@ const markers = [
   },
   { //mostra dante
     _id: ObjectId('68380b08caa870445c916765'),
-    marker_id: '000018',
+    marker_id: '4355543917045252',
     type: 'Device',
     coordinates: {
       latitude: 44.416038,
@@ -181,7 +181,7 @@ const markers = [
   },
   { //Chiostri Francescani
     _id: ObjectId('68480b08caa870445c916765'),
-    marker_id: '000019',
+    marker_id: '8852409757653210',
     type: 'Device',
     coordinates: {
       latitude: 44.416205,
@@ -191,7 +191,7 @@ const markers = [
   },
   { //museo dante
     _id: ObjectId('68580b08caa870445c916765'),
-    marker_id: '000020',
+    marker_id: '1067803485131961',
     type: 'Device',
     coordinates: {
       latitude: 44.416482,
@@ -201,7 +201,7 @@ const markers = [
   },
   { //casa dante
     _id: ObjectId('68680b08caa870445c916765'),
-    marker_id: '000021',
+    marker_id: '6971470233138128',
     type: 'Device',
     coordinates: {
       latitude: 44.416146,
@@ -211,7 +211,7 @@ const markers = [
   },
   { //murales dante
     _id: ObjectId('68780b08caa870445c916765'),
-    marker_id: '000022',
+    marker_id: '1460486004375680',
     type: 'Device',
     coordinates: {
       latitude: 44.418417,
@@ -221,7 +221,7 @@ const markers = [
   },
   { //classense
     _id: ObjectId('68980b08caa870445c916765'),
-    marker_id: '000023',
+    marker_id: '2577001831691000',
     type: 'Device',
     coordinates: {
       latitude: 44.414395,
@@ -231,7 +231,7 @@ const markers = [
   },
   { //pineta classe
     _id: ObjectId('61880b08caa870445c916765'),
-    marker_id: '000024',
+    marker_id: '1514125928466858',
     type: 'Device',
     coordinates: {
       latitude: 44.356025,
@@ -241,7 +241,7 @@ const markers = [
   },
   { //chiesa S. Agata
     _id: ObjectId('61881b08caa870445c916765'),
-    marker_id: '000025',
+    marker_id: '1943424801586435',
     type: 'Device',
     coordinates: {
       latitude: 44.413959,
@@ -251,7 +251,7 @@ const markers = [
   },
   { //giardini pensili
     _id: ObjectId('61882b08caa870445c916765'),
-    marker_id: '000026',
+    marker_id: '3045809526086273',
     type: 'Device',
     coordinates: {
       latitude: 44.415529,

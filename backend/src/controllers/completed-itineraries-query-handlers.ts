@@ -15,8 +15,19 @@ export class CompletedItinerariesQueryHandlers {
   /** Retrieve all the completed itineraries */
   public static readonly findAll: RequestHandler = (req: Request, res: Response) => {
     ExplorerAppDatabase.Singleton.CompletedItineraries
-        .find({}, {}).exec()
+      .find({}, {}).exec()
+      .then(sendJson(req, res), sendError(req, res));
+  }
+
+  /** Retrieve all the completed itineraries of a user */
+  public static readonly findByUser: RequestHandler = (req: Request, res: Response) => {
+    ExplorerAppDatabase.Singleton.Users.findOne({ _id: new Types.ObjectId(req.params.userId) }, {}).exec().then((searchedUser) => {
+      if (!!searchedUser) {
+        ExplorerAppDatabase.Singleton.CompletedItineraries
+        .find({ _id: { $in: searchedUser.completed_itineraries }}, {}).exec()
         .then(sendJson(req, res), sendError(req, res));
+      }
+    });
   }
 
   /** Retrieves a completed itinerary given the id of the completed itinerary */
