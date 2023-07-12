@@ -96,13 +96,13 @@
           this.formError.message = "L'id del marcatore è richiesto per l'inserimento.";
         } else if (this.coordinates.latitude === "") {
           this.formError.cause = "latitude";
-          this.formError.message = "La latitudine del marcatore è richiesto per l'inserimento.";
+          this.formError.message = "La latitudine del marcatore è richiesta per l'inserimento.";
         } else if (this.coordinates.longitude === "") {
           this.formError.cause = "longitude";
-          this.formError.message = "La longitudine del marcatore è richiesto per l'inserimento.";
+          this.formError.message = "La longitudine del marcatore è richiesta per l'inserimento.";
         } else if (this.marker_type === "") {
           this.formError.cause = "marker_type";
-          this.formError.message = "La tipologia del marcatore è richiesto per l'inserimento.";
+          this.formError.message = "La tipologia del marcatore è richiesta per l'inserimento.";
         } else {
           return true;
         }
@@ -179,10 +179,6 @@
       <template #content>
         <p>coordinate: {{marker.coordinates.latitude}}, {{marker.coordinates.longitude}}</p>
         <p v-if="marker.points!==''">punti: {{marker.points}}</p>
-      </template>
-      <template #footer>
-        <buttonComp icon="pi pi-pencil" label="Modifica" severity="secondary" />
-        <buttonComp icon="pi pi-trash" label="Cancella" severity="danger" style="margin-top: 0.25rem"/>
       </template>
     </cardComp>
   </div>
