@@ -46,6 +46,8 @@ interface User {
     completed_itineraries: MongooseTypes.ObjectId[],
     /** The redeemed coupons of this user. */
     redeemed_coupons: MongooseTypes.ObjectId[],
+    /** The current points of this user. */
+    current_points: number,
 }
 
 /** Schema of a user. */
@@ -58,8 +60,9 @@ const USER_SCHEMA = new Schema<User>({
     country: { type: String, required: true },
     city: { type: String, required: false },
     birth_year: { type: String, required: false },
-    completed_itineraries: { type: Array(SchemaTypes.ObjectId), required: false},
-    redeemed_coupons: { type: Array(SchemaTypes.ObjectId), required: false},
+    completed_itineraries: { type: Array(SchemaTypes.ObjectId), required: false },
+    redeemed_coupons: { type: Array(SchemaTypes.ObjectId), required: false },
+    current_points: { type: SchemaTypes.Number, required: false },
 });
 
 export { UserRole, User, USER_SCHEMA, SESSION_SCHEMA, Session }

@@ -44,7 +44,15 @@ export class CompletedItinerariesQueryHandlers {
       if (!!req.body.itineraryId) { newCompletedItinerary.related_itinerary = req.body.itineraryId; }
       newCompletedItinerary.start_date = req.body.startDate;
       ExplorerAppDatabase.Singleton.CompletedItineraries.insertMany([newCompletedItinerary]).then(completedItinerary => {
-        res.status(StatusCodes.OK).json({ completedItinerary });
+        if (!!req.body.userId) {
+          let userUpdate: any = {};
+          userUpdate.completed_itineraries = (userUpdate.completed_itineraries ?? []).concat(new Types.ObjectId(newCompletedItinerary._id));
+          ExplorerAppDatabase.Singleton.Users
+            .findOneAndUpdate({ _id: req.body.userId }, userUpdate, { new: true, }).exec()
+            .then(() => res.status(StatusCodes.OK).json({ completedItinerary }));
+        } else {
+          res.status(StatusCodes.OK).json({ completedItinerary });
+        }
       }, sendError(req, res));
     });
   }
