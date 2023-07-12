@@ -8,6 +8,7 @@ import { Waypoint, WAYPOINT_SCHEMA } from "./schemas/waypoint";
 import { Marker, MARKER_SCHEMA } from "./schemas/marker";
 import { Measure, MEASURE_SCHEMA } from "./schemas/measure";
 import {Coupon, COUPON_SCHEMA} from "./schemas/coupon";
+import { RedeemedCoupon, REDEEMED_COUPON_SCHEMA } from "./schemas/redeemed-coupon";
 
 /**
  * Database needed to access related data
@@ -31,6 +32,8 @@ export class ExplorerAppDatabase {
     public readonly Measures: mongoose.Model<Measure>;
     /** The collection of the coupons */
     public readonly Coupons: mongoose.Model<Coupon>;
+    /** The collection of the redeemed coupons */
+    public readonly RedeemedCoupons: mongoose.Model<RedeemedCoupon>;
 
     private readonly connection : mongoose.Connection;
 
@@ -50,6 +53,7 @@ export class ExplorerAppDatabase {
         this.Markers = this.connection.model<Marker>('markers', MARKER_SCHEMA);
         this.Measures = this.connection.model<Measure>('measures', MEASURE_SCHEMA);
         this.Coupons = this.connection.model<Coupon>('coupons', COUPON_SCHEMA);
+        this.RedeemedCoupons = this.connection.model<RedeemedCoupon>('redeemed_coupons', REDEEMED_COUPON_SCHEMA);
     }
 }
 
@@ -73,3 +77,6 @@ export const MeasuresDocument = ExplorerAppDatabase.Singleton.Measures;
 
 /** Used for creating coupon documents. Alias for {@link ExplorerAppDatabase.Singleton.Coupons} */
 export const CouponsDocument = ExplorerAppDatabase.Singleton.Coupons;
+
+/** Used for creating redeemed coupon documents. Alias for {@link ExplorerAppDatabase.Singleton.RedeemedCoupons} */
+export const RedeemedCouponsDocument = ExplorerAppDatabase.Singleton.RedeemedCoupons;

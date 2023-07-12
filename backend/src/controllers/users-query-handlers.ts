@@ -75,6 +75,9 @@ export class UsersQueryHandlers {
                     if (!!req.body.country !== undefined) { userUpdate.country = req.body.country; }
                     if (req.body.city !== undefined) { userUpdate.city = req.body.city; }
                     if (req.body.birth_year !== undefined) { userUpdate.birth_year = req.body.birth_year; }
+                    if (req.body.completedItinerary !== undefined) { userUpdate.completed_itineraries = userUpdate.completed_itineraries.concat(new Types.ObjectId(req.body.completedItineraries)); }
+                    if (req.body.redeemedCoupon !== undefined) { userUpdate.redeemed_coupons = userUpdate.redeemed_coupons.concat(new Types.ObjectId(req.body.redeemedCoupon)); }
+                    if (req.body.points !== undefined) { userUpdate.current_points = userUpdate.current_points + req.body.points; }
                     ExplorerAppDatabase.Singleton.Users    // Add the requested user to the database
                         .findOneAndUpdate({ _id: updatingUser._id, }, userUpdate, { new: true, }).exec()
                         .then(sendJson(req, res), sendError(req, res));

@@ -49,6 +49,29 @@ const user_schema = {
       bsonType: "string",
       description: "The year of birth of this user",
     },
-
+    completed_itineraries: {
+      bsonType: ["array"],
+      description: "The completed itineraries of this user",
+      minItems: 0,
+      uniqueItems: true,
+      items: {
+          bsonType: "objectId",
+          description: "The completed itinerary",
+      },
+    },
+    redeemed_coupons: {
+      bsonType: ["array"],
+      description: "The redeemed coupons of this user",
+      minItems: 0,
+      uniqueItems: true,
+      items: {
+          bsonType: "objectId",
+          description: "The redeemed coupon",
+      },
+    },
+    current_points: {
+      bsonType: "number",
+      description: "The current points of this user",
+    }
   },
 };
