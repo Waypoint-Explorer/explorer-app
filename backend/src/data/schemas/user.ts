@@ -42,6 +42,10 @@ interface User {
     city: string,
     /** The year of birth of this user. */
     birth_year: string,
+    /** The completed itineraries of this user. */
+    completed_itineraries: MongooseTypes.ObjectId[],
+    /** The redeemed coupons of this user. */
+    redeemed_coupons: MongooseTypes.ObjectId[],
 }
 
 /** Schema of a user. */
@@ -54,6 +58,8 @@ const USER_SCHEMA = new Schema<User>({
     country: { type: String, required: true },
     city: { type: String, required: false },
     birth_year: { type: String, required: false },
+    completed_itineraries: { type: Array(SchemaTypes.ObjectId), required: false},
+    redeemed_coupons: { type: Array(SchemaTypes.ObjectId), required: false},
 });
 
 export { UserRole, User, USER_SCHEMA, SESSION_SCHEMA, Session }

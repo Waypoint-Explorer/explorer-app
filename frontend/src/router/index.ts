@@ -6,6 +6,7 @@ import NavigationPage from "../pages/NavigationPage.vue";
 import AccessPage from "../pages/AccessPage.vue";
 import ManagementPage from "../pages/ManagementPage.vue";
 import CouponManagementPage from "../pages/CouponManagementPage.vue";
+import CouponPage from "../pages/CouponPage.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,6 +45,11 @@ const router = createRouter({
             path: "/couponManagementPage",
             name: "couponManagementPage",
             component: CouponManagementPage,
+        },
+        {
+            path: "/couponPage",
+            name: "couponPage",
+            component: CouponPage,
         },
     ],
 });
