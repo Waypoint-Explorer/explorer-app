@@ -33,12 +33,11 @@
       startItinerary() {
         let data = {
           itineraryId: null,
-          startDate: "",
+          startDate: new Date(),
         };
         if (this.itinerary.hasOwnProperty("_id")) {
           data.itineraryId = this.itinerary._id;
         }
-        data.startDate = new Date().toLocaleString("it-IT");
         axios
           .post(`http://${Environment.BACKEND_HOST}/completed-itineraries`, data)
           .then((response) => {
