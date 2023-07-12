@@ -14,7 +14,7 @@
     },
     mounted(){
       this.getUserPoints();
-      // this.allCoupons();
+      this.allCoupons();
     },
     methods:{
       getUserPoints() {
@@ -59,18 +59,30 @@
         <template #title>{{ coupon.title }}</template>
         <template #subtitle>{{ coupon.business }}</template>
         <template #content>
-          <p>punti: {{coupon.points}}</p>
+          <div class="coupon-buy">
+            <p>punti: {{coupon.points}}</p>
+            <button class="p-button p-component p-button-icon-only p-button-rounded" type="button" @click="this.emitter.emit('qrScannerToggle');">
+              <span class="material-icons-outlined">redeem</span>
+            </button>
+          </div>
         </template>
       </cardComp>
     </div>
   </main>
 </template>
 
-<style lang="scss">
-.card {
-  text-align: center;
-}
-p {
-  margin: 0;
-}
+<style lang="scss" scoped>
+  .card {
+    text-align: center;
+  }
+  p {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+  }
+  .coupon-buy {
+    display: flex;
+    justify-content: space-between;
+  }
 </style>
