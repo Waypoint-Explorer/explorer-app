@@ -1,7 +1,6 @@
 import mongoose, {Schema} from "mongoose";
 import MongooseTypes = mongoose.Types
 import SchemaTypes = Schema.Types
-import { Marker, MARKER_SCHEMA } from "./marker";
 
 /** Models opening shift for the opening hours of a waypoint */
 interface OpeningShift {
