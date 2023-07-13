@@ -132,9 +132,11 @@
           }).then(updateResponse => {
             this.completedItinerary.visited_waypoints = updateResponse.data.visited_waypoints;
             this.disableVisitedMarkers();
-            this.highlightNextMarker();
-            if (this.getNextWaypoints().length <= 0) {
-              this.emitter.emit("suggestedItineraryCompleted");
+            if (this.completedItinerary.related_itinerary !== undefined) {
+              this.highlightNextMarker();
+              if (this.getNextWaypoints().length <= 0) {
+                this.emitter.emit("suggestedItineraryCompleted");
+              }
             }
           });
         });

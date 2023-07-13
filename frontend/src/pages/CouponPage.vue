@@ -22,6 +22,7 @@ export default defineComponent({
         if (this.$cookies.isKey("user")){
           axios.get(`http://${Environment.BACKEND_HOST}/users/${this.$cookies.get("user").userId}`)
             .then((userResponse) => {
+              console.log(userResponse.data);
               this.userPoints = userResponse.data.current_points;
           });
         }
