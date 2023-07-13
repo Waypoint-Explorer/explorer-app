@@ -68,14 +68,14 @@
               response.data.forEach((marker) =>{
                 this.markers.push({
                   _id: `${marker._id}`,
-                  name: `${marker.marker_id}, ${marker.type}`,
-                  id: `${marker.marker_id}`,
+                  marker_id: `${marker.marker_id}`,
                   coordinates: {
                     latitude: `${marker.coordinates.latitude}`,
                     longitude: `${marker.coordinates.longitude}`,
                   },
                   type: `${marker.type}`,
                   points: `${marker.points}`,
+                  display: `${marker.marker_id}, ${marker.type}`,
                 });
               });
             })
@@ -85,18 +85,27 @@
       },
       allWaypoints(){
         axios.get(`http://${Environment.BACKEND_HOST}/waypoints`)
-            .then((response) => {
+            .then((waypointsResponse) => {
               this.waypoints = [];
-              response.data.forEach((waypoint) =>{
-                let place = !!waypoint.place ? waypoint.place : "";
-                let markerId = !!waypoint.marker ? waypoint.marker : "";
+              let wResponse = waypointsResponse.data;
 
-                this.waypoints.push({
-                  name: `${waypoint.name}`,
-                  place: `${place}`,
-                  marker: `${markerId}`,
-                });
-              });
+              axios.get(`http://${Environment.BACKEND_HOST}/markers`)
+                  .then((markersResponse) => {
+                    let mResponse = markersResponse.data;
+
+                    wResponse.forEach((waypoint) =>{
+                      const relatedMarker = Object.create(mResponse.find(marker => marker._id === waypoint.marker));
+                      let markerId = !!relatedMarker.marker_id ? relatedMarker.marker_id : "";
+                      let place = !!waypoint.place ? waypoint.place : "";
+
+                      this.waypoints.push({
+                        name: `${waypoint.name}`,
+                        place: `${place}`,
+                        marker: `${markerId}`,
+                      });
+
+                    });
+                  });
             })
             .catch((error) => {
               console.log(error);
@@ -264,7 +273,7 @@
 
     <div class="p-field">
       <label for="marker">Marcatore associato *</label>
-      <dropdownComp id="marker" v-model="selectedMarker" :options="markers" optionLabel="name" placeholder="Marcatore *" :class="{'p-invalid': formError.cause === 'marker'}"/>
+      <dropdownComp id="marker" v-model="selectedMarker" :options="markers" optionLabel="display" placeholder="Marcatore *" :class="{'p-invalid': formError.cause === 'marker'}"/>
       <small v-if="formError.cause === 'marker'" class="p-error">{{ this.formError.message }}</small>
     </div>
 
