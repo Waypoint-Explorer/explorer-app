@@ -45,11 +45,15 @@ export class CompletedItinerariesQueryHandlers {
       newCompletedItinerary.start_date = req.body.startDate;
       ExplorerAppDatabase.Singleton.CompletedItineraries.insertMany([newCompletedItinerary]).then(completedItinerary => {
         if (!!req.body.userId) {
-          let userUpdate: any = {};
-          userUpdate.completed_itineraries = (userUpdate.completed_itineraries ?? []).concat(new Types.ObjectId(newCompletedItinerary._id));
-          ExplorerAppDatabase.Singleton.Users
-            .findOneAndUpdate({ _id: req.body.userId }, userUpdate, { new: true, }).exec()
-            .then(() => res.status(StatusCodes.OK).json({ completedItinerary }));
+          ExplorerAppDatabase.Singleton.Users.findOne({ _id: new Types.ObjectId(req.body.userId) }, {}).exec().then(foundUser => {
+            if (!!foundUser) {
+              let userUpdate: any = {};
+              userUpdate.completed_itineraries = (foundUser.completed_itineraries ?? []).concat(new Types.ObjectId(newCompletedItinerary._id));
+              ExplorerAppDatabase.Singleton.Users
+                .findOneAndUpdate({ _id: new Types.ObjectId(req.body.userId) }, userUpdate, { new: true, }).exec()
+                .then(() => res.status(StatusCodes.OK).json({ completedItinerary }));
+            }
+          });
         } else {
           res.status(StatusCodes.OK).json({ completedItinerary });
         }

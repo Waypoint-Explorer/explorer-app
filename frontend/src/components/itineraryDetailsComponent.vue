@@ -35,6 +35,9 @@
           itineraryId: null,
           startDate: new Date(),
         };
+        if (this.$cookies.isKey("user")){
+          data.userId = this.$cookies.get("user").userId;
+        }
         if (this.itinerary.hasOwnProperty("_id")) {
           data.itineraryId = this.itinerary._id;
         }
