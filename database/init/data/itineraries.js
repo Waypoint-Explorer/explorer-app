@@ -15,14 +15,6 @@ const itineraries = [
     waypoints: [ObjectId('68830b92caa070225c91b571'), ObjectId('69930b92caa070225c91b571'), ObjectId('64930b92caa070225c91b568'), ObjectId('65530b92caa070225c91b571'), ObjectId('64930b92caa070225c91b571'), ObjectId('64930b92caa070225c91b570'), ObjectId('64930b56caa070335c91b567'), ObjectId('65930b92caa070225c91b571')]
   },
   {
-    _id: ObjectId('6489cdfd18f54e1c4c985498'),
-    name: 'Sulle tracce di Teodorico',
-    type: 'THEMED',
-    description: "Un percorso che comprende i luoghi fatti costruire da Teodorico o in cui viene raffigurato",
-    extra_points: 15,
-    waypoints: [ObjectId('64930b92caa070225c91b571'), ObjectId('65530992bbc070225c91b571'), ObjectId('64930b92caa070225c91b570'), ObjectId('65530b92bbc070225c91b571'), ObjectId('64930b56caa070335c91b567')]
-  },
-  {
     _id: ObjectId('6489cdfd19f54e1c4c985498'),
     name: 'La Ravenna di Dante',
     type: 'THEMED',
@@ -32,10 +24,17 @@ const itineraries = [
   },
   {
     _id: ObjectId('6489cdfd20f54e1c4c985498'),
-    name: 'Quartiere dantesco',
+    name: 'Girovagando per le viuzze',
     type: 'TOURISTIC',
     description: "Un percorso all'interno di un quartiere dove sono presenti alcuni monumenti legati a Dante e altri luoghi suggestivi",
     extra_points: 12,
-    waypoints: [ObjectId('64996b56caa070335c91b567'), ObjectId('648b2cb4ba71ca0f34cce9b9'), ObjectId('64998b56caa070335c91b567'), ObjectId('64982b56caa070335c91b567'), ObjectId('64992b56caa070335c91b567'), ObjectId('64981b56caa070335c91b567')]
+    waypoints: [ObjectId('65530992bbc070225c91b571'),ObjectId('65530b92bbc070225c91b571'),ObjectId('64982b56caa070335c91b567'), ObjectId('64992b56caa070335c91b567'), ObjectId('64981b56caa070335c91b567')]
+  },
+  {
+    _id: ObjectId('6489cd3d18f54e1c4c985555'),
+    name: 'Camminata sull\'argine',
+    type: 'FITNESS',
+    extra_points: 15,
+    waypoints: [ObjectId('62230992bbc070225c91b571'), ObjectId('62222992bbc070225c91b571'), ObjectId('62222332bbc070225c91b571')]
   },
 ]

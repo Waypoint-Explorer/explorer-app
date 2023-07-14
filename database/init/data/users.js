@@ -8,7 +8,7 @@ const users = [
     country: "Italia",
     city: "Roma",
     birth_year: "1970",
-    completed_itineraries: [ObjectId("64aedba29e8384c526937764"), ObjectId("64aedbb99e8384c526937770"), ObjectId("64aedbd49e8384c526937784")],
+    completed_itineraries: [ObjectId("64aedbdd1e8384c526937784"), ObjectId("64aedbdd3e8384c526937784"), ObjectId("64aedbdd7e8384c526937784"), ObjectId("64aedbdd6e8384c526937784"), ObjectId("64aedbb99e8384c526937770")],
     redeemed_coupons: [ObjectId('8399cd3d18f54e1c4c985492')],
     current_points: 25000,
   },
@@ -21,6 +21,8 @@ const users = [
     country: "San Marino",
     city: "Città di San Marino",
     birth_year: "1981",
+    completed_itineraries: [ObjectId("64aedbdd2e8384c526937784"), ObjectId("64aedbdd4e8384c526937784"), ObjectId("64aedbdd5e8384c526937784"), ObjectId("64aedba29e8384c526937764"), ObjectId("64aedbd49e8384c526937784")],
+    current_points: 70000,
   },
   {
     _id: ObjectId("62ab48841c9ec9d5210f45e5"),
