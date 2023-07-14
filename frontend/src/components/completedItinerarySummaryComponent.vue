@@ -41,12 +41,12 @@ export default defineComponent({
       computeTimeDiff(startDateString: string, completionDateString: string) {
         const startDate = moment(startDateString);
         const endDate = moment(completionDateString);
-        console.log(startDate + " - " + endDate);
         const timeDiff = endDate - startDate;
+        console.log(timeDiff);
         const seconds = Math.floor(timeDiff / 1000);
         const minutes = Math.floor(seconds / 60);
         const hours = Math.floor(minutes / 60);
-        return `${hours}h ${minutes}m ${seconds}s`
+        return `${hours % 24}h ${minutes % 60}m ${seconds % 60}s`
       },
     }
   });

@@ -135,7 +135,7 @@ const markerIcon = `<svg width="100%" height="100%" viewBox="0 0 48 48" version=
             itinerary.waypoints = this.waypoints.filter(waypoint => itinerary.waypoints.includes(waypoint._id));
             if (itinerary.waypoints !== undefined) {
               itinerary.waypoints.forEach(waypoint => {
-                waypoint.marker = this.markers.find(marker => marker._id === waypoint.marker.toString())
+                waypoint.marker = this.markers.find(marker => marker._id === waypoint.marker)
               });
             }
           });
