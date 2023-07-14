@@ -31,7 +31,7 @@ const markers = [
   },
   { //parco teodorico
     _id: ObjectId('64930acdcaa070225c91b563'),
-    marker_id: '0094705962231462360004',
+    marker_id: '9470596223146236',
     type: 'Device',
     coordinates: {
       latitude: 44.426209,

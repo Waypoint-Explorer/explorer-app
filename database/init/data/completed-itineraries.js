@@ -9,7 +9,7 @@ const completed_itineraries = [
     },
     {
         _id: ObjectId("64aedbb99e8384c526937770"),
-        visited_waypoints: [ObjectId("648af4edeae56e17c9bb8005")],
+        visited_waypoints: [ObjectId("64930b92caa070225c91b568")],
         related_itinerary: ObjectId("6489cdde18f54e1c4c985496"),
         start_date: new Date("2022-12-07T14:50:33.000Z"),
         points_earned: 400,
@@ -17,7 +17,7 @@ const completed_itineraries = [
     },
     {
         _id: ObjectId("64aedbd49e8384c526937784"),
-        visited_waypoints: [ObjectId("648af564eae56e17c9bb8007"),ObjectId("648af727eae56e17c9bb8009")],
+        visited_waypoints: [ObjectId("64930b92caa070225c91b569"),ObjectId("64930b56caa070335c91b567")],
         related_itinerary: ObjectId("6489cdfd20f54e1c4c985498"),
         start_date: new Date("2023-07-12T20:59:00.000Z"),
         points_earned: 700,
@@ -25,7 +25,7 @@ const completed_itineraries = [
     },
     {
         _id: ObjectId("64aedbdd1e8384c526937784"),
-        visited_waypoints: [ObjectId("64930acdcaa070225c91b563"),ObjectId("64330b08caa000335c916765")],
+        visited_waypoints: [ObjectId("64930b56caa070225c91b567"),ObjectId("68830b92caa070225c91b571")],
         related_itinerary: ObjectId("6489cdfd20f54e1c4c985498"),
         start_date: new Date("2023-06-03T11:03:00.000Z"),
         points_earned: 700,
@@ -33,7 +33,7 @@ const completed_itineraries = [
     },
     {
         _id: ObjectId("64aedbdd2e8384c526937784"),
-        visited_waypoints: [ObjectId("64930b07caa070225c91b565")],
+        visited_waypoints: [ObjectId("64930b56bba070225c91b567")],
         related_itinerary: ObjectId("6489cdfd20f54e1c4c985498"),
         start_date: new Date("2023-01-17T18:59:00.000Z"),
         points_earned: 300,
@@ -41,7 +41,7 @@ const completed_itineraries = [
     },
     {
         _id: ObjectId("64aedbdd3e8384c526937784"),
-        visited_waypoints: [ObjectId("64330b08caa070335c916765"),ObjectId("68180b08caa870445c916765")],
+        visited_waypoints: [ObjectId("65530b92caa070225c91b571"),ObjectId("64999b56caa070335c91b567")],
         related_itinerary: ObjectId("6489cdfd19f54e1c4c985498"),
         start_date: new Date("2023-01-16T06:44:00.000Z"),
         points_earned: 650,
@@ -49,7 +49,7 @@ const completed_itineraries = [
     },
     {
         _id: ObjectId("64aedbdd4e8384c526937784"),
-        visited_waypoints: [ObjectId("64930b08caa070335c916665")],
+        visited_waypoints: [ObjectId("64930b92caa070225c91b570")],
         related_itinerary: ObjectId("6489cdfd19f54e1c4c985498"),
         start_date: new Date("2023-04-10T10:00:00.000Z"),
         points_earned: 500,
@@ -57,7 +57,7 @@ const completed_itineraries = [
     },
     {
         _id: ObjectId("64aedbdd5e8384c526937784"),
-        visited_waypoints: [ObjectId("64930b08caa070335c916765")],
+        visited_waypoints: [ObjectId("64930b92caa070225c91b571")],
         related_itinerary: ObjectId("6489cdde18f54e1c4c985496"),
         start_date: new Date("2022-12-23T09:10:00.000Z"),
         points_earned: 450,
@@ -65,7 +65,7 @@ const completed_itineraries = [
     },
     {
         _id: ObjectId("64aedbdd6e8384c526937784"),
-        visited_waypoints: [ObjectId("64830b08caa070335c916765"),ObjectId("64330b08caa870335c916765")],
+        visited_waypoints: [ObjectId("65930b92caa070225c91b571"),ObjectId("69930b92caa070225c91b571")],
         related_itinerary: ObjectId("6489cdde18f54e1c4c985496"),
         start_date: new Date("2022-12-23T15:00:00.000Z"),
         points_earned: 900,
@@ -73,7 +73,7 @@ const completed_itineraries = [
     },
     {
         _id: ObjectId("64aedbdd7e8384c526937784"),
-        visited_waypoints: [ObjectId("64330b08caa070335c916765"),ObjectId("64440b08caa870335c916765"),ObjectId("64440b08caa870445c916765")],
+        visited_waypoints: [ObjectId("65530b92caa070225c91b571"),ObjectId("65530b92bbc070225c91b571"),ObjectId("65530992bbc070225c91b571")],
         related_itinerary: ObjectId("6489cdfd19f54e1c4c985498"),
         start_date: new Date("2022-12-23T18:00:00.000Z"),
         points_earned: 1200,
