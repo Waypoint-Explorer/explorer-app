@@ -33,8 +33,6 @@
     },
     unmounted() {},
     mounted() {
-
-
       mapboxgl.accessToken = Environment.MAP_TOKEN;
       var map = new mapboxgl.Map({
         container: "map",
@@ -102,18 +100,20 @@
                   itineraryWaypoints.forEach(waypoint => {
                     this.markers.find(marker => marker.related_waypoint === waypoint._id)._element.innerHTML = itineraryMarkerIcon.replace(">0<", `>${itinerary.waypoints.indexOf(waypoint._id) + 1}<`);
                   });
-                  const markersCoordinates = Array.from(itineraryWaypoints.map(waypoint => Array.from([waypoint.marker.coordinates.longitude, waypoint.marker.coordinates.latitude])));
-                  map.getSource("itineraryLineSource")._data.features.push(
-                      {
-                        type: "Feature",
-                        geometry: {
-                          type: "LineString",
-                          coordinates: markersCoordinates,
-                        },
-                      }
-                  );
-                  map.getSource("itineraryLineSource").setData(map.getSource("itineraryLineSource")._data);
-                  this.highlightNextMarker();
+                  // const markersCoordinates = Array.from(itineraryWaypoints.map(waypoint => Array.from([waypoint.marker.coordinates.longitude, waypoint.marker.coordinates.latitude])));
+                  // map.getSource("itineraryLineSource")._data.features.push(
+                  //     {
+                  //       type: "Feature",
+                  //       geometry: {
+                  //         type: "LineString",
+                  //         coordinates: markersCoordinates,
+                  //       },
+                  //     }
+                  // );
+                  // map.getSource("itineraryLineSource").setData(map.getSource("itineraryLineSource")._data);
+                  if (this.completedItinerary.related_itinerary !== undefined) {
+                    this.highlightNextMarker();
+                  }
                 });
               }
             });
