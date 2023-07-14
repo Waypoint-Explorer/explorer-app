@@ -155,4 +155,19 @@ const waypoints = [
     name: 'Basilica dello Spirito Santo',
     marker: ObjectId('64440b08caa870445c916765')
   },
+  {
+    _id: ObjectId('62230992bbc070225c91b571'),
+    name: 'Chiusa di San Marco',
+    marker: ObjectId('61882b08caa870445c916777')
+  },
+  {
+    _id: ObjectId('62222992bbc070225c91b571'),
+    name: 'Ponte Fiumi Uniti Ravenna',
+    marker: ObjectId('61882222caa870445c916777')
+  },
+  {
+    _id: ObjectId('62222332bbc070225c91b571'),
+    name: 'Argine Sinistro Montone',
+    marker: ObjectId('61882222c33870445c916777')
+  },
 ]
