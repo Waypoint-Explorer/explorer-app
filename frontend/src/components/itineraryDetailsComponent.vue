@@ -209,16 +209,16 @@
     position: absolute;
     left: 35%;
   }
-  .CULTURAL {
+  .CULTURALE {
     background-color: var(--we-palette-blue);
   }
-  .THEMED {
+  .TEMATICO {
     background-color: var(--we-palette-red);
   }
-  .NATURALISTIC {
+  .NATURALISTICO {
     background-color: var(--we-palette-green);
   }
-  .TOURISTIC {
+  .TURISTICO {
     background-color: var(--we-palette-yellow);
   }
   .FITNESS {

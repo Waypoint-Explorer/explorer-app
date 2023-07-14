@@ -12,7 +12,7 @@ const itinerary_schema = {
       description: "The name of this itinerary",
     },
     type: {
-      enum: ["CULTURAL", "THEMED", "NATURALISTIC", "TOURISTIC", "FITNESS"],
+      enum: ["CULTURALE", "TEMATICO", "NATURALISTICO", "TURISTICO", "FITNESS"],
       description: "The type of this itinerary",
     },
     description: {
