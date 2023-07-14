@@ -26,7 +26,7 @@ const itineraries = [
     _id: ObjectId('6489cdfd20f54e1c4c985498'),
     name: 'Girovagando per le viuzze',
     type: 'TOURISTIC',
-    description: "Un percorso all'interno di un quartiere dove sono presenti alcuni monumenti legati a Dante e altri luoghi suggestivi",
+    description: "Un percorso tra le vie del centro alla scoperta di luoghi suggestivi meno conosciuti",
     extra_points: 12,
     waypoints: [ObjectId('65530992bbc070225c91b571'),ObjectId('65530b92bbc070225c91b571'),ObjectId('64982b56caa070335c91b567'), ObjectId('64992b56caa070335c91b567'), ObjectId('64981b56caa070335c91b567')]
   },
