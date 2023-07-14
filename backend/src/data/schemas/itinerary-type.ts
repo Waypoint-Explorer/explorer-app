@@ -1,7 +1,7 @@
 /** Models an itinerary type */
-type ItineraryType = "CULTURAL" | "THEMED" | "NATURALISTIC" | "TOURISTIC" | "FITNESS";
+type ItineraryType = "CULTURALE" | "TEMATICO" | "NATURALISTICO" | "TURISTICO" | "FITNESS";
 
 /** An array containing all the possible itinerary types */
-const ItineraryTypeArray: string[] = ["CULTURAL", "THEMED", "NATURALISTIC", "TOURISTIC", "FITNESS"];
+const ItineraryTypeArray: string[] = ["CULTURALE", "TEMATICO", "NATURALISTICO", "TURISTICO", "FITNESS"];
 
 export { ItineraryType, ItineraryTypeArray };
