@@ -47,20 +47,22 @@
         <span class="material-icons-outlined">co2</span>
       </button>
     </div>
-    <div class="hours-slider-container">
-      <sliderComp v-model="this.hour" :step="100/24"></sliderComp>
-    </div>
-    <div class="hours-marks-container">
-      <p>00:00</p>
-      <p>03:00</p>
-      <p>07:00</p>
-      <p>11:00</p>
-      <p>14:00</p>
-      <p>18:00</p>
-      <p>23:00</p>
-    </div>
-    <div class="calendar-container">
-      <calendarComp showIcon  v-model="this.date" dateFormat="dd/mm/yy"></calendarComp>
+    <div class="date-time-container" v-show="isControlsExpanded">
+      <div class="hours-slider-container">
+        <sliderComp v-model="this.hour" :step="100/24"></sliderComp>
+      </div>
+      <div class="hours-marks-container">
+        <p>00:00</p>
+        <p>03:00</p>
+        <p>07:00</p>
+        <p>11:00</p>
+        <p>14:00</p>
+        <p>18:00</p>
+        <p>23:00</p>
+      </div>
+      <div class="calendar-container">
+        <calendarComp showIcon  v-model="this.date" dateFormat="dd/mm/yy"></calendarComp>
+      </div>
     </div>
   </div>
 </template>
@@ -95,11 +97,13 @@
     flex-direction: row;
     align-items: center;
   }
+  .date-time-container {
+    padding-top: 2.074rem;
+  }
   .hours-slider-container {
     height: 1.440rem;
     display: flex;
     align-items: center;
-    margin-top: 2.488rem;
     padding: 0 1.2rem;
   }
   .p-slider {
