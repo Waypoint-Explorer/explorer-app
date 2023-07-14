@@ -27,6 +27,11 @@
     display: none;
 }
 
+.mapboxgl-ctrl-top-right {
+    margin: 1rem 1rem 0 0;
+    z-index: 100;
+}
+
 .mapboxgl-popup-content {
     padding: 0.833rem !important;
     border-radius: 10px !important;
