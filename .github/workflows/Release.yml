@@ -28,7 +28,7 @@ jobs:
           fetch-depth: '0'
       - id: bump-version-and-push-tag
         name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.64.0 
+        uses: anothrNick/github-tag-action@1.64.0
         env:
           WITH_V: false
           DEFAULT_BUMP: patch
@@ -90,4 +90,4 @@ jobs:
           context: ${{ matrix.context }}
           file: ${{ matrix.dockerfile }}
           push: true
-          tags: ghcr.io/${{ env.REPOSITORY_LC }}-${{ matrix.name }}:${{ needs.push-tag.outputs.tag }}
+          tags: ghcr.io/${{ env.REPOSITORY_LC }}-${{ matrix.name }}:${{ needs.push-tag.outputs.tag }} , ghcr.io/${{ env.REPOSITORY_LC }}-${{ matrix.name }}:latest
