@@ -7,6 +7,7 @@ export default defineComponent({
     return {
       isQRScannerEnabled: false,
       qrScanner: null,
+      devices: [],
       cameraId: null,
       scannerConfig: {
         disableFlip: true,
@@ -17,6 +18,9 @@ export default defineComponent({
   mounted() {
     Html5Qrcode.getCameras().then(devices => {
       if (devices && devices.length) {
+        devices.forEach(device => {
+          this.devices.push(device.id);
+        });
         this.cameraId = devices[0].id;
         this.emitter.on("qrScannerToggle", () => {
           if (this.isQRScannerEnabled) {
@@ -30,6 +34,14 @@ export default defineComponent({
       console.log("ERR: Camera not available");
     });
 
+    this.emitter.on("cameraToggle", () => {
+      if (this.isQRScannerEnabled && this.devices.length > 1) {
+        this.stopQRScanner();
+        const currentDevice = this.devices.findIndex(device => device === this.cameraId);
+        this.cameraId = this.devices[(currentDevice + 1)  % this.devices.length];
+        this.startQRScanner();
+      }
+    });
   },
   unmounted() {
     if (this.isQRScannerEnabled) {
@@ -86,6 +98,9 @@ export default defineComponent({
 </script>
 
 <template>
+  <button v-show="isQRScannerEnabled" id="camera-toggle-button" class="p-button p-component p-button-icon-only p-button-rounded" type="button" @click="this.emitter.emit('cameraToggle');">
+      <span class="material-icons-outlined">switch_camera</span>
+  </button>
   <div id="scanner" ref="scanner" class="qr-scanner-container" :class="{expanded: isQRScannerEnabled}"></div>
 </template>
 
@@ -113,5 +128,11 @@ export default defineComponent({
   }
   .expanded {
     height: calc(100vw - 2 * 1.2rem);
+  }
+  #camera-toggle-button {
+    position: absolute;
+    bottom: 7rem;
+    left: calc(50% - (2.488rem / 2));
+    z-index: 2;
   }
 </style>
