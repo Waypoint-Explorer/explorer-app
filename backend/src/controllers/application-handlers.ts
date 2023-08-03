@@ -34,7 +34,7 @@ export class ApplicationMiddlewares {
         verbosityLevel => (req: Request, res: Response, next: NextFunction) => {
             let logString: string = "";
             if (verbosityLevel > 0){
-                const route: string = `${req.method}:http://${Environment.BACKEND_HOSTNAME}:${Environment.BACKEND_PORT}${req.originalUrl}`;
+                const route: string = `${req.method}:https://${Environment.BACKEND_HOSTNAME}:${Environment.BACKEND_PORT}${req.originalUrl}`;
                 logString += `[${new Date(Date.now()).toString().substring(0,33)}] Request ${ApplicationMiddlewares.requestCount++}: ${route}`;
                 if (verbosityLevel > 1){ logString += `\nWith body: \n${JSON.stringify(req.body)}`; }
                 if (verbosityLevel > 2){ logString += `\nWith query params: \n${JSON.stringify(req.query)}`; }

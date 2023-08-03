@@ -46,9 +46,8 @@
             city: this.city,
             birth_year: this.birth_year,
           };
-          axios.post(`http://${Environment.BACKEND_HOST}/users`, newUser)
+          axios.post(`https://${Environment.BACKEND_HOST}/users`, newUser)
               .then(() => {
-                console.log("Registrazione avvenuta con successo!");
                 this.resetForm();
                 this.displaySuccess();
               })

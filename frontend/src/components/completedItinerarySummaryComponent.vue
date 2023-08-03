@@ -17,15 +17,15 @@ export default defineComponent({
     },
     mounted() {
       this.emitter.on("stopItinerary", (completedItineraryId: string) => {
-          axios.patch(`http://${Environment.BACKEND_HOST}/completed-itineraries/stop/${completedItineraryId}`, {
+          axios.patch(`https://${Environment.BACKEND_HOST}/completed-itineraries/stop/${completedItineraryId}`, {
             completionDate: new Date().toLocaleString("it-IT")
           }).then((completedItineraryResponse) => {
-            axios.get(`http://${Environment.BACKEND_HOST}/waypoints`)
+            axios.get(`https://${Environment.BACKEND_HOST}/waypoints`)
               .then((waypointsResponse) => {
                 this.completedItinerary = completedItineraryResponse.data;
                 this.completedItinerary.visited_waypoints = waypointsResponse.data.filter(waypoint => this.completedItinerary.visited_waypoints.includes(waypoint._id));
                 if (this.$cookies.isKey("user")){
-                  axios.patch(`http://${Environment.BACKEND_HOST}/users/${this.$cookies.get("user").userId}`, {
+                  axios.patch(`https://${Environment.BACKEND_HOST}/users/${this.$cookies.get("user").userId}`, {
                     points: this.completedItinerary.points_earned
                   });
                 }
@@ -42,7 +42,6 @@ export default defineComponent({
         const startDate = moment(startDateString);
         const endDate = moment(completionDateString);
         const timeDiff = endDate - startDate;
-        console.log(timeDiff);
         const seconds = Math.floor(timeDiff / 1000);
         const minutes = Math.floor(seconds / 60);
         const hours = Math.floor(minutes / 60);

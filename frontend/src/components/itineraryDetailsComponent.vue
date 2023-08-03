@@ -42,7 +42,7 @@
           data.itineraryId = this.itinerary._id;
         }
         axios
-          .post(`http://${Environment.BACKEND_HOST}/completed-itineraries`, data)
+          .post(`https://${Environment.BACKEND_HOST}/completed-itineraries`, data)
           .then((response) => {
             router.replace({
               name: "navigationPage",
@@ -186,7 +186,7 @@
     margin: 0;
     padding: 0 0.694rem;
     flex: 1;
-    max-height: 1.2rem;
+    max-height: 1.44rem;
     text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;

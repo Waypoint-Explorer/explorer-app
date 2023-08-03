@@ -20,9 +20,9 @@ export default defineComponent({
     loadCompletedItineraries() {
 
       Promise.all([
-        axios.get(`http://${Environment.BACKEND_HOST}/itineraries`,),
-        axios.get(`http://${Environment.BACKEND_HOST}/waypoints`),
-        axios.get(`http://${Environment.BACKEND_HOST}/completed-itineraries/user/${this.$cookies.get("user").userId}`)
+        axios.get(`https://${Environment.BACKEND_HOST}/itineraries`,),
+        axios.get(`https://${Environment.BACKEND_HOST}/waypoints`),
+        axios.get(`https://${Environment.BACKEND_HOST}/completed-itineraries/user/${this.$cookies.get("user").userId}`)
       ]).then((response) => {
         const itineraries = response[0].data;
         const waypoints = response[1].data;

@@ -4,6 +4,8 @@ import {DOCKER_ENVIRONMENT} from "./docker-environment";
  * The environment of this application
  */
 export class Environment {
+  /** The domain of this application */
+  public static readonly SERVICE_DOMAIN: string = DOCKER_ENVIRONMENT.map((env) => env.SERVICE_DOMAIN).getOrDefault(import.meta.env["VITE_SERVICE_DOMAIN"]);
   /** The map token used to access map tiles provider services */
   public static readonly MAP_TOKEN: string = DOCKER_ENVIRONMENT.map((env) => env.MAP_TOKEN).getOrDefault(import.meta.env["VITE_MAP_TOKEN"]);
   /** The list of map styles */

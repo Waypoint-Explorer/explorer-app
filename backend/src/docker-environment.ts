@@ -9,6 +9,8 @@ export const DOCKER_ENVIRONMENT : Optional<DockerEnvironment> =
 
 /** The docker environment of this application. */
 interface DockerEnvironment {
+    /** The domain of this application */
+    readonly SERVICE_DOMAIN: string,
     /** The hostname and port of the application frontend. */
     readonly FRONTEND: string;
     /** The hostname and port of the database. */
