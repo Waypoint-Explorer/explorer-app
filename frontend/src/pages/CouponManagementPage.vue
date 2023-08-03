@@ -26,7 +26,7 @@
     },
     methods:{
       allCoupons(){
-        axios.get(`http://${Environment.BACKEND_HOST}/coupons`)
+        axios.get(`https://${Environment.BACKEND_HOST}/coupons`)
             .then((response) => {
               this.coupons = [];
               response.data.forEach((coupon) =>{
@@ -51,7 +51,7 @@
             points: this.points,
           };
           if (this.description!=="") { newCoupon.description = this.description; }
-          axios.post(`http://${Environment.BACKEND_HOST}/coupons`, newCoupon)
+          axios.post(`https://${Environment.BACKEND_HOST}/coupons`, newCoupon)
               .then(() => {
                 this.showMenu=false;
                 this.allCoupons();

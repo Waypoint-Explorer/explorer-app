@@ -62,7 +62,7 @@
     },
     methods: {
       allCompletedItineraries(){
-        axios.get(`http://${Environment.BACKEND_HOST}/completed-itineraries`)
+        axios.get(`https://${Environment.BACKEND_HOST}/completed-itineraries`)
             .then((response) => {
               this.completedItineraries = [];
 

@@ -34,8 +34,10 @@ const markerIcon = `<svg width="100%" height="100%" viewBox="0 0 48 48" version=
       var map = new mapboxgl.Map({
         container: "map",
         style: `${Environment.MAP_STYLE}`,
-        center: [12.516667, 42.516667],
-        zoom: 6,
+        // center: [12.516667, 42.516667],
+        center: [12.2035294, 44.4183598],
+        // zoom: 6,
+        zoom: 11,
         attributionControl: false,
       });
 
@@ -84,7 +86,6 @@ const markerIcon = `<svg width="100%" height="100%" viewBox="0 0 48 48" version=
       });
 
       this.emitter.on("locationSearch", (coordinates) => {
-        console.log(coordinates);
         this.map.flyTo({center: [coordinates.lng, coordinates.lat], zoom: 13});
       });
 
@@ -120,9 +121,9 @@ const markerIcon = `<svg width="100%" height="100%" viewBox="0 0 48 48" version=
 
 
         Promise.all([
-          axios.get(`http://${Environment.BACKEND_HOST}/itineraries`, { params: searchParams }),
-          axios.get(`http://${Environment.BACKEND_HOST}/waypoints`),
-          axios.get(`http://${Environment.BACKEND_HOST}/markers`)
+          axios.get(`https://${Environment.BACKEND_HOST}/itineraries`, { params: searchParams }),
+          axios.get(`https://${Environment.BACKEND_HOST}/waypoints`),
+          axios.get(`https://${Environment.BACKEND_HOST}/markers`)
         ]).then((response) => {
           const markers_id: {marker: string}[] = response[1].data.map(data => data.marker);
           this.itineraries = response[0].data;

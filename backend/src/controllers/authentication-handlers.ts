@@ -39,7 +39,8 @@ export class AccessControlHandlers {
                                     secure: true,
                                     maxAge: Environment.SESSION_DURATION,
                                     path: "/",
-                                    httpOnly: true,
+                                    domain: Environment.SERVICE_DOMAIN,
+                                    httpOnly: false,
                                 });
                                 res.cookie("user", JSON.stringify({
                                     userId: authenticatedUser?._id,
@@ -49,6 +50,7 @@ export class AccessControlHandlers {
                                     secure: true,
                                     maxAge: Environment.SESSION_DURATION,
                                     path: "/",
+                                    domain: Environment.SERVICE_DOMAIN,
                                     httpOnly: false,
                                 });
                                 res.status(StatusCodes.OK).send("Authenticated.");

@@ -40,7 +40,7 @@
       <span class="material-icons">filter_alt</span>
     </buttonComp>
     <div class="p-inputgroup flex-1" id="search-bar">
-      <inputTextComp v-model="searchValue" id="search-input-text" placeholder="Search"/>
+      <inputTextComp v-model="searchValue" id="search-input-text" placeholder="Cerca"/>
       <buttonComp id="search-button" icon="pi pi-search" @click="search">
         <span class="material-icons">search</span>
       </buttonComp>

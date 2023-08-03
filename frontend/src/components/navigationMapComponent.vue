@@ -37,8 +37,10 @@
       var map = new mapboxgl.Map({
         container: "map",
         style: `${Environment.MAP_STYLE}`,
-        center: [12.516667, 42.516667],
-        zoom: 6,
+        // center: [12.516667, 42.516667],
+        center: [12.2035294, 44.4183598],
+        // zoom: 6,
+        zoom: 11,
         minPitch:45,
         pitch: 45,
         maxPitch: 45,
@@ -54,11 +56,11 @@
       }), 'top-right');
 
       map.on('load', () => {
-        axios.get(`http://${Environment.BACKEND_HOST}/completed-itineraries/id/${this.$route.query.completedItineraryId}`).then((completedItineraryResponse) => {
+        axios.get(`https://${Environment.BACKEND_HOST}/completed-itineraries/id/${this.$route.query.completedItineraryId}`).then((completedItineraryResponse) => {
             this.completedItinerary = completedItineraryResponse.data;
-          axios.get(`http://${Environment.BACKEND_HOST}/waypoints/`).then((waypointsResponse) => {
+          axios.get(`https://${Environment.BACKEND_HOST}/waypoints/`).then((waypointsResponse) => {
             const waypoints = waypointsResponse.data;
-            axios.get(`http://${Environment.BACKEND_HOST}/markers/`).then((markersResponse) => {
+            axios.get(`https://${Environment.BACKEND_HOST}/markers/`).then((markersResponse) => {
               const markers = markersResponse.data;
               waypoints.forEach(waypoint => {
                 waypoint.marker = markers.find(marker => marker._id === waypoint.marker)
@@ -93,7 +95,7 @@
                   },
                   minzoom: 10,
                 });
-                axios.get(`http://${Environment.BACKEND_HOST}/itineraries/id/${this.completedItinerary.related_itinerary}`).then((itineraryResponse) => {
+                axios.get(`https://${Environment.BACKEND_HOST}/itineraries/id/${this.completedItinerary.related_itinerary}`).then((itineraryResponse) => {
                   let itinerary = itineraryResponse.data;
                   this.completedItinerary.related_itinerary = itinerary;
                   const itineraryWaypoints = waypoints.filter(waypoint => itinerary.waypoints.includes(waypoint._id));
@@ -124,8 +126,8 @@
 
       this.emitter.on("waypointVisited", (qrData) => {
         console.log(qrData);
-        axios.post(`http://${Environment.BACKEND_HOST}/measures`, qrData).then((measuresResponse) => {
-          axios.patch(`http://${Environment.BACKEND_HOST}/completed-itineraries/update/${this.completedItinerary._id}`, {
+        axios.post(`https://${Environment.BACKEND_HOST}/measures`, qrData).then((measuresResponse) => {
+          axios.patch(`https://${Environment.BACKEND_HOST}/completed-itineraries/update/${this.completedItinerary._id}`, {
             visitedWaypoint: this.markers.find(marker => marker.marker_id === qrData.markerId).related_waypoint,
             dynamicCode: qrData.dynamicCode,
             status: qrData.status,

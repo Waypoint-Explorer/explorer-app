@@ -18,16 +18,16 @@
     },
     mounted() {
       if (this.isLoggedIn()) {
-        axios.get(`http://${Environment.BACKEND_HOST}/logout`);
+        axios.get(`https://${Environment.BACKEND_HOST}/logout`);
+        this.$cookies.keys().forEach(key => this.$cookies.remove(key, null, Environment.SERVICE_DOMAIN));
       }
     },
     methods:{
       isLoggedIn() : boolean { return this.$cookies.isKey("user"); },
       login(){
         if (this.checkForm()) {
-          axios.post(`http://${Environment.BACKEND_HOST}/login`, {name: this.name,password: this.password})
+          axios.post(`https://${Environment.BACKEND_HOST}/login`, {name: this.name,password: this.password})
               .then(() => {
-                console.log("Accesso avvenuto con successo!");
                 this.resetForm();
                 router.replace({name: "home"}); })
               .catch(this.displayError);
