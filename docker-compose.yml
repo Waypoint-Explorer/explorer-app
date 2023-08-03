@@ -11,6 +11,8 @@ services:
     environment:
       VITE_DOCKER_ENVIRONMENT: >
         {
+          "SERVICE_DOMAIN": "${SERVICE_DOMAIN}",
+          "BACKEND_HOST": "${BACKEND_HOST}",
           "MAP_TOKEN": "${MAP_TOKEN}",
           "MAP_STYLE": "${MAP_STYLE}"
         }
@@ -28,7 +30,8 @@ services:
     environment:
       DOCKER_ENVIRONMENT: >
         {
-          "FRONTEND": "${SERVICE_HOSTNAME:-127.0.0.1}:${EXPOSED_FRONTEND_PORT:-3000}",
+          "SERVICE_DOMAIN": "${SERVICE_DOMAIN}",
+          "FRONTEND": "${FRONTEND_HOST}",
           "DATABASE": "${DATABASE_CONTAINER_NAME:-database}:27017",
           "DATABASE_USERNAME": "${DATABASE_USERNAME:-admin}",
           "DATABASE_PASSWORD": "${DATABASE_PASSWORD:-password}",

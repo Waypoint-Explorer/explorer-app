@@ -88,10 +88,10 @@ export default defineComponent({
           }
         });
 
-        axios.get(`http://${Environment.BACKEND_HOST}/waypoints/`)
+        axios.get(`https://${Environment.BACKEND_HOST}/waypoints/`)
         .then((waypointsResponse) => {
           const waypoints = waypointsResponse.data;
-            axios.get(`http://${Environment.BACKEND_HOST}/markers/`)
+            axios.get(`https://${Environment.BACKEND_HOST}/markers/`)
               .then((markersResponse) => {
                 const markers = markersResponse.data;
 
@@ -115,7 +115,7 @@ export default defineComponent({
                   new mapboxgl.Marker(element).setLngLat([marker.coordinates.longitude, marker.coordinates.latitude]).setPopup(popup).addTo(map);
                 });
 
-                axios.get(`http://${Environment.BACKEND_HOST}/measures/`)
+                axios.get(`https://${Environment.BACKEND_HOST}/measures/`)
                   .then((measuresResponse) => {
                     this.measures = measuresResponse.data;
                     this.emitter.emit("filterByDate", { hour: new Date().getHours(), date: new Date()});

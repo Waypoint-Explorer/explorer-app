@@ -28,7 +28,7 @@
     },
     methods:{
       allMarkers(){
-        axios.get(`http://${Environment.BACKEND_HOST}/markers`)
+        axios.get(`https://${Environment.BACKEND_HOST}/markers`)
             .then((response) => {
               this.markers = [];
               response.data.forEach((marker) =>{
@@ -61,7 +61,7 @@
             type: this.marker_type['name'],
             points: this.points,
           };
-          axios.post(`http://${Environment.BACKEND_HOST}/markers`, newMarker)
+          axios.post(`https://${Environment.BACKEND_HOST}/markers`, newMarker)
               .then(() => {
                 this.showMenu=false;
                 this.allMarkers();
@@ -72,7 +72,7 @@
         }
       },
       markerTypes(){
-        axios.get(`http://${Environment.BACKEND_HOST}/markerTypes`)
+        axios.get(`https://${Environment.BACKEND_HOST}/markerTypes`)
             .then((response) => {
               this.types = [];
               response.data.types.forEach((type)=>{

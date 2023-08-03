@@ -62,7 +62,7 @@
     },
     methods:{
       allMarkers(){
-        axios.get(`http://${Environment.BACKEND_HOST}/markers`)
+        axios.get(`https://${Environment.BACKEND_HOST}/markers`)
             .then((response) => {
               this.markers = [];
               response.data.forEach((marker) =>{
@@ -84,12 +84,12 @@
             });
       },
       allWaypoints(){
-        axios.get(`http://${Environment.BACKEND_HOST}/waypoints`)
+        axios.get(`https://${Environment.BACKEND_HOST}/waypoints`)
             .then((waypointsResponse) => {
               this.waypoints = [];
               let wResponse = waypointsResponse.data;
 
-              axios.get(`http://${Environment.BACKEND_HOST}/markers`)
+              axios.get(`https://${Environment.BACKEND_HOST}/markers`)
                   .then((markersResponse) => {
                     let mResponse = markersResponse.data;
 
@@ -125,7 +125,7 @@
           if (this.accessibility_info!=="") { newWaypoint.accessibility_info = this.accessibility_info; }
           if (this.opening_hours!==null) {newWaypoint.opening_hours = this.opening_hours;}
           if (this.closed_days!==null) {newWaypoint.opening_hours.closing_days = this.closed_days;}
-          axios.post(`http://${Environment.BACKEND_HOST}/waypoints`, newWaypoint)
+          axios.post(`https://${Environment.BACKEND_HOST}/waypoints`, newWaypoint)
               .then(() => {
                 this.showMenu=false;
                 this.allWaypoints();

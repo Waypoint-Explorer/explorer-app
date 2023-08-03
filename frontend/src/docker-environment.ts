@@ -7,6 +7,8 @@ export const DOCKER_ENVIRONMENT : Optional<DockerEnvironment> = Optional.of(impo
 
 /** The docker environment of this application */
 interface DockerEnvironment {
+    /** The domain of this application */
+    readonly SERVICE_DOMAIN: string;
     /** The map token used to access map tiles provider services */
     readonly MAP_TOKEN: string;
     /** The map style */

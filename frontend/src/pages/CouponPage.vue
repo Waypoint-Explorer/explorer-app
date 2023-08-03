@@ -20,7 +20,7 @@ export default defineComponent({
     methods:{
       getUserPoints() {
         if (this.$cookies.isKey("user")){
-          axios.get(`http://${Environment.BACKEND_HOST}/users/${this.$cookies.get("user").userId}`)
+          axios.get(`https://${Environment.BACKEND_HOST}/users/${this.$cookies.get("user").userId}`)
             .then((userResponse) => {
               console.log(userResponse.data);
               this.userPoints = userResponse.data.current_points ?? 0;
@@ -28,10 +28,10 @@ export default defineComponent({
         }
       },
       loadCoupons() {
-        axios.get(`http://${Environment.BACKEND_HOST}/coupons`)
+        axios.get(`https://${Environment.BACKEND_HOST}/coupons`)
           .then((response) => {
             this.coupons = response.data;
-            axios.get(`http://${Environment.BACKEND_HOST}/redeemed-coupons/user/${this.$cookies.get("user").userId}`)
+            axios.get(`https://${Environment.BACKEND_HOST}/redeemed-coupons/user/${this.$cookies.get("user").userId}`)
               .then((redeemedCouponResponse) => {
                 const userRedeemedCoupons = redeemedCouponResponse.data;
                 this.redeemedCoupons = [];
@@ -44,7 +44,7 @@ export default defineComponent({
           });
       },
       redeemCoupon(couponId) {
-        axios.post(`http://${Environment.BACKEND_HOST}/redeemed-coupons`, {
+        axios.post(`https://${Environment.BACKEND_HOST}/redeemed-coupons`, {
           userId: this.$cookies.get("user").userId,
           relatedCouponId: couponId,
         }).then(() => {

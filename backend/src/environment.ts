@@ -6,6 +6,8 @@ import {ApplicationMiddlewares} from "./controllers/application-handlers";
  * The environment of this application.
  */
 export class Environment {
+    /** The domain of this application */
+    public static readonly SERVICE_DOMAIN: string = DOCKER_ENVIRONMENT.map(env => env.SERVICE_DOMAIN).getOrDefault("127.0.0.1");
     /** The hostname for this backend application. */
     public static readonly BACKEND_HOSTNAME: string = DOCKER_ENVIRONMENT.map(_ => "0.0.0.0").getOrDefault("127.0.0.1");
     /** The port for this backend application. */

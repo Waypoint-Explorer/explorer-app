@@ -27,7 +27,7 @@
     },
     methods:{
       allItineraries(){
-        axios.get(`http://${Environment.BACKEND_HOST}/itineraries`)
+        axios.get(`https://${Environment.BACKEND_HOST}/itineraries`)
             .then((response) => {
               this.itineraries = [];
                 response.data.forEach((itinerary) =>{
@@ -53,7 +53,7 @@
           };
           if (this.description!=="") { newItinerary.description = this.description; }
           if (this.selectedWaypoints.length>0) {newItinerary.waypoints = this.selectedWaypoints;}
-          axios.post(`http://${Environment.BACKEND_HOST}/itineraries`, newItinerary)
+          axios.post(`https://${Environment.BACKEND_HOST}/itineraries`, newItinerary)
               .then(() => {
                 this.showMenu=false;
                 this.allItineraries();
@@ -64,7 +64,7 @@
         }
       },
       itineraryCategories(){
-        axios.get(`http://${Environment.BACKEND_HOST}/itinerariesTypes`)
+        axios.get(`https://${Environment.BACKEND_HOST}/itinerariesTypes`)
             .then((response) => {
               this.categories = [];
               response.data.types.forEach((type)=>{
@@ -79,7 +79,7 @@
             });
       },
       allWaypoints(){
-        axios.get(`http://${Environment.BACKEND_HOST}/waypoints`)
+        axios.get(`https://${Environment.BACKEND_HOST}/waypoints`)
             .then((response) => {
               this.waypoints = [];
               response.data.forEach((waypoint) =>{
