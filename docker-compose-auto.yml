@@ -9,12 +9,13 @@ services:
     environment:
       VITE_DOCKER_ENVIRONMENT: >
         {
+          "SERVICE_DOMAIN": "${SERVICE_DOMAIN}",
+          "BACKEND_HOST": "${BACKEND_HOST}",
           "MAP_TOKEN": "${MAP_TOKEN}",
-          "MAP_STYLE": "${MAP_STYLE}",
-          "BACKEND_HOST": "${SERVICE_HOSTNAME:-127.0.0.1}:${EXPOSED_BACKEND_PORT:-3001}",
+          "MAP_STYLE": "${MAP_STYLE}"
         }
     ports:
-      - "127.0.0.1:${EXPOSED_FRONTEND_PORT:-3000}:3000"
+      - "${SERVICE_HOSTNAME:-127.0.0.1}:${EXPOSED_FRONTEND_PORT:-3000}:3000"
 
   backend:
     container_name: ${BACKEND_CONTAINER_NAME:-backend}
@@ -23,14 +24,15 @@ services:
     environment:
       DOCKER_ENVIRONMENT: >
         {
-          "FRONTEND": "${SERVICE_HOSTNAME:-127.0.0.1}:${EXPOSED_FRONTEND_PORT:-3000}",
+          "SERVICE_DOMAIN": "${SERVICE_DOMAIN}",
+          "FRONTEND": "${FRONTEND_HOST}",
           "DATABASE": "${DATABASE_CONTAINER_NAME:-database}:27017",
           "DATABASE_USERNAME": "${DATABASE_USERNAME:-admin}",
           "DATABASE_PASSWORD": "${DATABASE_PASSWORD:-password}",
           "DATABASE_NAME": "${DATABASE_NAME:-database}"
         }
     ports:
-      - "127.0.0.1:${EXPOSED_BACKEND_PORT:-3001}:3001"
+      - "${SERVICE_HOSTNAME:-127.0.0.1}:${EXPOSED_BACKEND_PORT:-3001}:3001"
 
   database:
     container_name: ${DATABASE_CONTAINER_NAME:-database}
